@@ -1,7 +1,10 @@
 .App {
   margin: 0 auto;
-  max-width: 1920px;
-  padding: 40px;
+  max-width: 1280px;
+  padding: 40px 0;
+  font-family: 'Jet Brains Mono', 'Helvetica Neue', sans-serif;
+  font-style: normal;
+  color: #F2F2F3;
   /* text-align: center; */
 }
 
