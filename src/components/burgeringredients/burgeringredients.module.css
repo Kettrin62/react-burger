@@ -1,10 +1,28 @@
-.title {
-  
-  font-weight: bold;
-  font-size: 36px;
-  line-height: 40px;
-  align-items: center;
-  padding: 40px 0 20px 20px;
+.section {
+  width: 50%;
   margin: 0;
-  
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.button {
+  width: 200px;
+  height: 56px;
+  margin: 0;
+  padding: 0;
+  background-color: inherit;
+  color: inherit;
+  border: none;
+  box-shadow: inset 0px -1px 0px #2F2F37;
+  cursor: pointer;
+}
+
+.button_active {
+  box-shadow: inset 0px -2px 0px #4C4CFF;
 }

@@ -15,7 +15,7 @@ function Navigation(props) {
 
 function Link(props) {
   return (
-    <a className={'mt-4 mb-4 pl-5 pr-5 ' + [appheaderStyles.link]}>
+    <a className={'mt-4 mb-4 pl-5 pr-5 ' + appheaderStyles.link}>
       {props.children}
     </a>
   )
@@ -23,13 +23,15 @@ function Link(props) {
 
 function LinkText(props) {
   return (
-    <p className={props.type==='primary' ? 'pl-2 text text_type_main-default' : 'pl-2 text text_type_main-default  text_color_inactive'}>{props.text}</p>
+    <p className={props.type==='primary' ? 'pl-2 text text_type_main-default' : 'pl-2 text text_type_main-default  text_color_inactive'}>
+      {props.text}
+    </p>
   )
 }
 
 function AppHeader() {
   return (
-    <header className={'mt-4 mb-4 ' + [appheaderStyles.header]}>
+    <header className={'mt-4 mb-4 ' + appheaderStyles.header}>
       <Navigation>
         <Link>
           <BurgerIcon type='primary' />
