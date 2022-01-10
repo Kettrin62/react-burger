@@ -7,9 +7,9 @@ import burgeringredientsStyles from './burgeringredients.module.css';
 
 function Title(props) {
   return (
-    <p className='mb-5 mt-5 pt-5 text text_type_main-large'>
+    <h1 className='mb-5 mt-5 pt-5 text text_type_main-large'>
       {props.text}
-    </p>
+    </h1>
   )
 }
 
@@ -49,7 +49,7 @@ const IngredientsList = (props) => {
   const stateType = state.filter((item) => item.type === props.type);
   return (
     
-      <ul>
+      <ul className={burgeringredientsStyles.list}>
         {stateType.map((item) => (
           <IngredientsItem key={item._id} card={item} />
         ))}
@@ -58,31 +58,13 @@ const IngredientsList = (props) => {
   );
 }
 
-const Category = ({ card }) => {
-  const { image, price, name } = card;
+function Subtitle(props) {
   return (
-    <li>
-      <img src={image} alt={name} />
-      <div>
-        <p>{price}</p>
-        <CurrencyIcon type='primary' />
-      </div>
-      <p>{name}</p>
-    </li>
+    <h2 className='text text_type_main-medium'>
+      {props.text}
+    </h2>
   )
 }
-
-const CategorysList = (props) => {
-  return (
-    
-      <ul>
-        
-      </ul>
-    
-  );
-}
-
-
 
 
 function BurgerIngredients() {
@@ -90,9 +72,23 @@ function BurgerIngredients() {
     <section className={'pl-5 pr-5 ' + burgeringredientsStyles.section}>
       <Title text='Соберите бургер' />
       <Menu />
-      <IngredientsList type='bun' />
-      <IngredientsList type='sauce' />
-      <IngredientsList type='main' />
+      <ul className={burgeringredientsStyles.categories}>
+        <li>
+          <Subtitle text='Булки' />
+          <IngredientsList type='bun' />
+        </li>
+        <li>
+          <Subtitle text='Соусы' />
+          <IngredientsList type='sauce' />
+        </li>
+        <li>
+          <Subtitle text='Начинки' />
+          <IngredientsList type='main' />
+        </li>
+        
+      </ul>
+      
+      
 
     </section>
   );

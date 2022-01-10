@@ -1,14 +1,23 @@
 .section {
   width: 50%;
   margin: 0;
+  box-sizing: border-box;
 }
 
-.list {
+.categories {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  list-style-type: none;
 }
 
 .button {
