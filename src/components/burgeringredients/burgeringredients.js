@@ -43,7 +43,7 @@ const IngredientsItem = ({ card }) => {
       </div>
       <p style={{ textAlign: 'center' }} className='text text_type_main-default'>{name}</p>
       {(count > 0) ? (
-        <Counter count={1} size="default" />
+        <Counter count={count} size="default" />
       ) : null}
     </li>
   )
