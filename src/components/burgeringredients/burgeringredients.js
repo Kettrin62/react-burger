@@ -32,15 +32,19 @@ const Menu = () => {
 }
 
 const IngredientsItem = ({ card }) => {
-  const { image, price, name } = card;
+  const { image, price, name, __v } = card;
+  const count = card.__v;
   return (
-    <li>
+    <li className={'ml-3 mr-3 mt-4 mb-4 ' + burgeringredientsStyles.item}>
       <img src={image} alt={name} />
-      <div>
-        <p>{price}</p>
+      <div className={'pt-1 pb-1 ' + burgeringredientsStyles.price}>
+        <p className='text text_type_digits-default pr-2'>{price}</p>
         <CurrencyIcon type='primary' />
       </div>
-      <p>{name}</p>
+      <p style={{ textAlign: 'center' }} className='text text_type_main-default'>{name}</p>
+      {(count > 0) ? (
+        <Counter count={1} size="default" />
+      ) : null}
     </li>
   )
 }
@@ -49,7 +53,7 @@ const IngredientsList = (props) => {
   const stateType = state.filter((item) => item.type === props.type);
   return (
     
-      <ul className={burgeringredientsStyles.list}>
+      <ul className={'pt-2 pb-1 pl-1 pr-1 ' + burgeringredientsStyles.list}>
         {stateType.map((item) => (
           <IngredientsItem key={item._id} card={item} />
         ))}
@@ -60,7 +64,7 @@ const IngredientsList = (props) => {
 
 function Subtitle(props) {
   return (
-    <h2 className='text text_type_main-medium'>
+    <h2 className='mt-5 mb-3 text text_type_main-medium'>
       {props.text}
     </h2>
   )
