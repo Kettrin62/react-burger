@@ -11,10 +11,9 @@ import burgerconstructorStyles from './burgerconstructor.module.css';
 
 
 const ConstructorItem = ({ card }) => {
-  const { image, price, name, __v, type } = card;
-  const count = card.__v;
+  const { image, price, name, type } = card;
   return (
-    <li>
+    <li className={'mb-4 ' + burgerconstructorStyles.item}>
       {(type !== 'bun') ? (
         <DragIcon type="primary" />
       ) : null}
@@ -30,26 +29,47 @@ const ConstructorItem = ({ card }) => {
 const ConstructorList = (props) => {
   const stateCount = state.filter((item) => item.__v > 0);
   const stateBun = stateCount.filter((item) => item.type === 'bun')[0];
+  const stateMainSause = stateCount.filter((item) => item.type !== 'bun');
   return (
-    <ul className={burgerconstructorStyles.list}>
-      <ConstructorElement
-        type="top"
-        isLocked={true}
-        text={stateBun.name + ' (верх)'}
-        price={stateBun.price}
-        thumbnail={stateBun.image}
-      />
-      {stateCount.map((item) => (
+    <ul className={'pl-4 pr-4 ' + burgerconstructorStyles.list}>
+      <li className='mb-4'>
+        <ConstructorElement
+          type="top"
+          isLocked={true}
+          text={stateBun.name + ' (верх)'}
+          price={stateBun.price}
+          thumbnail={stateBun.image}
+        />
+      </li>
+      {stateMainSause.map((item) => (
         <ConstructorItem key={item._id} card={item} />
       ))}
-      <ConstructorElement
-        type="bottom"
-        isLocked={true}
-        text={stateBun.name + ' (низ)'}
-        price={stateBun.price}
-        thumbnail={stateBun.image}
-      />
+      <li>
+        <ConstructorElement
+          type="bottom"
+          isLocked={true}
+          text={stateBun.name + ' (низ)'}
+          price={stateBun.price}
+          thumbnail={stateBun.image}
+        />
+      </li>
     </ul>
+  )
+}
+
+const Total = (props) => {
+  return (
+    <div className={'pl-4 pr-4 mt-10 ' + burgerconstructorStyles.total}>
+      <p className='text text_type_digits-medium mr-2'>
+        5656
+      </p>
+      <CurrencyIcon type="primary" />
+      <div className='ml-10'>
+        <Button type="primary" size="medium">
+          Оформить заказ
+        </Button>
+      </div>
+    </div>
   )
 }
 
@@ -58,6 +78,7 @@ function BurgerConstructor() {
   return (
     <section className={'pl-5 pr-5 pt-25 ' + burgerconstructorStyles.section}>
       <ConstructorList />
+      <Total />
     </section>
   )
 }
