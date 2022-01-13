@@ -30,6 +30,19 @@ const ConstructorList = (props) => {
   const stateCount = state.filter((item) => item.__v > 0);
   const stateBun = stateCount.filter((item) => item.type === 'bun')[0];
   const stateMainSause = stateCount.filter((item) => item.type !== 'bun');
+
+  stateMainSause.forEach((item) => {
+    let count = item.__v;
+    item.id = item._id + count;
+    while (count > 1) {
+      {
+        stateMainSause.push(item);
+        count -= 1;
+      }
+    }
+  })
+  console.log(stateMainSause);
+
   return (
     <ul className={'pl-4 pr-4 ' + burgerconstructorStyles.list}>
       <li className='mb-4'>
@@ -41,8 +54,8 @@ const ConstructorList = (props) => {
           thumbnail={stateBun.image}
         />
       </li>
-      {stateMainSause.map((item) => (
-        <ConstructorItem key={item._id} card={item} />
+      {stateMainSause.map((item, index) => (
+        <ConstructorItem key={index} card={item} />
       ))}
       <li>
         <ConstructorElement
