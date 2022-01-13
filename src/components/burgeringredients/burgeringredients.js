@@ -1,9 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { state } from '../../utils/data';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgeringredientsStyles from './burgeringredients.module.css';
+
+const cardPropTypes = PropTypes.shape({
+  image: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  __v: PropTypes.number.isRequired,
+  _id: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['bun', 'main', 'sauce']).isRequired,
+});
 
 function Title(props) {
   return (
@@ -13,6 +23,9 @@ function Title(props) {
   )
 }
 
+Title.propTypes = {
+  text: PropTypes.string.isRequired,
+};
 
 const Menu = () => {
   const [current, setCurrent] = React.useState('one')
@@ -33,7 +46,7 @@ const Menu = () => {
 
 const IngredientsItem = ({ card }) => {
   const { image, price, name, __v } = card;
-  const count = card.__v;
+  const count = __v;
   return (
     <li className={'ml-3 mr-3 mt-4 mb-4 ' + burgeringredientsStyles.item}>
       <img src={image} alt={name} />
@@ -49,16 +62,18 @@ const IngredientsItem = ({ card }) => {
   )
 }
 
+IngredientsItem.propTypes = {
+  card: cardPropTypes.isRequired,
+};
+
 const IngredientsList = (props) => {
   const stateType = state.filter((item) => item.type === props.type);
   return (
-    
       <ul className={'pt-2 pb-1 pl-1 pr-1 ' + burgeringredientsStyles.list}>
         {stateType.map((item) => (
           <IngredientsItem key={item._id} card={item} />
         ))}
       </ul>
-    
   );
 }
 
@@ -70,6 +85,9 @@ function Subtitle(props) {
   )
 }
 
+Subtitle.propTypes = {
+  text: PropTypes.string.isRequired,
+};
 
 function BurgerIngredients() {
   return (
@@ -91,9 +109,6 @@ function BurgerIngredients() {
         </li>
         
       </ul>
-      
-      
-
     </section>
   );
 }

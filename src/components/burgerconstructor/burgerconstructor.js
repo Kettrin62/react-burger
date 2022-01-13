@@ -1,14 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { state } from '../../utils/data';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-
 import burgerconstructorStyles from './burgerconstructor.module.css';
 
-
 const stateCount = state.filter((item) => item.__v > 0);
+
+const cardPropTypes = PropTypes.shape({
+  image: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  __v: PropTypes.number.isRequired,
+  _id: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['bun', 'main', 'sauce']).isRequired,
+});
 
 const ConstructorItem = ({ card }) => {
   const { image, price, name, type } = card;
@@ -26,22 +34,21 @@ const ConstructorItem = ({ card }) => {
   )
 }
 
+ConstructorItem.propTypes = {
+  card: cardPropTypes.isRequired,
+};
+
 const ConstructorList = (props) => {
-  
   const stateBun = stateCount.filter((item) => item.type === 'bun')[0];
   const stateMainSause = stateCount.filter((item) => item.type !== 'bun');
-
   stateMainSause.forEach((item) => {
     let count = item.__v;
     item.id = item._id + count;
     while (count > 1) {
-      {
-        stateMainSause.push(item);
-        count -= 1;
-      }
+      stateMainSause.push(item);
+      count -= 1;
     }
   });
-
   return (
     <ul className={'pl-4 pr-4 ' + burgerconstructorStyles.list}>
       <li className='mb-4'>
@@ -85,7 +92,6 @@ const Total = (props) => {
     </div>
   )
 };
-
 
 function BurgerConstructor() {
   return (

@@ -8,13 +8,11 @@ import BurgerConstructor from './components/burgerconstructor/burgerconstructor'
 function App() {
   return (
     <div className="App">
-      
       <AppHeader />
       <main style={{ display: 'flex' }}>
         <BurgerIngredients />
         <BurgerConstructor />
       </main>
-      
     </div>
   );
 }
