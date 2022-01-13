@@ -8,7 +8,7 @@ import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerconstructorStyles from './burgerconstructor.module.css';
 
 
-
+const stateCount = state.filter((item) => item.__v > 0);
 
 const ConstructorItem = ({ card }) => {
   const { image, price, name, type } = card;
@@ -27,7 +27,7 @@ const ConstructorItem = ({ card }) => {
 }
 
 const ConstructorList = (props) => {
-  const stateCount = state.filter((item) => item.__v > 0);
+  
   const stateBun = stateCount.filter((item) => item.type === 'bun')[0];
   const stateMainSause = stateCount.filter((item) => item.type !== 'bun');
 
@@ -40,8 +40,7 @@ const ConstructorList = (props) => {
         count -= 1;
       }
     }
-  })
-  console.log(stateMainSause);
+  });
 
   return (
     <ul className={'pl-4 pr-4 ' + burgerconstructorStyles.list}>
@@ -68,13 +67,14 @@ const ConstructorList = (props) => {
       </li>
     </ul>
   )
-}
+};
 
 const Total = (props) => {
+  const total = stateCount.reduce((acc, item) => acc + item.price * item.__v, 0);
   return (
     <div className={'pl-4 pr-4 mt-10 ' + burgerconstructorStyles.total}>
       <p className='text text_type_digits-medium mr-2'>
-        5656
+        {total}
       </p>
       <CurrencyIcon type="primary" />
       <div className='ml-10'>
@@ -84,7 +84,7 @@ const Total = (props) => {
       </div>
     </div>
   )
-}
+};
 
 
 function BurgerConstructor() {
