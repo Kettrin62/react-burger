@@ -10,6 +10,10 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
+  max-height: 664px;
+  overflow-y: auto;
+  scrollbar-color: #8585ad #2f2f37;
+  scrollbar-width: auto;
 }
 
 .list {
@@ -45,3 +49,17 @@
 .button_active {
   box-shadow: inset 0px -2px 0px #4C4CFF;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: #2f2f37;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+}
+
+/* ::-webkit-scrollbar-thumb:hover {
+  background-color: #253861;
+} */

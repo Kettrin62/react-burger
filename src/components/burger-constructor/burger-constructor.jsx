@@ -50,7 +50,7 @@ const ConstructorList = (props) => {
   //   }
   // });
   return (
-    <ul className={'pl-4 pr-4 ' + burgerconstructorStyles.list}>
+    <ul className={'pl-4 pr-4 ' + burgerconstructorStyles.constructorlist}>
       <li className='mb-4'>
         <ConstructorElement
           type="top"
@@ -60,9 +60,14 @@ const ConstructorList = (props) => {
           thumbnail={ingredientsDataBun.image}
         />
       </li>
-      {ingredientsDataMainSause.map((item, index) => (
-        <ConstructorItem key={index} card={item} />
-      ))}
+      <li>
+        <ul className={burgerconstructorStyles.list}>
+          {ingredientsDataMainSause.map((item, index) => (
+            <ConstructorItem key={index} card={item} />
+          ))}
+        </ul>
+      </li>
+      
       <li>
         <ConstructorElement
           type="bottom"
