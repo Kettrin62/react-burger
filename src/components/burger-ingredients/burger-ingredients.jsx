@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { state } from '../../utils/data';
+import { ingredientsData } from '../../utils/data';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import burgeringredientsStyles from './burgeringredients.module.css';
+import burgeringredientsStyles from './burger-ingredients.module.css';
 
 const cardPropTypes = PropTypes.shape({
   image: PropTypes.string.isRequired,
@@ -46,7 +46,6 @@ const Menu = () => {
 
 const IngredientsItem = ({ card }) => {
   const { image, price, name, __v } = card;
-  const count = __v;
   return (
     <li className={'ml-3 mr-3 mt-4 mb-4 ' + burgeringredientsStyles.item}>
       <img src={image} alt={name} />
@@ -55,9 +54,9 @@ const IngredientsItem = ({ card }) => {
         <CurrencyIcon type='primary' />
       </div>
       <p style={{ textAlign: 'center' }} className='text text_type_main-default'>{name}</p>
-      {(count > 0) ? (
-        <Counter count={count} size="default" />
-      ) : null}
+      {(__v > 0) && (
+        <Counter count={__v} size="default" />
+      )}
     </li>
   )
 }
@@ -67,10 +66,10 @@ IngredientsItem.propTypes = {
 };
 
 const IngredientsList = (props) => {
-  const stateType = state.filter((item) => item.type === props.type);
+  const ingredientsDataType = ingredientsData.filter((item) => item.type === props.type);
   return (
       <ul className={'pt-2 pb-1 pl-1 pr-1 ' + burgeringredientsStyles.list}>
-        {stateType.map((item) => (
+        {ingredientsDataType.map((item) => (
           <IngredientsItem key={item._id} card={item} />
         ))}
       </ul>

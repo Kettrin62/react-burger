@@ -3,7 +3,7 @@ import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgerIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ProfileIcon  } from '@ya.praktikum/react-developer-burger-ui-components';
-import appheaderStyles from './appheader.module.css';
+import appheaderStyles from './app-header.module.css';
 
 function Navigation(props) {
   return (

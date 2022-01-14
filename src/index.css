@@ -1,15 +1,3 @@
-@font-face {
-  font-family: 'Jet Brains Mono';
-  src: url("./fonts/JetBrainsMono-Bold.woff2") format("woff2");
-  font-weight: 700;
-}
-
-@font-face {
-  font-family: 'Jet Brains Mono';
-  src: url("./fonts/JetBrainsMono-Regular.woff2") format("woff2");
-  font-weight: 400;
-}
-
 body {
   margin: 0;
   font-family: 'Jet Brains Mono', 'Helvetica Neue', sans-serif;

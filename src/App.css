@@ -7,3 +7,6 @@
   color: #F2F2F3;
 }
 
+.main {
+  display: flex;
+}
