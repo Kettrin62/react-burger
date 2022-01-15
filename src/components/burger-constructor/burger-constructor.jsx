@@ -41,14 +41,6 @@ ConstructorItem.propTypes = {
 const ConstructorList = (props) => {
   const ingredientsDataBun = ingredientsDataConstructor.filter((item) => item.type === 'bun')[0];
   const ingredientsDataMainSause = ingredientsDataConstructor.filter((item) => item.type !== 'bun');
-  // stateMainSause.forEach((item) => {
-  //   let count = item.__v;
-  //   item.id = item._id + count;
-  //   while (count > 1) {
-  //     stateMainSause.push(item);
-  //     count -= 1;
-  //   }
-  // });
   return (
     <ul className={'pl-4 pr-4 ' + burgerconstructorStyles.constructorlist}>
       <li className='mb-4'>
@@ -68,7 +60,7 @@ const ConstructorList = (props) => {
         </ul>
       </li>
       
-      <li>
+      <li className='mt-4'>
         <ConstructorElement
           type="bottom"
           isLocked={true}
