@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ingredientsData } from '../../utils/data';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -65,11 +64,11 @@ IngredientsItem.propTypes = {
   card: cardPropTypes.isRequired,
 };
 
-const IngredientsList = (props) => {
-  const ingredientsDataType = ingredientsData.filter((item) => item.type === props.type);
+const IngredientsList = ({ type, ingredients }) => {
+  const ingredientsType = ingredients.filter((item) => item.type === type);
   return (
       <ul className={'pt-2 pb-1 pl-1 pr-1 ' + burgeringredientsStyles.list}>
-        {ingredientsDataType.map((item) => (
+        {ingredientsType.map((item) => (
           <IngredientsItem key={item._id} card={item} />
         ))}
       </ul>
@@ -88,7 +87,7 @@ Subtitle.propTypes = {
   text: PropTypes.string.isRequired,
 };
 
-function BurgerIngredients() {
+function BurgerIngredients(props) {
   return (
     <section className={'pl-5 pr-5 ' + burgeringredientsStyles.section}>
       <Title text='Соберите бургер' />
@@ -96,15 +95,15 @@ function BurgerIngredients() {
       <ul className={burgeringredientsStyles.categories}>
         <li>
           <Subtitle text='Булки' />
-          <IngredientsList type='bun' />
+          <IngredientsList type='bun' ingredients={props.ingredients}/>
         </li>
         <li>
           <Subtitle text='Соусы' />
-          <IngredientsList type='sauce' />
+          <IngredientsList type='sauce' ingredients={props.ingredients} />
         </li>
         <li>
           <Subtitle text='Начинки' />
-          <IngredientsList type='main' />
+          <IngredientsList type='main' ingredients={props.ingredients} />
         </li>
         
       </ul>
