@@ -4,6 +4,8 @@ import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgeringredientsStyles from './burger-ingredients.module.css';
+import Modal from '../modal/modal';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 
 const cardPropTypes = PropTypes.shape({
   image: PropTypes.string.isRequired,
@@ -45,18 +47,34 @@ const Menu = () => {
 
 const IngredientsItem = ({ card }) => {
   const { image, price, name, __v } = card;
+  const [visible, setVisible] = React.useState(false);
+  const handleOpenModal = () => {
+    setVisible(true);
+  };
+  const handleCloseModal = () => {
+    setVisible(false);
+  };
+  const modal = (
+    <Modal header='Детали ингредиента' onClick={handleCloseModal}>
+      <IngredientDetails card={card} />
+    </Modal>
+  );
+
   return (
-    <li className={'ml-3 mr-3 mt-4 mb-4 ' + burgeringredientsStyles.item}>
-      <img src={image} alt={name} />
-      <div className={'pt-1 pb-1 ' + burgeringredientsStyles.price}>
-        <p className='text text_type_digits-default pr-2'>{price}</p>
-        <CurrencyIcon type='primary' />
-      </div>
-      <p style={{ textAlign: 'center' }} className='text text_type_main-default'>{name}</p>
-      {(__v > 0) && (
-        <Counter count={__v} size="default" />
-      )}
-    </li>
+    <div style={{overflow: 'hidden'}}>
+      <li className={'ml-3 mr-3 mt-4 mb-4 ' + burgeringredientsStyles.item} onClick={handleOpenModal}>
+        <img src={image} alt={name} />
+        <div className={'pt-1 pb-1 ' + burgeringredientsStyles.price}>
+          <p className='text text_type_digits-default pr-2'>{price}</p>
+          <CurrencyIcon type='primary' />
+        </div>
+        <p style={{ textAlign: 'center' }} className='text text_type_main-default'>{name}</p>
+        {(__v > 0) && (
+          <Counter count={__v} size="default" />
+        )}
+      </li>
+      {visible && modal}
+    </div>
   )
 }
 

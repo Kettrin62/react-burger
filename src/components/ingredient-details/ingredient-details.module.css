@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card {
+  display: block;
+  margin: 0;
+}
+
+.card__image {
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card__caption {
+  text-align: center;
+}
+
+.list {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+  display: flex;
+  list-style-type: none;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item:last-of-type {
+  margin-right: 0;
+}
