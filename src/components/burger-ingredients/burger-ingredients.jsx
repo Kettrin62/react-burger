@@ -9,6 +9,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 
 const cardPropTypes = PropTypes.shape({
   image: PropTypes.string.isRequired,
+  image_large: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   __v: PropTypes.number.isRequired,
@@ -93,6 +94,11 @@ const IngredientsList = ({ type, ingredients }) => {
   );
 }
 
+IngredientsList.propTypes = {
+  ingredients: PropTypes.array.isRequired,
+  type: PropTypes.oneOf(['bun', 'main', 'sauce']).isRequired,
+};
+
 function Subtitle(props) {
   return (
     <h2 className='mt-5 mb-3 text text_type_main-medium'>
@@ -128,5 +134,9 @@ function BurgerIngredients(props) {
     </section>
   );
 }
+
+BurgerIngredients.propTypes = {
+  ingredients: PropTypes.array.isRequired,
+};
 
 export default BurgerIngredients;

@@ -9,7 +9,7 @@ const modalRoot = document.getElementById('react-modals');
 
 const ModalOverlay = (props)=> {
   return (
-    <section className={modalStyles.overlay}>
+    <section className={modalStyles.overlay} onClick={props.onClick}>
       {props.children}
     </section>
   );
@@ -17,10 +17,26 @@ const ModalOverlay = (props)=> {
 
 function Modal(props) {
 
+  const handleEscClose = (evt) => {
+    if (evt.key === 'Escape') {
+      props.onClick();
+    }
+  };
+
+  React.useEffect(()=>{
+    // Устанавливаем слушатель события при монтировании
+    document.addEventListener('keydown', handleEscClose);
+
+    // Сбрасываем слушатель события при удалении компонента из DOM
+    return () => {
+      document.removeEventListener('keydown', handleEscClose);
+    }
+  }, [])
+
   return ReactDOM.createPortal(
     (
-      <ModalOverlay>
-        <div className={'p-10 ' + modalStyles.container}>
+      <ModalOverlay onClick={props.onClick}>
+        <div className={'p-10 ' + modalStyles.container} onClick={(e) => e.stopPropagation()}>
           <div className={modalStyles.header}>
             <h2 className='text text_type_main-large'>
               {props.header}
@@ -33,7 +49,10 @@ function Modal(props) {
     ), 
     modalRoot
   );
-
 }
+
+Modal.propTypes = {
+  header: PropTypes.string.isRequired,
+};
 
 export default Modal;

@@ -33,7 +33,7 @@ function App() {
         <AppHeader />
         <main className='main'>
           <BurgerIngredients ingredients={data}/>
-          <BurgerConstructor />
+          <BurgerConstructor ingredients={data} />
         </main>
       </div>
     </ErrorBoundary>

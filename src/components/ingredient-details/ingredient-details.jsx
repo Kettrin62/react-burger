@@ -1,5 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ingredientdetailsStyles from './ingredient-details.module.css';
+
+const cardPropTypes = PropTypes.shape({
+  image_large: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  calories: PropTypes.number.isRequired,
+  proteins: PropTypes.number.isRequired,
+  fat: PropTypes.number.isRequired,
+  carbohydrates: PropTypes.number.isRequired,
+});
 
 const CaloricContentItem = (props) => {
   return (
@@ -8,6 +18,11 @@ const CaloricContentItem = (props) => {
       <span className='text text_type_digits-default text_color_inactive'>{props.quantity}</span>
     </li>
   );
+};
+
+CaloricContentItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
 };
 
 
@@ -26,6 +41,10 @@ const CaloricContent = ({ card }) => {
       <CaloricContentItem title='Углеводы, г' quantity={carbohydrates} />
     </ul>
   );
+};
+
+CaloricContent.propTypes = {
+  card: cardPropTypes.isRequired,
 };
 
 function IngredientDetails({ card }) {
@@ -49,5 +68,9 @@ function IngredientDetails({ card }) {
     </div>
   );
 }
+
+IngredientDetails.propTypes = {
+  card: cardPropTypes.isRequired,
+};
 
 export default IngredientDetails;

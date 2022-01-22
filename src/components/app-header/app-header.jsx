@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgerIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -28,6 +29,10 @@ function LinkText(props) {
     </p>
   )
 }
+
+LinkText.propTypes = {
+  text: PropTypes.string.isRequired,
+};
 
 function AppHeader() {
   return (
