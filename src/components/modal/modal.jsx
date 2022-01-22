@@ -2,18 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ModalOverlay } from '../modal-overlay/modal-overlay';
 import modalStyles from './modal.module.css';
 
 
 const modalRoot = document.getElementById('react-modals');
 
-const ModalOverlay = (props)=> {
-  return (
-    <section className={modalStyles.overlay} onClick={props.onClick}>
-      {props.children}
-    </section>
-  );
-}
 
 function Modal(props) {
 

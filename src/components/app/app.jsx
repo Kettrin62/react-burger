@@ -1,5 +1,5 @@
 import React from 'react';
-import './app.css';
+import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -29,9 +29,9 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <div className='app'>
+      <div className={appStyles.app}>
         <AppHeader />
-        <main className='main'>
+        <main className={appStyles.main}>
           <BurgerIngredients ingredients={data}/>
           <BurgerConstructor ingredients={data} />
         </main>

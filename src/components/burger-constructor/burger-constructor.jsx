@@ -73,7 +73,7 @@ const ConstructorList = (props) => {
 };
 
 ConstructorList.propTypes = {
-  ingredients: PropTypes.array.isRequired,
+  ingredients: PropTypes.arrayOf(cardPropTypes).isRequired,
 };
 
 const Total = (props) => {
@@ -116,7 +116,7 @@ function BurgerConstructor(props) {
 }
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.array,
+  ingredients: PropTypes.arrayOf(cardPropTypes).isRequired,
 };
 
 export default BurgerConstructor;

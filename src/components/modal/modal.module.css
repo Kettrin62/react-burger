@@ -1,16 +1,3 @@
-.overlay {
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  background-color: rgba(0, 0, 0, .6);
-
-}
-
 .container {
   margin: auto;
   z-index: 2;
