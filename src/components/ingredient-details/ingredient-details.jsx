@@ -1,15 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ingredientdetailsStyles from './ingredient-details.module.css';
+import { cardPropTypes } from '../../utils/data';
 
-const cardPropTypes = PropTypes.shape({
-  image_large: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  calories: PropTypes.number.isRequired,
-  proteins: PropTypes.number.isRequired,
-  fat: PropTypes.number.isRequired,
-  carbohydrates: PropTypes.number.isRequired,
-});
 
 const CaloricContentItem = (props) => {
   return (
@@ -24,7 +17,6 @@ CaloricContentItem.propTypes = {
   title: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,
 };
-
 
 const CaloricContent = ({ card }) => {
   const {

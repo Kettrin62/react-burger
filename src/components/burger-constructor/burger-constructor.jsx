@@ -7,16 +7,8 @@ import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerconstructorStyles from './burger-constructor.module.css';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
+import { cardPropTypes } from '../../utils/data';
 
-
-const cardPropTypes = PropTypes.shape({
-  image: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  __v: PropTypes.number.isRequired,
-  _id: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['bun', 'main', 'sauce']).isRequired,
-});
 
 const ConstructorItem = ({ card }) => {
   const { image, price, name, type } = card;

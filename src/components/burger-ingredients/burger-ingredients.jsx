@@ -6,16 +6,8 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgeringredientsStyles from './burger-ingredients.module.css';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import { cardPropTypes } from '../../utils/data';
 
-const cardPropTypes = PropTypes.shape({
-  image: PropTypes.string.isRequired,
-  image_large: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  __v: PropTypes.number.isRequired,
-  _id: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['bun', 'main', 'sauce']).isRequired,
-});
 
 function Title(props) {
   return (
