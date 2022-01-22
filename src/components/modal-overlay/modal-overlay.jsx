@@ -2,14 +2,9 @@ import PropTypes from 'prop-types';
 import modaloverlayStyles from './modal-overlay.module.css';
 
 
-export const ModalOverlay = (props)=> {
+export const ModalOverlay = ()=> {
   return (
-    <section className={modaloverlayStyles.overlay} onClick={props.onClose}>
-      {props.children}
-    </section>
+    <div className={modaloverlayStyles.overlay}>
+    </div>
   );
-};
-
-ModalOverlay.propTypes = {
-  children: PropTypes.element.isRequired,
 };
