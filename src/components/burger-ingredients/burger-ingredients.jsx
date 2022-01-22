@@ -56,7 +56,7 @@ const IngredientsItem = ({ card }) => {
     setVisible(false);
   };
   const modal = (
-    <Modal header='Детали ингредиента' onClick={handleCloseModal}>
+    <Modal header='Детали ингредиента' onClose={handleCloseModal}>
       <IngredientDetails card={card} />
     </Modal>
   );

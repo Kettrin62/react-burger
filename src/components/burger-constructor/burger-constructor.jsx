@@ -85,7 +85,7 @@ const Total = (props) => {
     setVisible(false);
   };
   const modal = (
-    <Modal header='' onClick={handleCloseModal}>
+    <Modal header='' onClose={handleCloseModal}>
       <OrderDetails  />
     </Modal>
   );

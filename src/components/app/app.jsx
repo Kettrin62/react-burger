@@ -5,7 +5,7 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import ErrorBoundary from '../error-boundary/error-boundary';
 
-const url= 'https://norma.nomoreparties.space/api/ingredients';
+const baseUrl= 'https://norma.nomoreparties.space/api';
 
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
 
   React.useEffect(() => {
     const getData = () => {
-      fetch(url)
+      fetch(`${baseUrl}/ingredients`)
         .then(function (res) {
           if (res.ok) {
             return res.json();
