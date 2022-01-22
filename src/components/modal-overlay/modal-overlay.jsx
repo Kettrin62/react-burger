@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import modaloverlayStyles from './modal-overlay.module.css';
 
 
@@ -7,4 +8,8 @@ export const ModalOverlay = (props)=> {
       {props.children}
     </section>
   );
+};
+
+ModalOverlay.propTypes = {
+  children: PropTypes.element.isRequired,
 };
