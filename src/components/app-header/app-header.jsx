@@ -16,7 +16,7 @@ function Navigation(props) {
 
 function Link(props) {
   return (
-    <a className={'mt-4 mb-4 pl-5 pr-5 ' + appheaderStyles.link}>
+    <a className={'mt-4 mb-4 pl-5 pr-5 ' + props.class}>
       {props.children}
     </a>
   )
@@ -36,19 +36,19 @@ LinkText.propTypes = {
 
 function AppHeader() {
   return (
-    <header className={'mt-4 mb-4 ' + appheaderStyles.header}>
+    <header className={appheaderStyles.header}>
       <Navigation>
-        <Link>
+        <Link class={appheaderStyles.link}>
           <BurgerIcon type='primary' />
           <LinkText type='primary' text='Конструктор'/>
         </Link> 
-        <Link>
+        <Link class={appheaderStyles.link}>
           <ListIcon type='secondary' />
           <LinkText type='secondary' text='Лента заказов' />
         </Link>
       </Navigation>
       <Logo />
-      <Link>
+      <Link class={appheaderStyles.link_account}>
         <ProfileIcon type='secondary' />
         <LinkText type='secondary' text='Личный кабинет' />
       </Link>

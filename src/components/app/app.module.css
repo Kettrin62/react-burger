@@ -1,7 +1,6 @@
 .app {
-  margin: 0 auto;
-  max-width: 1280px;
-  padding: 40px 0;
+  margin: 0;
+  padding: 0;
   font-family: 'Jet Brains Mono', 'Helvetica Neue', sans-serif;
   font-style: normal;
   color: #F2F2F3;
@@ -9,4 +8,6 @@
 
 .main {
   display: flex;
+  max-width: 1280px;
+  margin: 0 auto;
 }
