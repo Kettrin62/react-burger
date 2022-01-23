@@ -11,21 +11,19 @@ const modalRoot = document.getElementById('react-modals');
 
 function Modal(props) {
 
-  const handleEscClose = (evt) => {
-    if (evt.key === 'Escape') {
-      props.onClose();
-    }
-  };
-
   React.useEffect(()=>{
-    // Устанавливаем слушатель события при монтировании
+    const handleEscClose = (evt) => {
+      if (evt.key === 'Escape') {
+        props.onClose();
+      }
+    };
+
     document.addEventListener('keydown', handleEscClose);
 
-    // Сбрасываем слушатель события при удалении компонента из DOM
     return () => {
       document.removeEventListener('keydown', handleEscClose);
     }
-  }, [])
+  }, [props.onClick])
 
   return ReactDOM.createPortal(
     (
