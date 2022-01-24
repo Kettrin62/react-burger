@@ -23,23 +23,21 @@ function Modal(props) {
     return () => {
       document.removeEventListener('keydown', handleEscClose);
     }
-  }, [props.onClick])
+  }, [props.onClose])
 
   return ReactDOM.createPortal(
     (
       <>
-        <ModalOverlay />
-        <section className={modalStyles.modal} onClick={props.onClose}>
-          <div className={'p-10 ' + modalStyles.container} onClick={(e) => e.stopPropagation()}>
-            <div className={modalStyles.header}>
-              <h2 className='text text_type_main-large'>
-                {props.header}
-              </h2>
-              <CloseIcon type="primary" onClick={props.onClose}/>
-              </div>
-              {props.children}
-          </div>
-        </section>
+        <ModalOverlay onClose={props.onClose} />
+        <div className={'p-10 ' + modalStyles.container} onClick={(e) => e.stopPropagation()}>
+          <div className={modalStyles.header}>
+            <h2 className='text text_type_main-large'>
+              {props.header}
+            </h2>
+            <CloseIcon type="primary" onClick={props.onClose}/>
+            </div>
+            {props.children}
+        </div>
       </>
     ), 
     modalRoot
