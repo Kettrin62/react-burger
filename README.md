@@ -1,4 +1,24 @@
-# Getting Started with Create React App
+# Приложение космической бургерной: Stellar Burgers
+
+### Описание проекта
+
+***Stellar Burgers*** - приложение для заказа еды с футуристическим дизайном и забавными ингредиентами
+
+### Технологии
+
+* Проект создан с использованием библиотеки React
+* Разметка портирована в JSX
+* Используются stateful функциональные компоненты
+* Реализован запрос к API
+* При написании компонентов применяются хуки
+* Реализованы модальные окна (с использованием порталов)
+* Для проверки пропсов на соответствие ожидаемым типам используется PropTypes
+
+**Приятного пользования!**
+
+[Cсылка на проект *Stellar Burgers*](https://kettrin62.github.io//)
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
