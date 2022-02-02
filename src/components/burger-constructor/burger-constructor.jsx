@@ -8,6 +8,9 @@ import burgerconstructorStyles from './burger-constructor.module.css';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { cardPropTypes } from '../../utils/data';
+import { IngredientsContext } from '../../services/ingredients-context';
+import { ConstructorContext } from '../../services/constructor-context';
+
 
 
 const ConstructorItem = ({ card }) => {
@@ -30,35 +33,50 @@ ConstructorItem.propTypes = {
   card: cardPropTypes.isRequired,
 };
 
-const ConstructorList = (props) => {
-  const ingredients = props.ingredients.filter((item) => item.type !== "bun");
+
+
+const ConstructorList = ({ ingredients, cards }) => {
+
+  const dataConstructor = ingredients.filter(item =>
+    cards.find(element => element === item._id)
+  );
+  const ingredientsBun = dataConstructor.filter(item => item.type === "bun");
+  const ingredientsNotBun = dataConstructor.filter(item => item.type !== "bun");
+
+  // const ingredientsNotBun = ingredients.filter((item) => item.type !== 'bun');
 
   return (
     <ul className={'pl-4 pr-4 ' + burgerconstructorStyles.constructorlist}>
       <li className='mb-4 mr-2'>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text='Краторная булка N-200i (верх)'
-          price={1255}
-          thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
-        />
+        {ingredientsBun.map((item, index) => (
+          <ConstructorElement
+            key={item._id}
+            type="top"
+            isLocked={true}
+            text={item.name + ' (верх)'}
+            price={item.price}
+            thumbnail={item.image}
+          />
+        ))}
       </li>
       <li>
         <ul className={burgerconstructorStyles.list}>
-          {ingredients.map((item, index) => (
+          {ingredientsNotBun.map((item, index) => (
             <ConstructorItem key={index} card={item} />
           ))}
         </ul>
       </li>
       <li className='mt-4 mr-2'>
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text='Краторная булка N-200i (низ)'
-          price={1255}
-          thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
-        />
+        {ingredientsBun.map((item, index) => (
+          <ConstructorElement
+            key={item._id}
+            type="top"
+            isLocked={true}
+            text={item.name + ' (низ)'}
+            price={item.price}
+            thumbnail={item.image}
+          />
+        ))}
       </li>
     </ul>
   )
@@ -98,17 +116,53 @@ const Total = (props) => {
   )
 };
 
-function BurgerConstructor(props) {
+function BurgerConstructor() {
+  const ingredients = React.useContext(IngredientsContext);
+
+  const [card, setCard] = React.useState([
+    '60d3b41abdacab0026a733c6',
+    '60d3b41abdacab0026a733c8',
+    '60d3b41abdacab0026a733c9',
+    '60d3b41abdacab0026a733ca',
+    '60d3b41abdacab0026a733cb',
+  ]);
+
   return (
-    <section className={'pl-5 pr-5 pt-25 ' + burgerconstructorStyles.section}>
-      <ConstructorList ingredients={props.ingredients} />
-      <Total  />
-    </section>
+    <ConstructorContext.Provider value={card}>
+      <section className={'pl-5 pr-5 pt-25 ' + burgerconstructorStyles.section}>
+        <ConstructorList ingredients={ingredients} cards={card} />
+        <Total  />
+      </section>
+    </ConstructorContext.Provider>
   )
 }
 
-BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(cardPropTypes).isRequired,
-};
+// BurgerConstructor.propTypes = {
+//   ingredients: PropTypes.arrayOf(cardPropTypes).isRequired,
+// };
 
 export default BurgerConstructor;
+
+
+// const [card, setCard] = React.useState([
+//   {
+//     id: '60d3b41abdacab0026a733c6',
+//     isLocked: true,
+//   },
+//   {
+//     id: '60d3b41abdacab0026a733c8',
+//     isLocked: false,
+//   },
+//   {
+//     id: '60d3b41abdacab0026a733c9',
+//     isLocked: false,
+//   },
+//   {
+//     id: '60d3b41abdacab0026a733ca',
+//     isLocked: false,
+//   },
+//   {
+//     id: '60d3b41abdacab0026a733cb',
+//     isLocked: false,
+//   },
+// ]);

@@ -4,6 +4,7 @@ import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import ErrorBoundary from '../error-boundary/error-boundary';
+import { IngredientsContext } from '../../services/ingredients-context';
 
 const BASEURL= 'https://norma.nomoreparties.space/api';
 
@@ -31,10 +32,12 @@ function App() {
     <ErrorBoundary>
       <div className={appStyles.app}>
         <AppHeader />
+        <IngredientsContext.Provider value={data}>
         <main className={appStyles.main}>
-          <BurgerIngredients ingredients={data}/>
-          <BurgerConstructor ingredients={data} />
+          <BurgerIngredients />
+          <BurgerConstructor />
         </main>
+        </IngredientsContext.Provider>
       </div>
     </ErrorBoundary>
   );
