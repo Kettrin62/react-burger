@@ -143,26 +143,3 @@ function BurgerConstructor() {
 
 export default BurgerConstructor;
 
-
-// const [card, setCard] = React.useState([
-//   {
-//     id: '60d3b41abdacab0026a733c6',
-//     isLocked: true,
-//   },
-//   {
-//     id: '60d3b41abdacab0026a733c8',
-//     isLocked: false,
-//   },
-//   {
-//     id: '60d3b41abdacab0026a733c9',
-//     isLocked: false,
-//   },
-//   {
-//     id: '60d3b41abdacab0026a733ca',
-//     isLocked: false,
-//   },
-//   {
-//     id: '60d3b41abdacab0026a733cb',
-//     isLocked: false,
-//   },
-// ]);
