@@ -7,7 +7,7 @@ import burgeringredientsStyles from './burger-ingredients.module.css';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { cardPropTypes } from '../../utils/data';
-import { IngredientsContext } from '../../services/ingredients-context';
+import { DataIngredientsContext } from '../../services/app-context';
 
 
 function Title(props) {
@@ -76,11 +76,10 @@ IngredientsItem.propTypes = {
   card: cardPropTypes.isRequired,
 };
 
-const IngredientsList = ({ type,  ingredients }) => {
+const IngredientsList = ({ type }) => {
+  const ingredients = React.useContext(DataIngredientsContext);
 
   const ingredientsType = ingredients.filter((item) => item.type === type);
-
-  
 
   return (
       <ul className={'pt-2 pb-1 pl-1 pr-1 ' + burgeringredientsStyles.list}>
@@ -92,7 +91,7 @@ const IngredientsList = ({ type,  ingredients }) => {
 }
 
 IngredientsList.propTypes = {
-  ingredients: PropTypes.arrayOf(cardPropTypes).isRequired,
+  // ingredients: PropTypes.arrayOf(cardPropTypes).isRequired,
   type: PropTypes.oneOf(['bun', 'main', 'sauce']).isRequired,
 };
 
@@ -109,7 +108,7 @@ Subtitle.propTypes = {
 };
 
 function BurgerIngredients() {
-  const ingredients = React.useContext(IngredientsContext);
+  const ingredients = React.useContext(DataIngredientsContext);
   
   return (
     <section className={'pl-5 pr-5 ' + burgeringredientsStyles.section}>
@@ -128,7 +127,6 @@ function BurgerIngredients() {
           <Subtitle text='Начинки' />
           <IngredientsList type='main' ingredients={ingredients} />
         </li>
-        
       </ul>
     </section>
   );

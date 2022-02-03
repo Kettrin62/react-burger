@@ -4,7 +4,7 @@ import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import ErrorBoundary from '../error-boundary/error-boundary';
-import { IngredientsContext } from '../../services/ingredients-context';
+import { DataIngredientsContext, CardConstructorContext } from '../../services/app-context';
 
 const BASEURL= 'https://norma.nomoreparties.space/api';
 
@@ -16,28 +16,39 @@ function App() {
   React.useEffect(() => {
     const getData = () => {
       fetch(`${BASEURL}/ingredients`)
-        .then(function (res) {
-          if (res.ok) {
-            return res.json();
-          }
-          return Promise.reject(`Ошибка: ${res.statusText}`);
-        })
-        .then((data) => setData(data.data))
-        .catch((err) => console.log(err));
+      .then(function (res) {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.statusText}`);
+      })
+      .then((data) => setData(data.data))
+      .catch((err) => console.log(err));
     };
     getData();
   }, []);
+  
+  const [card, setCard] = React.useState([
+    '60d3b41abdacab0026a733c6',
+    '60d3b41abdacab0026a733c8',
+    '60d3b41abdacab0026a733c9',
+    '60d3b41abdacab0026a733ca',
+    '60d3b41abdacab0026a733cb',
+    '60d3b41abdacab0026a733ce',
+  ]);
 
   return (
     <ErrorBoundary>
       <div className={appStyles.app}>
         <AppHeader />
-        <IngredientsContext.Provider value={data}>
-        <main className={appStyles.main}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </main>
-        </IngredientsContext.Provider>
+        <DataIngredientsContext.Provider value={data}>
+          <CardConstructorContext.Provider value={card}>
+            <main className={appStyles.main}>
+              <BurgerIngredients />
+              <BurgerConstructor />
+            </main>
+          </CardConstructorContext.Provider>
+        </DataIngredientsContext.Provider>
       </div>
     </ErrorBoundary>
   );
