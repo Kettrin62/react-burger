@@ -91,7 +91,6 @@ const IngredientsList = ({ type }) => {
 }
 
 IngredientsList.propTypes = {
-  // ingredients: PropTypes.arrayOf(cardPropTypes).isRequired,
   type: PropTypes.oneOf(['bun', 'main', 'sauce']).isRequired,
 };
 
@@ -131,9 +130,5 @@ function BurgerIngredients() {
     </section>
   );
 }
-
-// BurgerIngredients.propTypes = {
-//   ingredients: PropTypes.arrayOf(cardPropTypes).isRequired,
-// };
 
 export default BurgerIngredients;

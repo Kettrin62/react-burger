@@ -1,12 +1,11 @@
 import React from 'react';
+import { BASEURL } from '../../utils/data';
 import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import ErrorBoundary from '../error-boundary/error-boundary';
 import { DataIngredientsContext, CardConstructorContext } from '../../services/app-context';
-
-const BASEURL= 'https://norma.nomoreparties.space/api';
 
 
 function App() {

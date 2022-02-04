@@ -9,7 +9,8 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { cardPropTypes } from '../../utils/data';
 import { DataIngredientsContext, CardConstructorContext } from '../../services/app-context';
-import { TotalPriceContext } from '../../services/burger-constructor-context';
+import { TotalPriceContext, OrderContext } from '../../services/burger-constructor-context';
+import { BASEURL } from '../../utils/data';
 
 
 const ConstructorItem = ({ card }) => {
@@ -85,23 +86,50 @@ const ConstructorList = () => {
   )
 };
 
-// ConstructorList.propTypes = {
-//   ingredients: PropTypes.arrayOf(cardPropTypes).isRequired,
-// };
-
 const Total = () => {
+  const cards = React.useContext(CardConstructorContext);
   const { totalPrice } = React.useContext(TotalPriceContext);
 
   const [visible, setVisible] = React.useState(false);
+  const [order, setOrder] = React.useState(null);
+
+  const getOrder = () => {
+    fetch(`${BASEURL}/orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ingredients: cards
+      })
+    })
+    .then(function (res) {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.statusText}`);
+    })
+    .then((data) => {
+      console.log(data);
+      console.log(data.order.number);
+      setOrder(data.order.number)
+    })
+    .catch((err) => console.log(err));
+  };
+
   const handleOpenModal = () => {
     setVisible(true);
+    getOrder();
   };
   const handleCloseModal = () => {
     setVisible(false);
   };
+
   const modal = (
     <Modal header='' onClose={handleCloseModal}>
-      <OrderDetails  />
+      <OrderContext.Provider value={order}>
+        <OrderDetails  />
+      </OrderContext.Provider>
     </Modal>
   );
   
@@ -125,7 +153,6 @@ const Total = () => {
 const totalInitialPrice = { price: 0 };
 
 function reducer(_totalPrice, action) {
-
   const total = 
     action.arrayNotBun.reduce((acc, item) => acc + item.price, 0) + 
     action.arrayBun.reduce((acc, item) => acc + item.price * 2, 0);
@@ -145,9 +172,4 @@ function BurgerConstructor() {
   )
 }
 
-// BurgerConstructor.propTypes = {
-//   ingredients: PropTypes.arrayOf(cardPropTypes).isRequired,
-// };
-
 export default BurgerConstructor;
-

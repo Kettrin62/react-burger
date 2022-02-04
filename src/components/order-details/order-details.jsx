@@ -1,12 +1,14 @@
 import React from 'react';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import orderdetailsStyles from './order-details.module.css';
+import { OrderContext } from '../../services/burger-constructor-context';
 
 function OrderDetails() {
+  const order = React.useContext(OrderContext);
   return (
     <div className={orderdetailsStyles.container}>
       <h2 className='mt-5 text text_type_digits-large'>
-        034536
+        {order}
       </h2>
       <p className='mt-8 text text_type_main-medium'>
         идентификатор заказа
