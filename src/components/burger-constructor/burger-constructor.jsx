@@ -110,8 +110,6 @@ const Total = () => {
       return Promise.reject(`Ошибка: ${res.statusText}`);
     })
     .then((data) => {
-      console.log(data);
-      console.log(data.order.number);
       setOrder(data.order.number)
     })
     .catch((err) => console.log(err));
