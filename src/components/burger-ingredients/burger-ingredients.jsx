@@ -8,6 +8,8 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { cardPropTypes } from '../../utils/data';
 import { DataIngredientsContext } from '../../services/app-context';
+import { getIngredients } from '../../services/actions/burger-ingredients';
+import { useDispatch } from 'react-redux';
 
 
 function Title(props) {
