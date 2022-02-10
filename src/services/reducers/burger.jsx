@@ -8,7 +8,9 @@ import {
   DELETE_CARD,
   OPEN_MODAL,
   CLOSE_MODAL,
-  // GET_CARD_MODAL,
+  GET_ORDER_REQUEST,
+  GET_ORDER_SUCCESS,
+  GET_ORDER_FAILED,
 
 } from '../actions/burger';
 
@@ -21,6 +23,10 @@ const initialState = {
 
   // modalVisible: false,
   modalCard: null,
+
+  order: null,
+  orderRequest: false,
+  orderFailed: false,
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -84,7 +90,34 @@ export const modalReducer = (state = initialState, action) => {
         modalCard: "",
       };
     }
+    default:
+      return state;
+  }
+}
 
+export const orderReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_ORDER_REQUEST: {
+      return {
+        ...state,
+        orderRequest: true,
+      }
+    }
+    case GET_ORDER_SUCCESS: {
+      return {
+        ...state,
+        orderRequest: false,
+        orderFailed: false,
+        order: action.order,
+      }
+    }
+    case GET_ORDER_FAILED: {
+      return {
+        ...state,
+        orderFailed: true,
+        orderRequest: false,
+      }
+    }
     default:
       return state;
   }

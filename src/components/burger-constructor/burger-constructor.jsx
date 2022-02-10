@@ -9,8 +9,8 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { cardPropTypes } from '../../utils/data';
 import { TotalPriceContext, OrderContext } from '../../services/burger-constructor-context';
-import { BASEURL } from '../../utils/data';
 import { useDispatch, useSelector } from 'react-redux';
+import { getOrder } from '../../services/actions/burger';
 
 
 const ConstructorItem = ({ card }) => {
@@ -94,33 +94,12 @@ const Total = () => {
   const { totalPrice } = React.useContext(TotalPriceContext);
 
   const [visible, setVisible] = React.useState(false);
-  const [order, setOrder] = React.useState(null);
+  
+  const dispatch = useDispatch();
 
-  const getOrder = () => {
-    fetch(`${BASEURL}/orders`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        ingredients: cards
-      })
-    })
-    .then(function (res) {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.statusText}`);
-    })
-    .then((data) => {
-      setOrder(data.order.number)
-    })
-    .catch((err) => console.log(err));
-  };
-
-  const handleOpenModal = () => {
+  const handleOpenModal = async () => {
     setVisible(true);
-    getOrder();
+    dispatch(getOrder(cards));
   };
   const handleCloseModal = () => {
     setVisible(false);
@@ -128,9 +107,7 @@ const Total = () => {
 
   const modal = (
     <Modal header='' onClose={handleCloseModal}>
-      <OrderContext.Provider value={order}>
-        <OrderDetails  />
-      </OrderContext.Provider>
+      <OrderDetails  />
     </Modal>
   );
   
@@ -149,7 +126,6 @@ const Total = () => {
     </div>
   )
 };
-
 
 const totalInitialPrice = { price: 0 };
 
