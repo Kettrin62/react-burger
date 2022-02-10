@@ -43,8 +43,6 @@ CaloricContent.propTypes = {
 
 function IngredientDetails() {
   const { modalCard } = useSelector(state => state.modal);
-  
-  console.log(modalCard);
   const { image_large, name } = modalCard;
   return (
     <div className={ingredientdetailsStyles.container}>
