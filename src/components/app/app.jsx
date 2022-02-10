@@ -40,14 +40,14 @@ function App() {
     <ErrorBoundary>
       <div className={appStyles.app}>
         <AppHeader />
-        <DataIngredientsContext.Provider value={data}>
           <CardConstructorContext.Provider value={card}>
             <main className={appStyles.main}>
               <BurgerIngredients />
+        <DataIngredientsContext.Provider value={data}>
               <BurgerConstructor />
+        </DataIngredientsContext.Provider>
             </main>
           </CardConstructorContext.Provider>
-        </DataIngredientsContext.Provider>
       </div>
     </ErrorBoundary>
   );

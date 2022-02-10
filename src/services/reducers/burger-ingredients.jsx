@@ -1,4 +1,3 @@
-import { ingredientsData } from '../initialData';
 import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,

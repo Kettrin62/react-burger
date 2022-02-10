@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -9,7 +9,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import { cardPropTypes } from '../../utils/data';
 import { DataIngredientsContext } from '../../services/app-context';
 import { getIngredients } from '../../services/actions/burger-ingredients';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 function Title(props) {
@@ -79,17 +79,32 @@ IngredientsItem.propTypes = {
 };
 
 const IngredientsList = ({ type }) => {
-  const ingredients = React.useContext(DataIngredientsContext);
+
+  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients);
+  const dispatch = useDispatch();
+
+  useEffect(
+    () => {
+      dispatch(getIngredients());
+    },
+    [dispatch]
+  );
 
   const ingredientsType = ingredients.filter((item) => item.type === type);
 
-  return (
+  if (ingredientsFailed) {
+    return <p>Произошла ошибка при получении данных</p>
+  } else if (ingredientsRequest) {
+    return <p>Загрузка...</p>
+  } else {
+    return (
       <ul className={'pt-2 pb-1 pl-1 pr-1 ' + burgeringredientsStyles.list}>
         {ingredientsType.map((item) => (
           <IngredientsItem key={item._id} card={item} />
-        ))}
+          ))}
       </ul>
-  );
+    );
+  }
 }
 
 IngredientsList.propTypes = {
@@ -109,7 +124,6 @@ Subtitle.propTypes = {
 };
 
 function BurgerIngredients() {
-  const ingredients = React.useContext(DataIngredientsContext);
   
   return (
     <section className={'pl-5 pr-5 ' + burgeringredientsStyles.section}>
@@ -118,15 +132,15 @@ function BurgerIngredients() {
       <ul className={burgeringredientsStyles.categories}>
         <li>
           <Subtitle text='Булки' />
-          <IngredientsList type='bun' ingredients={ingredients} />
+          <IngredientsList type='bun' />
         </li>
         <li>
           <Subtitle text='Соусы' />
-          <IngredientsList type='sauce' ingredients={ingredients} />
+          <IngredientsList type='sauce' />
         </li>
         <li>
           <Subtitle text='Начинки' />
-          <IngredientsList type='main' ingredients={ingredients} />
+          <IngredientsList type='main' />
         </li>
       </ul>
     </section>
