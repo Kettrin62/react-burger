@@ -45,7 +45,7 @@ const IngredientsItem = ({ card }) => {
   const { image, price, name, __v } = card;
   const [visible, setVisible] = React.useState(false);
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleOpenModal = () => {
     setVisible(true);
