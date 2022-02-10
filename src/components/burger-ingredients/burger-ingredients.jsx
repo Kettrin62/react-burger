@@ -7,9 +7,9 @@ import burgeringredientsStyles from './burger-ingredients.module.css';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { cardPropTypes } from '../../utils/data';
-import { DataIngredientsContext } from '../../services/app-context';
-import { getIngredients } from '../../services/actions/burger-ingredients';
+import { getIngredients, getCard, CLOSE_MODAL } from '../../services/actions/burger';
 import { useDispatch, useSelector } from 'react-redux';
+
 
 
 function Title(props) {
@@ -44,15 +44,22 @@ const Menu = () => {
 const IngredientsItem = ({ card }) => {
   const { image, price, name, __v } = card;
   const [visible, setVisible] = React.useState(false);
+
+    const dispatch = useDispatch();
+
   const handleOpenModal = () => {
     setVisible(true);
+    dispatch(getCard(card));
   };
   const handleCloseModal = () => {
     setVisible(false);
+    dispatch({
+      type: CLOSE_MODAL,
+    });
   };
   const modal = (
     <Modal header='Детали ингредиента' onClose={handleCloseModal}>
-      <IngredientDetails card={card} />
+      <IngredientDetails />
     </Modal>
   );
 

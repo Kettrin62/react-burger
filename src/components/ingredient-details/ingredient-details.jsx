@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ingredientdetailsStyles from './ingredient-details.module.css';
 import { cardPropTypes } from '../../utils/data';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const CaloricContentItem = (props) => {
@@ -18,13 +19,14 @@ CaloricContentItem.propTypes = {
   quantity: PropTypes.number.isRequired,
 };
 
-const CaloricContent = ({ card }) => {
+const CaloricContent = () => {
+  const { modalCard } = useSelector(state => state.modal);
   const {
     calories,
     proteins,
     fat,
     carbohydrates
-  } = card;
+  } = modalCard;
   return (
     <ul className={'mt-8 mb-5 ' + ingredientdetailsStyles.list}>
       <CaloricContentItem title='Калории,ккал' quantity={calories} />
@@ -36,11 +38,14 @@ const CaloricContent = ({ card }) => {
 };
 
 CaloricContent.propTypes = {
-  card: cardPropTypes.isRequired,
+  // card: cardPropTypes.isRequired,
 };
 
-function IngredientDetails({ card }) {
-  const { image_large, name } = card;
+function IngredientDetails() {
+  const { modalCard } = useSelector(state => state.modal);
+  
+  console.log(modalCard);
+  const { image_large, name } = modalCard;
   return (
     <div className={ingredientdetailsStyles.container}>
       <figure className={ingredientdetailsStyles.card}>
@@ -56,13 +61,13 @@ function IngredientDetails({ card }) {
           {name}
         </figcaption>
       </figure>
-      <CaloricContent card={card}/>
+      <CaloricContent />
     </div>
   );
 }
 
 IngredientDetails.propTypes = {
-  card: cardPropTypes.isRequired,
+  // card: cardPropTypes.isRequired,
 };
 
 export default IngredientDetails;

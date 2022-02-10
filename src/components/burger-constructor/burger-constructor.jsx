@@ -8,9 +8,9 @@ import burgerconstructorStyles from './burger-constructor.module.css';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { cardPropTypes } from '../../utils/data';
-import { DataIngredientsContext, CardConstructorContext } from '../../services/app-context';
 import { TotalPriceContext, OrderContext } from '../../services/burger-constructor-context';
 import { BASEURL } from '../../utils/data';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const ConstructorItem = ({ card }) => {
@@ -34,8 +34,11 @@ ConstructorItem.propTypes = {
 };
 
 const ConstructorList = () => {
-  const ingredients = React.useContext(DataIngredientsContext);
-  const cards = React.useContext(CardConstructorContext);
+
+  const { ingredients } = useSelector(state => state.ingredients);
+  const { cards } = useSelector(state => state.cards);
+  const dispatch = useDispatch();
+
 
   const { totalDispatcher } = React.useContext(TotalPriceContext);
   
@@ -87,7 +90,7 @@ const ConstructorList = () => {
 };
 
 const Total = () => {
-  const cards = React.useContext(CardConstructorContext);
+  const { cards } = useSelector(state => state.cards);
   const { totalPrice } = React.useContext(TotalPriceContext);
 
   const [visible, setVisible] = React.useState(false);
@@ -161,12 +164,12 @@ function BurgerConstructor() {
   const [totalPrice, totalDispatcher] = React.useReducer(reducer, totalInitialPrice);
 
   return (
-      <section className={'pl-5 pr-5 pt-25 ' + burgerconstructorStyles.section}>
-        <TotalPriceContext.Provider value={{ totalPrice, totalDispatcher }}>
-          <ConstructorList />
-          <Total />
-        </TotalPriceContext.Provider>
-      </section>
+    <section className={'pl-5 pr-5 pt-25 ' + burgerconstructorStyles.section}>
+      <TotalPriceContext.Provider value={{ totalPrice, totalDispatcher }}>
+        <ConstructorList />
+        <Total />
+      </TotalPriceContext.Provider>
+    </section>
   )
 }
 

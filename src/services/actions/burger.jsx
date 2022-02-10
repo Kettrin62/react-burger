@@ -3,6 +3,12 @@ import { BASEURL } from '../../utils/data';
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
+export const ADD_CARD = 'ADD_CARD';
+export const DELETE_CARD = 'DELETE_CARD';
+export const OPEN_MODAL ='OPEN_MODAL';
+export const CLOSE_MODAL ='CLOSE_MODAL';
+
+// export const GET_CARD = 'GET_CARD';
 
 export function getIngredients() {
   return function(dispatch) {
@@ -40,3 +46,14 @@ export function getIngredients() {
     })
   }
 }
+
+export function getCard(card) {
+  return function(dispatch) {
+    dispatch({
+      type: OPEN_MODAL,
+      card: card
+    })
+  }
+}
+
+
