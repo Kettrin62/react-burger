@@ -8,7 +8,7 @@ import burgerconstructorStyles from './burger-constructor.module.css';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { cardPropTypes } from '../../utils/data';
-import { TotalPriceContext, OrderContext } from '../../services/burger-constructor-context';
+import { TotalPriceContext } from '../../services/burger-constructor-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrder } from '../../services/actions/burger';
 
