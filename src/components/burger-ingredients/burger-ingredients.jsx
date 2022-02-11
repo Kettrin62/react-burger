@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -24,22 +24,34 @@ Title.propTypes = {
   text: PropTypes.string.isRequired,
 };
 
-const Menu = () => {
+const Menu = (props) => {
   const [current, setCurrent] = React.useState('one')
+
+  const tabClick = (tab, scroll) => {
+    setCurrent(tab);
+    scroll();
+  }
+
   return (
     <div style={{ display: 'flex' }} className='mb-5'>
-      <Tab value="one" active={current === 'one'} onClick={setCurrent}>
+      <Tab value='one' active={current === 'one'} onClick={() => tabClick('one', props.bunScroll)}>
         Булки
       </Tab>
-      <Tab value="two" active={current === 'two'} onClick={setCurrent}>
+      <Tab value='two' active={current === 'two'} onClick={() => tabClick('two', props.sauceScroll)}>
         Соусы
       </Tab>
-      <Tab value="three" active={current === 'three'} onClick={setCurrent}>
+      <Tab value='three' active={current === 'three'} onClick={() => tabClick('three', props.mainScroll)}>
         Начинки
       </Tab>
     </div>
   )
 }
+
+Menu.propTypes = {
+  bunScroll: PropTypes.func.isRequired,
+  sauceScroll: PropTypes.func.isRequired,
+  mainScroll: PropTypes.func.isRequired,
+};
 
 const IngredientsItem = ({ card }) => {
   const { image, price, name, __v } = card;
@@ -131,21 +143,32 @@ Subtitle.propTypes = {
 };
 
 function BurgerIngredients() {
-  
+  const bunRef = useRef('bun');
+  const sauceRef = useRef('sauce');
+  const mainRef = useRef('main');
+
+  const scroll = (item) => {
+    item.current.scrollIntoView({ behavior: "smooth" });
+  }
+
   return (
     <section className={'pl-5 pr-5 ' + burgeringredientsStyles.section}>
       <Title text='Соберите бургер' />
-      <Menu />
+      <Menu 
+        bunScroll = {() => scroll(bunRef)}
+        sauceScroll = {() => scroll(sauceRef)}
+        mainScroll = {() => scroll(mainRef)} 
+      />
       <ul className={burgeringredientsStyles.categories}>
-        <li>
+        <li ref={bunRef} >
           <Subtitle text='Булки' />
           <IngredientsList type='bun' />
         </li>
-        <li>
+        <li ref={sauceRef} >
           <Subtitle text='Соусы' />
           <IngredientsList type='sauce' />
         </li>
-        <li>
+        <li ref={mainRef} >
           <Subtitle text='Начинки' />
           <IngredientsList type='main' />
         </li>
