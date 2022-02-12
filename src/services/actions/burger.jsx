@@ -10,6 +10,7 @@ export const CLOSE_MODAL ='CLOSE_MODAL';
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
+export const CHANGE_TUB = 'CHANGE_TUB';
 
 
 // export const GET_CARD = 'GET_CARD';

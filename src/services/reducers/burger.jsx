@@ -11,6 +11,7 @@ import {
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED,
+  CHANGE_TUB,
 
 } from '../actions/burger';
 
@@ -27,6 +28,8 @@ const initialState = {
   order: null,
   orderRequest: false,
   orderFailed: false,
+
+  tabCurrent: 'one',
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -116,6 +119,19 @@ export const orderReducer = (state = initialState, action) => {
         ...state,
         orderFailed: true,
         orderRequest: false,
+      }
+    }
+    default:
+      return state;
+  }
+}
+
+export const scrollReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case CHANGE_TUB: {
+      return {
+        ...state,
+        tabCurrent: action.current,
       }
     }
     default:

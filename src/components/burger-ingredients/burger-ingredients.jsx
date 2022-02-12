@@ -7,7 +7,7 @@ import burgeringredientsStyles from './burger-ingredients.module.css';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { cardPropTypes } from '../../utils/data';
-import { getIngredients, getCard, CLOSE_MODAL } from '../../services/actions/burger';
+import { getIngredients, getCard, CLOSE_MODAL, CHANGE_TUB } from '../../services/actions/burger';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -25,22 +25,15 @@ Title.propTypes = {
 };
 
 const Menu = (props) => {
-  const [current, setCurrent] = React.useState('one')
-
-  const tabClick = (tab, scroll) => {
-    setCurrent(tab);
-    scroll();
-  }
-
   return (
     <div style={{ display: 'flex' }} className='mb-5'>
-      <Tab value='one' active={current === 'one'} onClick={() => tabClick('one', props.bunScroll)}>
+      <Tab value='one' active={props.current === 'one'} onClick={() => props.bunScroll()}>
         Булки
       </Tab>
-      <Tab value='two' active={current === 'two'} onClick={() => tabClick('two', props.sauceScroll)}>
+      <Tab value='two' active={props.current === 'two'} onClick={() => props.sauceScroll()}>
         Соусы
       </Tab>
-      <Tab value='three' active={current === 'three'} onClick={() => tabClick('three', props.mainScroll)}>
+      <Tab value='three' active={props.current === 'three'} onClick={() => props.mainScroll()}>
         Начинки
       </Tab>
     </div>
@@ -51,6 +44,7 @@ Menu.propTypes = {
   bunScroll: PropTypes.func.isRequired,
   sauceScroll: PropTypes.func.isRequired,
   mainScroll: PropTypes.func.isRequired,
+  current: PropTypes.string.isRequired,
 };
 
 const IngredientsItem = ({ card }) => {
@@ -151,24 +145,53 @@ function BurgerIngredients() {
     item.current.scrollIntoView({ behavior: "smooth" });
   }
 
+  const { tabCurrent } = useSelector(state => state.scroll);
+
+  const dispatch = useDispatch();
+
+  const scrollEvent = (e) => {
+    const elementHeight = e.target.scrollTop;
+    const bunHeight = bunRef.current.scrollHeight;
+    const sauceHeight = sauceRef.current.scrollHeight;
+    const mainHeight = mainRef.current.scrollHeight;
+
+    if (bunHeight - elementHeight > 0) {
+      dispatch({
+        type: CHANGE_TUB,
+        current: 'one',
+      });
+    } else if ((bunHeight + sauceHeight) - elementHeight > 0) {
+      dispatch({
+        type: CHANGE_TUB,
+        current: 'two',
+      });
+    } else if ((bunHeight + sauceHeight + mainHeight) - elementHeight > 0) {
+      dispatch({
+        type: CHANGE_TUB,
+        current: 'three',
+      });
+    }
+  }
+
   return (
     <section className={'pl-5 pr-5 ' + burgeringredientsStyles.section}>
       <Title text='Соберите бургер' />
       <Menu 
+        current = {tabCurrent}
         bunScroll = {() => scroll(bunRef)}
         sauceScroll = {() => scroll(sauceRef)}
         mainScroll = {() => scroll(mainRef)} 
       />
-      <ul className={burgeringredientsStyles.categories}>
-        <li ref={bunRef} >
+      <ul className={burgeringredientsStyles.categories} onScroll={scrollEvent}>
+        <li ref={bunRef}>
           <Subtitle text='Булки' />
           <IngredientsList type='bun' />
         </li>
-        <li ref={sauceRef} >
+        <li ref={sauceRef}>
           <Subtitle text='Соусы' />
           <IngredientsList type='sauce' />
         </li>
-        <li ref={mainRef} >
+        <li ref={mainRef}>
           <Subtitle text='Начинки' />
           <IngredientsList type='main' />
         </li>
