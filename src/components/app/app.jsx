@@ -4,6 +4,8 @@ import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import ErrorBoundary from '../error-boundary/error-boundary';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 
 function App() {
@@ -12,10 +14,12 @@ function App() {
     <ErrorBoundary>
       <div className={appStyles.app}>
         <AppHeader />
+        <DndProvider backend={HTML5Backend}>
           <main className={appStyles.main}>
             <BurgerIngredients />
             <BurgerConstructor />
           </main>
+        </DndProvider>
       </div>
     </ErrorBoundary>
   );

@@ -9,6 +9,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import { cardPropTypes } from '../../utils/data';
 import { getIngredients, getCard, CLOSE_MODAL, CHANGE_TUB } from '../../services/actions/burger';
 import { useDispatch, useSelector } from 'react-redux';
+import { useDrag } from "react-dnd";
 
 
 
@@ -48,8 +49,17 @@ Menu.propTypes = {
 };
 
 const IngredientsItem = ({ card }) => {
-  const { image, price, name, __v } = card;
+  
+  const { image, price, name, __v, _id: id } = card;
   const [visible, setVisible] = React.useState(false);
+
+  const [{ opacity }, dragRef] = useDrag({
+    type: "ingredient",
+    item: {id},
+    collect: monitor => ({
+      opacity: monitor.isDragging() ? 0.4 : 1
+    })
+  });
 
   const dispatch = useDispatch();
 
@@ -70,8 +80,13 @@ const IngredientsItem = ({ card }) => {
   );
 
   return (
-    <div style={{overflow: 'hidden'}}>
-      <li className={'ml-3 mr-3 mt-4 mb-4 ' + burgeringredientsStyles.item} onClick={handleOpenModal}>
+    <>
+      <li
+        className={'ml-3 mr-3 mt-4 mb-4 ' + burgeringredientsStyles.item}
+        onClick={handleOpenModal}
+        style={{opacity}}
+        ref={dragRef}
+      >
         <img src={image} alt={name} />
         <div className={'pt-1 pb-1 ' + burgeringredientsStyles.price}>
           <p className='text text_type_digits-default pr-2'>{price}</p>
@@ -83,7 +98,7 @@ const IngredientsItem = ({ card }) => {
         )}
       </li>
       {visible && modal}
-    </div>
+    </>
   )
 }
 

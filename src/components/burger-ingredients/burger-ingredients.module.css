@@ -29,6 +29,7 @@
   align-items: center;
   position: relative;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .price {
