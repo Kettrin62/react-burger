@@ -12,6 +12,8 @@ import {
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED,
   CHANGE_TUB,
+  ADD_CARD_BUN,
+  ADD_CARD_NOT_BUN
 
 } from '../actions/burger';
 
@@ -20,7 +22,11 @@ const initialState = {
   ingredientsRequest: false,
   ingredientsFailed: false,
 
-  cards: cardsConstructor,
+  // cards: cardsConstructor,
+  cards:[],
+
+  cardsBun: [],
+  cardsNotBun: [],
 
   // modalVisible: false,
   modalCard: null,
@@ -66,6 +72,18 @@ export const cardsReducer = (state = initialState, action) => {
       return  {
         ...state,
         cards: [...state.cards].concat(action.id),
+      }
+    }
+    case ADD_CARD_BUN: {
+      return  {
+        ...state,
+        cardsBun: [...state.cardsBun].concat(action.id),
+      }
+    }
+    case ADD_CARD_NOT_BUN: {
+      return  {
+        ...state,
+        cardsNotBun: [...state.cardsNotBun].concat(action.id),
       }
     }
     case DELETE_CARD: {

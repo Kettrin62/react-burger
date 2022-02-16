@@ -54,12 +54,13 @@ const IngredientsItem = ({ card }) => {
   const [visible, setVisible] = React.useState(false);
 
   const [{ opacity }, dragRef] = useDrag({
-    type: "ingredient",
-    item: {id},
+    type: 'ingredient',
+    item: { id },
     collect: monitor => ({
       opacity: monitor.isDragging() ? 0.4 : 1
     })
   });
+  
 
   const dispatch = useDispatch();
 

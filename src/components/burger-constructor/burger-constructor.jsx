@@ -11,6 +11,8 @@ import { cardPropTypes } from '../../utils/data';
 import { TotalPriceContext } from '../../services/burger-constructor-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrder } from '../../services/actions/burger';
+import { useDrop } from "react-dnd";
+import { ADD_CARD, ADD_CARD_BUN, ADD_CARD_NOT_BUN } from '../../services/actions/burger';
 
 
 const ConstructorItem = ({ card }) => {
@@ -36,7 +38,7 @@ ConstructorItem.propTypes = {
 const ConstructorList = () => {
 
   const { ingredients } = useSelector(state => state.ingredients);
-  const { cards } = useSelector(state => state.cards);
+  const { cards, cardsBun, cardsNotBun } = useSelector(state => state.cards);
   const dispatch = useDispatch();
 
 
@@ -52,8 +54,38 @@ const ConstructorList = () => {
     totalDispatcher({ arrayBun: ingredientsBun, arrayNotBun: ingredientsNotBun })
   }, [cards, ingredients]);
 
+  const [{isHover}, dropTarget] = useDrop({
+    accept: 'ingredient',
+    drop(item) {
+      // card.type === 'bun' ? mouveCardBun(card._id) : mouveCardNotBun(card._id);
+      dispatch({
+        type: ADD_CARD,
+        ...item
+      })
+    },
+    collect: monitor => ({
+      isHover: monitor.isOver(),
+    })
+  });
+  
+  const border = isHover ? '1px solid #2f2f37' : 'transparent';
+
+  const mouveCardBun = (item) => {
+    dispatch({
+      type: ADD_CARD_BUN,
+      ...item
+    })
+  };
+
+  const mouveCardNotBun = (item) => {
+    dispatch({
+      type: ADD_CARD_NOT_BUN,
+      ...item
+    })
+  }
+
   return (
-    <ul className={'pl-4 pr-4 ' + burgerconstructorStyles.constructorlist}>
+    <ul className={'pl-4 pr-4 ' + burgerconstructorStyles.constructorlist} ref={dropTarget} style={{border}}>
       <li className='mb-4 mr-2'>
         {ingredientsBun.map((item) => (
           <ConstructorElement
@@ -67,7 +99,7 @@ const ConstructorList = () => {
         ))}
       </li>
       <li>
-        <ul className={burgerconstructorStyles.list}>
+        <ul className={burgerconstructorStyles.list} >
           {ingredientsNotBun.map((item, index) => (
             <ConstructorItem key={index} card={item} />
           ))}
