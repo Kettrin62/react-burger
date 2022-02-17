@@ -5,6 +5,7 @@ import {
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_FAILED,
   ADD_CARD,
+  CHANGE_CARD_BUN,
   DELETE_CARD,
   OPEN_MODAL,
   CLOSE_MODAL,
@@ -12,9 +13,8 @@ import {
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED,
   CHANGE_TUB,
-  ADD_CARD_BUN,
-  ADD_CARD_NOT_BUN
-
+  INCREASE_INGREDIENT,
+  DECREASE_INGREDIENT
 } from '../actions/burger';
 
 const initialState = {
@@ -22,8 +22,8 @@ const initialState = {
   ingredientsRequest: false,
   ingredientsFailed: false,
 
-  // cards: cardsConstructor,
-  cards:[],
+  cards: [],
+
 
   cardsBun: [],
   cardsNotBun: [],
@@ -66,31 +66,46 @@ export const ingredientsReducer = (state = initialState, action) => {
   }
 }
 
+
+
 export const cardsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_CARD: {
-      return  {
+      console.log(state.ingredients);
+      console.log(state.cards);
+      return {
         ...state,
-        cards: [...state.cards].concat(action.id),
-      }
+        cards: state.cards.concat({
+          id: action.id,
+          key: action.key,
+        }),
+
+        ingredients: [...state.ingredients].map(item => 
+          item._id === action.id ? { ...item, __v: ++item.__v } : item
+        )
+      };
     }
-    case ADD_CARD_BUN: {
-      return  {
+
+    case CHANGE_CARD_BUN: {
+      return {
         ...state,
-        cardsBun: [...state.cardsBun].concat(action.id),
-      }
+        cardsBun: action.id
+      };
     }
-    case ADD_CARD_NOT_BUN: {
-      return  {
-        ...state,
-        cardsNotBun: [...state.cardsNotBun].concat(action.id),
-      }
-    }
+
+
+
     case DELETE_CARD: {
       return {
         ...state,
         cards: [...state.cards].filter(item => item.id !== action.id)
       };
+    }
+    case INCREASE_INGREDIENT: {
+      return {
+        ...state,
+        
+      }
     }
     default:
       return state;

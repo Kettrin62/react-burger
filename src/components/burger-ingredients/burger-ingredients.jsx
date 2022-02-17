@@ -50,12 +50,12 @@ Menu.propTypes = {
 
 const IngredientsItem = ({ card }) => {
   
-  const { image, price, name, __v, _id: id } = card;
+  const { image, price, name, __v, _id: id, type } = card;
   const [visible, setVisible] = React.useState(false);
 
   const [{ opacity }, dragRef] = useDrag({
     type: 'ingredient',
-    item: { id },
+    item: { id, type },
     collect: monitor => ({
       opacity: monitor.isDragging() ? 0.4 : 1
     })

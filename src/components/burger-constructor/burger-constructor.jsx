@@ -12,7 +12,8 @@ import { TotalPriceContext } from '../../services/burger-constructor-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrder } from '../../services/actions/burger';
 import { useDrop } from "react-dnd";
-import { ADD_CARD, ADD_CARD_BUN, ADD_CARD_NOT_BUN } from '../../services/actions/burger';
+import { ADD_CARD, CHANGE_CARD_BUN, ADD_CARD_NOT_BUN } from '../../services/actions/burger';
+import { v4 as uuidv4 } from 'uuid';
 
 
 const ConstructorItem = ({ card }) => {
@@ -38,30 +39,68 @@ ConstructorItem.propTypes = {
 const ConstructorList = () => {
 
   const { ingredients } = useSelector(state => state.ingredients);
-  const { cards, cardsBun, cardsNotBun } = useSelector(state => state.cards);
+  const { cards, cardsBun } = useSelector(state => state.cards);
   const dispatch = useDispatch();
 
-
-  const { totalDispatcher } = React.useContext(TotalPriceContext);
+  
+  // const { totalDispatcher } = React.useContext(TotalPriceContext);
   
   const dataConstructor = ingredients.filter(item =>
-    cards.find(element => element === item._id)
+    cards.find(element => element.id === item._id)
     );
-  const ingredientsBun = dataConstructor.filter(item => item.type === "bun");
-  const ingredientsNotBun = dataConstructor.filter(item => item.type !== "bun");
 
-  React.useEffect(() => {
-    totalDispatcher({ arrayBun: ingredientsBun, arrayNotBun: ingredientsNotBun })
-  }, [cards, ingredients]);
+  const dataConstructorBun = ingredients.filter(item =>
+    cards.find(element => element.id === item._id)
+    );
 
+  
+  
+  const ingredientsNotBun = cards.map((item) => {
+    const ingredient = ingredients.find(
+      (el) => el.type !== 'bun' && el._id === item.id
+    );
+    return (
+      ingredient &&
+      <ConstructorItem
+        key={item.key}
+        card={ingredient}
+      />
+    )
+  });
+
+   
+        
+  const ingredientsBun = dataConstructorBun.filter(item => item.type === "bun");
+  // const ingredientsNotBun = dataConstructor.filter(item => item.type !== "bun");
+  
+ 
+  
+  // React.useEffect(() => {
+  //   totalDispatcher({ arrayBun: ingredientsBun, arrayNotBun: ingredientsNotBun })
+  // }, [cards, ingredients]);
+  
   const [{isHover}, dropTarget] = useDrop({
     accept: 'ingredient',
     drop(item) {
-      // card.type === 'bun' ? mouveCardBun(card._id) : mouveCardNotBun(card._id);
-      dispatch({
-        type: ADD_CARD,
-        ...item
-      })
+      console.log(item.type);
+      if (item.type !== 'bun') {
+        console.log(cards);
+        console.log(ingredients);
+        dispatch({
+          type: ADD_CARD,
+          // ...item,
+          id: item.id,
+          key: uuidv4()
+        })
+        console.log(cards);
+        console.log(ingredients);
+      } else {
+
+        dispatch({
+          type: CHANGE_CARD_BUN,
+          // ...item,
+          id: item.id,
+      })}
     },
     collect: monitor => ({
       isHover: monitor.isOver(),
@@ -69,20 +108,11 @@ const ConstructorList = () => {
   });
   
   const border = isHover ? '1px solid #2f2f37' : 'transparent';
-
-  const mouveCardBun = (item) => {
-    dispatch({
-      type: ADD_CARD_BUN,
-      ...item
-    })
-  };
-
-  const mouveCardNotBun = (item) => {
-    dispatch({
-      type: ADD_CARD_NOT_BUN,
-      ...item
-    })
-  }
+  
+  console.log(cardsBun);
+  // console.log(cardsBun);
+  // console.log(dataConstructor);
+  
 
   return (
     <ul className={'pl-4 pr-4 ' + burgerconstructorStyles.constructorlist} ref={dropTarget} style={{border}}>
@@ -100,9 +130,10 @@ const ConstructorList = () => {
       </li>
       <li>
         <ul className={burgerconstructorStyles.list} >
-          {ingredientsNotBun.map((item, index) => (
-            <ConstructorItem key={index} card={item} />
-          ))}
+          {ingredientsNotBun}
+          {/* {ingredientsNotBun.map((item, key) => (
+            <ConstructorItem key={key} card={item} />
+          ))}  */}
         </ul>
       </li>
       <li className='mt-4 mr-2'>
