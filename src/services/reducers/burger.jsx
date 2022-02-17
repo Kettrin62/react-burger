@@ -23,10 +23,7 @@ const initialState = {
   ingredientsFailed: false,
 
   cards: [],
-
-
-  cardsBun: [],
-  cardsNotBun: [],
+  cardBun: [],
 
   // modalVisible: false,
   modalCard: null,
@@ -71,25 +68,19 @@ export const ingredientsReducer = (state = initialState, action) => {
 export const cardsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_CARD: {
-      console.log(state.ingredients);
-      console.log(state.cards);
       return {
         ...state,
         cards: state.cards.concat({
           id: action.id,
           key: action.key,
         }),
-
-        ingredients: [...state.ingredients].map(item => 
-          item._id === action.id ? { ...item, __v: ++item.__v } : item
-        )
       };
     }
 
     case CHANGE_CARD_BUN: {
       return {
         ...state,
-        cardsBun: action.id
+        cardBun: action.id
       };
     }
 
@@ -98,7 +89,7 @@ export const cardsReducer = (state = initialState, action) => {
     case DELETE_CARD: {
       return {
         ...state,
-        cards: [...state.cards].filter(item => item.id !== action.id)
+        cards: state.cards.filter(item => item.key !== action.key)
       };
     }
     case INCREASE_INGREDIENT: {
