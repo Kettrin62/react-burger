@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import { 
-  cardsReducer, 
   ingredientsReducer, 
-  modalReducer, 
-  orderReducer, 
   scrollReducer 
-} from './burger';
+} from './ingredients';
+import { cardsReducer } from './constructor';
+import { modalReducer } from './modal';
+import { orderReducer } from './order';
 
 // Корневой редьюсер
 export const rootReducer = combineReducers({

@@ -7,7 +7,8 @@ import burgeringredientsStyles from './burger-ingredients.module.css';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { cardPropTypes } from '../../utils/data';
-import { getIngredients, getCard, CLOSE_MODAL, CHANGE_TUB } from '../../services/actions/burger';
+import { getIngredients, CHANGE_TUB } from '../../services/actions/ingredients';
+import { getCard, CLOSE_MODAL } from '../../services/actions/modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from "react-dnd";
 

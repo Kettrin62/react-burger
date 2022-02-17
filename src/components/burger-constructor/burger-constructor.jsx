@@ -10,9 +10,9 @@ import OrderDetails from '../order-details/order-details';
 import { cardPropTypes } from '../../utils/data';
 import { TotalPriceContext } from '../../services/burger-constructor-context';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrder } from '../../services/actions/burger';
+import { getOrder } from '../../services/actions/order';
 import { useDrop } from "react-dnd";
-import { ADD_CARD, CHANGE_CARD_BUN, DELETE_CARD } from '../../services/actions/burger';
+import { ADD_CARD, CHANGE_CARD_BUN, DELETE_CARD } from '../../services/actions/constructor';
 import { v4 as uuidv4 } from 'uuid';
 
 
