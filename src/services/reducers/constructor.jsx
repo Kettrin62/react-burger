@@ -36,12 +36,7 @@ export const cardsReducer = (state = initialState, action) => {
         cards: state.cards.filter(item => item.key !== action.key)
       };
     }
-    case INCREASE_INGREDIENT: {
-      return {
-        ...state,
-        
-      }
-    }
+    
     default:
       return state;
   }

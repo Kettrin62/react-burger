@@ -20,7 +20,6 @@ const ConstructorItem = ({ card, cardKey }) => {
   const dispatch = useDispatch();
 
   const deleteCard = () => {
-    console.log(cardKey);
     dispatch({
       type: DELETE_CARD,
       key: cardKey
@@ -135,10 +134,10 @@ const Total = () => {
 
   const totalPrice = useMemo(() => {
     let total = 0;
-      const element = ingredients.find(el => el._id === cardBun);
-      if (element) {
-        total += element.price * 2;
-      };
+    const element = ingredients.find(el => el._id === cardBun);
+    if (element) {
+      total += element.price * 2;
+    };
     cards.forEach((item) => {
       const element = ingredients.find(el => el._id === item.id);
       if (element) {

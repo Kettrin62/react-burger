@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -61,7 +61,36 @@ const IngredientsItem = ({ card }) => {
       opacity: monitor.isDragging() ? 0.4 : 1
     })
   });
-  
+
+  const { cards, cardBun } = useSelector(state => state.cards);
+  const { ingredients } = useSelector(state => state.ingredients);
+
+
+  // if (cards.type !== 'bun') {
+  //   const counter = useMemo(
+  //     () => cards.filter((item) => item.id === card._id).length,
+  //     [ingredients, cards]
+  //   );
+    
+  // }
+
+  // const counter = useMemo(
+  //   () => cards.filter((item) => item.id === card._id).length,
+  //   [ingredients, cards]
+  // );
+
+  const counter = useMemo(() => {
+    if (card.type !== 'bun') {
+      return (cards.filter((item) => item.id === card._id).length)
+    } else {
+      return (cardBun === card._id ? 2 : 0)
+    }
+  }, [ingredients, cards, cardBun]
+  );
+
+  console.log(counter);
+
+
 
   const dispatch = useDispatch();
 
@@ -95,8 +124,8 @@ const IngredientsItem = ({ card }) => {
           <CurrencyIcon type='primary' />
         </div>
         <p style={{ textAlign: 'center' }} className='text text_type_main-default'>{name}</p>
-        {(__v > 0) && (
-          <Counter count={__v} size="default" />
+        {(counter > 0) && (
+          <Counter count={counter} size="default" />
         )}
       </li>
       {visible && modal}
