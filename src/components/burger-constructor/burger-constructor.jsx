@@ -153,7 +153,8 @@ const Total = () => {
 
   const handleOpenModal = async () => {
     setVisible(true);
-    dispatch(getOrder(cards));
+    const cardsOrder = cards.map(item => item.id).concat(cardBun, cardBun);
+    dispatch(getOrder(cardsOrder));
   };
   const handleCloseModal = () => {
     setVisible(false);
