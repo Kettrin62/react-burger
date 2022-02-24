@@ -168,7 +168,7 @@ const ConstructorList = () => {
         {ingredientsBun.map((item) => (
           <ConstructorElement
             key={item._id}
-            type="top"
+            type='top'
             isLocked={true}
             text={item.name + ' (верх)'}
             price={item.price}
@@ -185,7 +185,7 @@ const ConstructorList = () => {
         {ingredientsBun.map((item) => (
           <ConstructorElement
             key={item._id}
-            type="top"
+            type='bottom'
             isLocked={true}
             text={item.name + ' (низ)'}
             price={item.price}

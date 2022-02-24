@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useMemo } from 'react';
+import React, { useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -7,7 +7,7 @@ import burgeringredientsStyles from './burger-ingredients.module.css';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { cardPropTypes } from '../../utils/data';
-import { getIngredients, CHANGE_TUB } from '../../services/actions/ingredients';
+import { CHANGE_TUB } from '../../services/actions/ingredients';
 import { getCard, CLOSE_MODAL } from '../../services/actions/modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
@@ -119,17 +119,7 @@ IngredientsItem.propTypes = {
 };
 
 const IngredientsList = ({ type }) => {
-
   const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients);
-  const dispatch = useDispatch();
-
-  useEffect(
-    () => {
-      dispatch(getIngredients());
-    },
-    [dispatch]
-  );
-
   const ingredientsType = ingredients.filter((item) => item.type === type);
 
   if (ingredientsFailed) {
