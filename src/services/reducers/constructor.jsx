@@ -2,8 +2,8 @@ import {
   ADD_CARD,
   CHANGE_CARD_BUN,
   DELETE_CARD,
-  INCREASE_INGREDIENT,
-  DECREASE_INGREDIENT
+  SORT_CARD,
+  CLEAR_CARDS
 } from '../actions/constructor';
 
 const initialState = {
@@ -34,6 +34,20 @@ export const cardsReducer = (state = initialState, action) => {
       return {
         ...state,
         cards: state.cards.filter(item => item.key !== action.key)
+      };
+    }
+
+    case SORT_CARD: {
+      return {
+        ...state,
+        cards: action.cards
+      };
+    }
+
+    case CLEAR_CARDS: {
+      return {
+        cards: [],
+        cardBun: []
       };
     }
     

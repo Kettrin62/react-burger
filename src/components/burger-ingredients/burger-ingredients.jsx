@@ -10,7 +10,7 @@ import { cardPropTypes } from '../../utils/data';
 import { getIngredients, CHANGE_TUB } from '../../services/actions/ingredients';
 import { getCard, CLOSE_MODAL } from '../../services/actions/modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { useDrag } from "react-dnd";
+import { useDrag, useDrop } from "react-dnd";
 
 
 
@@ -66,18 +66,6 @@ const IngredientsItem = ({ card }) => {
   const { ingredients } = useSelector(state => state.ingredients);
 
 
-  // if (cards.type !== 'bun') {
-  //   const counter = useMemo(
-  //     () => cards.filter((item) => item.id === card._id).length,
-  //     [ingredients, cards]
-  //   );
-    
-  // }
-
-  // const counter = useMemo(
-  //   () => cards.filter((item) => item.id === card._id).length,
-  //   [ingredients, cards]
-  // );
 
   const counter = useMemo(() => {
     if (card.type !== 'bun') {
@@ -87,10 +75,6 @@ const IngredientsItem = ({ card }) => {
     }
   }, [ingredients, cards, cardBun]
   );
-
-  console.log(counter);
-
-
 
   const dispatch = useDispatch();
 
@@ -219,8 +203,11 @@ function BurgerIngredients() {
     }
   }
 
+  const [, drop] = useDrop(() => ({ accept: 'item' }));
+
+
   return (
-    <section className={'pl-5 pr-5 ' + burgeringredientsStyles.section}>
+    <section className={'pl-5 pr-5 ' + burgeringredientsStyles.section} ref={drop}>
       <Title text='Соберите бургер' />
       <Menu 
         current = {tabCurrent}
