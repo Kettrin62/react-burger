@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ingredientdetailsStyles from './ingredient-details.module.css';
-import { cardPropTypes } from '../../utils/data';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 const CaloricContentItem = (props) => {
@@ -37,10 +36,6 @@ const CaloricContent = () => {
   );
 };
 
-CaloricContent.propTypes = {
-  // card: cardPropTypes.isRequired,
-};
-
 function IngredientDetails() {
   const { modalCard } = useSelector(state => state.modal);
   const { image_large, name } = modalCard;
@@ -63,9 +58,5 @@ function IngredientDetails() {
     </div>
   );
 }
-
-IngredientDetails.propTypes = {
-  // card: cardPropTypes.isRequired,
-};
 
 export default IngredientDetails;

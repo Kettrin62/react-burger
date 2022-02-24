@@ -11,14 +11,14 @@ import { cardPropTypes } from '../../utils/data';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrder } from '../../services/actions/order';
 import { useDrag, useDrop } from "react-dnd";
-import { ADD_CARD, CHANGE_CARD_BUN, DELETE_CARD, SORT_CARD } from '../../services/actions/constructor';
+import { ADD_CARD, CHANGE_CARD_BUN, CLEAR_CARDS, DELETE_CARD, SORT_CARD } from '../../services/actions/constructor';
 import { v4 as uuidv4 } from 'uuid';
 
 
-const ConstructorItem = ({ card, cardKey, index, number, findCard, moveCard }) => {
+const ConstructorItem = ({ card, cardKey, index, moveCard  }) => {
   const { image, price, name, type } = card;
   const dispatch = useDispatch();
-  // console.log(card);
+  const ref = useRef(null);
 
   const deleteCard = () => {
     dispatch({
@@ -27,64 +27,74 @@ const ConstructorItem = ({ card, cardKey, index, number, findCard, moveCard }) =
     })
   };
 
-  
-  // console.log(index);
-  const originalIndex = findCard(cardKey).index;
-  // console.log(findCard(cardKey));
-
   const [{ opacity }, dragRef] = useDrag({
     type: 'item',
-    item: { cardKey, originalIndex },
+    item: { card, index },
     collect: monitor => ({
-      opacity: monitor.isDragging() ? 0.1 : 1
+      opacity: monitor.isDragging() ? 0.1 : 1,
     }),
-    end: (item, monitor) => {
-      const { id: droppedId, originalIndex } = item;
-      const didDrop = monitor.didDrop();
-      if (!didDrop) {
-          moveCard(droppedId, originalIndex);
-      }
-  },
-    
-  }, [cardKey, originalIndex, moveCard]);
+  });
 
-
-
-
-  const [{isHover}, dropTarget] = useDrop({
+  const [{ handlerId }, dropRef] = useDrop({
     accept: 'item',
-    hover({ cardKey: draggedKey }) {
-      if (draggedKey !== cardKey) {
-        const { index: overIndex } = findCard(cardKey);
-        moveCard(draggedKey, overIndex);
-      }
-    },
     collect: monitor => ({
-      isHover: monitor.isOver(),
-    })
-  }, [findCard, moveCard]);
-  
-  const border = isHover ? '1px solid #2f2f37' : 'transparent';
+      handlerId: monitor.getHandlerId(),
+    }),
+    hover: (item, monitor) => {
+      if (!ref.current) {
+        return;
+      }
+      const dragIndex = item.index;
+      const hoverIndex = index;
+      // Don't replace items with themselves
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+      // Determine rectangle on screen
+      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      // Get vertical middle
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      // Determine mouse position
+      const clientOffset = monitor.getClientOffset();
+      // Get pixels to the top
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      // Dragging downwards
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
+      }
+      // Dragging upwards
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return;
+      }
+      moveCard(dragIndex, hoverIndex);
+      item.index = hoverIndex;
+    },
+    drop: item => {
+      const dragIndex = item.index;
+      const hoverIndex = index;
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+      moveCard(dragIndex, hoverIndex);
+    },
+  });
 
-  // const ref = useRef(null);
-  // dragRef(dropTarget(ref));
-
+  dragRef(dropRef(ref));
 
   return (
     <li
       className={'mb-4 ' + burgerconstructorStyles.item}
-      style={{opacity}}
-      ref={(node) => dragRef(dropTarget(node))}
+      data-handler-id={handlerId}
+      ref={ref}
     >
-      {(type !== 'bun') ? (
-        <DragIcon type="primary" />
-        ) : null}
-      <p>{number}</p>
+      <DragIcon type="primary" />
       <ConstructorElement
         text={name}
         price={price}
         thumbnail={image}
         handleClose={() => deleteCard()}
+        style={{ opacity }}
         />
     </li>
   )
@@ -92,76 +102,24 @@ const ConstructorItem = ({ card, cardKey, index, number, findCard, moveCard }) =
 
 ConstructorItem.propTypes = {
   card: cardPropTypes.isRequired,
+  cardKey: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
+  moveCard: PropTypes.func.isRequired,
 };
 
 const ConstructorList = () => {
-
-
-
   const { ingredients } = useSelector(state => state.ingredients);
   const { cards, cardBun } = useSelector(state => state.cards);
   const dispatch = useDispatch();
 
   const ingredientsBun = ingredients.filter(item => item._id === cardBun);
 
-
-
-  const findCard = React.useCallback((key) => {
-    const card = cards.filter((item) => item.key === key)[0];
-
-    return {
-        card,
-        index: cards.indexOf(card),
-    };
-    }, [cards]);
-
-    const moveCard = React.useCallback((key, atIndex) => {
-        const { card, index } = findCard(key);
-        const next = cards.slice();
-        console.log(findCard(key));
-        next.splice(index, 1);
-        console.log(next);
-        next.splice(atIndex, 0, card);
-        console.log(card);
-        console.log(next);
-
-
-        dispatch({
-          type: SORT_CARD,
-          cards: next,
-        })
-
-    
-  }, [cards, findCard]);
-  
-
-  console.log(cards);
-
-  const ingredientsNotBun = cards.map((item, index) => {
-    const ingredient = ingredients.find(
-      (el) => el.type !== 'bun' && el._id === item.id
-    );
-    return (
-      ingredient &&
-      <ConstructorItem
-        key={item.key}
-        card={ingredient}
-        cardKey={item.key}
-        moveCard={moveCard}
-        findCard={findCard}
-        index={index}
-        number={item.number}
-      />
-    )
-  });
-
   const [{isHover}, dropTarget] = useDrop({
-    accept: ['ingredient', 'item'],
+    accept: 'ingredient',
     drop(item) {
       if (item.type !== 'bun') {
         dispatch({
           type: ADD_CARD,
-          // ...item,
           id: item.id,
           key: uuidv4()
         })
@@ -169,14 +127,40 @@ const ConstructorList = () => {
         dispatch({
           type: CHANGE_CARD_BUN,
           id: item.id,
-      })}
-    },
-    collect: monitor => ({
-      isHover: monitor.isOver(),
-    })
-  });
-  
-  const border = isHover ? '1px solid #2f2f37' : 'transparent';
+        })}
+      },
+      collect: monitor => ({
+        isHover: monitor.isOver(),
+      })
+    });
+    
+    const border = isHover ? '1px solid #2f2f37' : 'transparent';
+
+    const moveCard = (dragIndex, hoverIndex) => {
+      const changedCards = cards.slice();
+      changedCards.splice(dragIndex, 1);
+      changedCards.splice(hoverIndex, 0, cards[dragIndex]);
+      dispatch({
+        type: SORT_CARD,
+        cards: changedCards,
+      });
+    };
+
+    const ingredientsNotBun = cards.map((item, index) => {
+      const ingredient = ingredients.find(
+        (el) => el.type !== 'bun' && el._id === item.id
+      );
+      return (
+        ingredient &&
+        <ConstructorItem
+          key={item.key}
+          card={ingredient}
+          cardKey={item.key}
+          moveCard={moveCard}
+          index={index}
+        />
+      )
+    });
 
   return (
     <ul className={'pl-4 pr-4 ' + burgerconstructorStyles.constructorlist} ref={dropTarget} style={{border}}>
@@ -195,9 +179,6 @@ const ConstructorList = () => {
       <li>
         <ul className={burgerconstructorStyles.list} >
           {ingredientsNotBun}
-          {/* {ingredientsNotBun.map((item, key) => (
-            <ConstructorItem key={key} card={item} />
-          ))}  */}
         </ul>
       </li>
       <li className='mt-4 mr-2'>
@@ -246,6 +227,9 @@ const Total = () => {
   };
   const handleCloseModal = () => {
     setVisible(false);
+    dispatch({
+      type: CLEAR_CARDS,
+    });
   };
 
   const modal = (
@@ -272,10 +256,8 @@ const Total = () => {
 
 function BurgerConstructor() {
 
-  const [, drop] = useDrop(() => ({ accept: 'item' }));
-
   return (
-    <section className={'pl-5 pr-5 pt-25 ' + burgerconstructorStyles.section} ref={drop}>
+    <section className={'pl-5 pr-5 pt-25 ' + burgerconstructorStyles.section}>
       <ConstructorList />
       <Total />
     </section>

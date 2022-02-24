@@ -52,6 +52,8 @@ Menu.propTypes = {
 const IngredientsItem = ({ card }) => {
   
   const { image, price, name, __v, _id: id, type } = card;
+  const { cards, cardBun } = useSelector(state => state.cards);
+  const { ingredients } = useSelector(state => state.ingredients);
   const [visible, setVisible] = React.useState(false);
 
   const [{ opacity }, dragRef] = useDrag({
@@ -61,11 +63,6 @@ const IngredientsItem = ({ card }) => {
       opacity: monitor.isDragging() ? 0.4 : 1
     })
   });
-
-  const { cards, cardBun } = useSelector(state => state.cards);
-  const { ingredients } = useSelector(state => state.ingredients);
-
-
 
   const counter = useMemo(() => {
     if (card.type !== 'bun') {
@@ -204,7 +201,6 @@ function BurgerIngredients() {
   }
 
   const [, drop] = useDrop(() => ({ accept: 'item' }));
-
 
   return (
     <section className={'pl-5 pr-5 ' + burgeringredientsStyles.section} ref={drop}>
