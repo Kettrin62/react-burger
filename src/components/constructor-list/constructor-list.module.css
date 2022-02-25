@@ -1,0 +1,21 @@
+.constructorlist {
+  margin: 0;
+  display: flex;
+  list-style-type: none;
+  flex-direction: column;
+  align-items: flex-end;
+  min-height: 300px;
+}
+
+.list {
+  margin: 0;
+  display: flex;
+  list-style-type: none;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 0;
+  max-height: 464px;
+  overflow-y: auto;
+  scrollbar-color: #8585ad #2f2f37;
+  scrollbar-width: auto;
+}

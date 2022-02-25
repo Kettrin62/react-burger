@@ -1,40 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import ingredientdetailsStyles from './ingredient-details.module.css';
 import { useSelector } from 'react-redux';
+import CaloricContent from '../caloric-content/caloric-content';
 
-
-const CaloricContentItem = (props) => {
-  return (
-    <li className={'mr-5 ' + ingredientdetailsStyles.item}>
-      <h4 className='text text_type_main-default text_color_inactive'>{props.title}</h4>
-      <span className='text text_type_digits-default text_color_inactive'>{props.quantity}</span>
-    </li>
-  );
-};
-
-CaloricContentItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  quantity: PropTypes.number.isRequired,
-};
-
-const CaloricContent = () => {
-  const { modalCard } = useSelector(state => state.modal);
-  const {
-    calories,
-    proteins,
-    fat,
-    carbohydrates
-  } = modalCard;
-  return (
-    <ul className={'mt-8 mb-5 ' + ingredientdetailsStyles.list}>
-      <CaloricContentItem title='Калории,ккал' quantity={calories} />
-      <CaloricContentItem title='Белки, г' quantity={proteins} />
-      <CaloricContentItem title='Жиры, г' quantity={fat} />
-      <CaloricContentItem title='Углеводы, г' quantity={carbohydrates} />
-    </ul>
-  );
-};
 
 function IngredientDetails() {
   const { modalCard } = useSelector(state => state.modal);

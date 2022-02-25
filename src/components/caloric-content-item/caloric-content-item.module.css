@@ -1,0 +1,9 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item:last-of-type {
+  margin-right: 0;
+}

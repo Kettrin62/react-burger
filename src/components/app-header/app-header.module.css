@@ -7,12 +7,6 @@
   height: 88px;
 }
 
-.nav {
-  display: flex;
-  gap: 8px;
-  margin-right: 112px;
-}
-
 .link {
   display: flex;
   justify-content: space-between;

@@ -4,47 +4,6 @@
   box-sizing: border-box;
 }
 
-.constructorlist {
-  margin: 0;
-  display: flex;
-  list-style-type: none;
-  flex-direction: column;
-  align-items: flex-end;
-  min-height: 300px;
-}
-
-.list {
-  margin: 0;
-  display: flex;
-  list-style-type: none;
-  flex-direction: column;
-  align-items: flex-end;
-  padding: 0;
-  max-height: 464px;
-  overflow-y: auto;
-  scrollbar-color: #8585ad #2f2f37;
-  scrollbar-width: auto;
-}
-
-.item {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  width: 568px;
-  cursor: pointer;
-}
-
-.item:last-of-type {
-  margin-bottom: 0;
-}
-
-
-.total {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

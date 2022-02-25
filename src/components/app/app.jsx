@@ -10,8 +10,6 @@ import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients';
 
 
-
-
 function App() {
   const dispatch = useDispatch();
 
@@ -21,7 +19,6 @@ function App() {
     },
     [dispatch]
   );
-
 
   return (
     <ErrorBoundary>

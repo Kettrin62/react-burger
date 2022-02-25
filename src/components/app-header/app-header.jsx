@@ -1,38 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Navigation from '../navigation/navigation';
+import Link from '../link/link';
+import LinkText from '../link-text/link-text';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgerIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ProfileIcon  } from '@ya.praktikum/react-developer-burger-ui-components';
 import appheaderStyles from './app-header.module.css';
 
-function Navigation(props) {
-  return (
-    <nav className={appheaderStyles.nav}>
-      {props.children}
-    </nav>
-  )
-}
-
-function Link(props) {
-  return (
-    <a className={'mt-4 mb-4 pl-5 pr-5 ' + props.class}>
-      {props.children}
-    </a>
-  )
-}
-
-function LinkText(props) {
-  return (
-    <p className={props.type==='primary' ? 'pl-2 text text_type_main-default' : 'pl-2 text text_type_main-default  text_color_inactive'}>
-      {props.text}
-    </p>
-  )
-}
-
-LinkText.propTypes = {
-  text: PropTypes.string.isRequired,
-};
 
 function AppHeader() {
   return (
