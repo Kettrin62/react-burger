@@ -1,0 +1,6 @@
+.list {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  list-style-type: none;
+}

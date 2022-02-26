@@ -1,12 +1,18 @@
 import React from 'react';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import orderdetailsStyles from './order-details.module.css';
-import { OrderContext } from '../../services/burger-constructor-context';
+import { useSelector } from 'react-redux';
 
 function OrderDetails() {
-  const order = React.useContext(OrderContext);
-  return (
-    <div className={orderdetailsStyles.container}>
+  const { order, orderRequest, orderFailed } = useSelector(state => state.order);
+
+  if (orderFailed) {
+    return <p>Произошла ошибка при получении данных</p>
+  } else if (orderRequest) {
+    return <p>Загрузка...</p>
+  } else {
+    return (
+      <div className={orderdetailsStyles.container}>
       <h2 className='mt-5 text text_type_digits-large'>
         {order}
       </h2>
@@ -23,7 +29,8 @@ function OrderDetails() {
         Дождитесь готовности на орбитальной станции
       </span>
     </div>
-  );
+    );
+  }
 }
 
 export default OrderDetails;
