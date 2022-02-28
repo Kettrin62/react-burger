@@ -16,7 +16,7 @@
 
 **Приятного пользования!**
 
-[Cсылка на проект *Stellar Burgers*](https://kettrin62.github.io//)
+[Cсылка на проект *Stellar Burgers*](https://kettrin62.github.io/react-burger/)
 
 ## Getting Started with Create React App
 
