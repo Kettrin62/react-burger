@@ -5,7 +5,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 
-function HomePage() {
+export function HomePage() {
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -16,5 +16,3 @@ function HomePage() {
     </DndProvider>
   );
 }
-
-export default HomePage;
