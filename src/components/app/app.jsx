@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
+import HomePage from '../../pages/home';
 import ErrorBoundary from '../error-boundary/error-boundary';
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients';
 
@@ -24,12 +22,13 @@ function App() {
     <ErrorBoundary>
       <div className={appStyles.app}>
         <AppHeader />
-        <DndProvider backend={HTML5Backend}>
-          <main className={appStyles.main}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </main>
-        </DndProvider>
+        <Router>
+          <Switch>
+            <Route path="/" exact={true}>
+              <HomePage />
+            </Route>
+          </Switch>
+        </Router>
       </div>
     </ErrorBoundary>
   );
