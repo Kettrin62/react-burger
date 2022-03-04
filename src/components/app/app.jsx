@@ -3,6 +3,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import { HomePage } from '../../pages/home';
+import { LoginPage } from '../../pages/login';
+import { RegisterPage } from '../../pages/register';
+import { FogotPasswordPage } from '../../pages/forgot-password';
+import { ResetPasswordPage } from '../../pages/reset-password';
 import { NotFound404 } from '../../pages/not-found';
 import ErrorBoundary from '../error-boundary/error-boundary';
 import { useDispatch } from 'react-redux';
@@ -29,16 +33,16 @@ function App() {
               <HomePage />
             </Route>
             <Route path="/login" exact={true}>
-              {/* <LoginPage /> */}
+              <LoginPage />
             </Route>
             <Route path="/register" exact={true}>
-              {/* <RegisterPage /> */}
+              <RegisterPage />
             </Route>
             <Route path="/forgot-password" exact={true}>
-              {/* <HomePage /> */}
+              <FogotPasswordPage />
             </Route>
             <Route path="/reset-password" exact={true}>
-              {/* <HomePage /> */}
+              <ResetPasswordPage />
             </Route>
             <Route path="/profile" exact={true}>
               {/* <ProfilePage /> */}
