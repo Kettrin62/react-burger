@@ -5,8 +5,9 @@ import AppHeader from '../app-header/app-header';
 import { HomePage } from '../../pages/home';
 import { LoginPage } from '../../pages/login';
 import { RegisterPage } from '../../pages/register';
-import { FogotPasswordPage } from '../../pages/forgot-password';
+import { ForgotPasswordPage } from '../../pages/forgot-password';
 import { ResetPasswordPage } from '../../pages/reset-password';
+import { ProfilePage } from '../../pages/profile';
 import { NotFound404 } from '../../pages/not-found';
 import ErrorBoundary from '../error-boundary/error-boundary';
 import { useDispatch } from 'react-redux';
@@ -39,13 +40,13 @@ function App() {
               <RegisterPage />
             </Route>
             <Route path="/forgot-password" exact={true}>
-              <FogotPasswordPage />
+              <ForgotPasswordPage />
             </Route>
             <Route path="/reset-password" exact={true}>
               <ResetPasswordPage />
             </Route>
             <Route path="/profile" exact={true}>
-              {/* <ProfilePage /> */}
+              <ProfilePage />
             </Route>
             <Route path="/ingredients/:id" exact={true}>
               {/* <IngredientIdPage /> */}

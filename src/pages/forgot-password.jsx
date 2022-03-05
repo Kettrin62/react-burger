@@ -4,10 +4,11 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
+import Form from '../components/form/form';
 import loginStyles from './login.module.css';
 
 
-export function FogotPasswordPage() {
+export function ForgotPasswordPage() {
 
   const [emailValue, setEmailValue] = useState('');
 
@@ -17,11 +18,11 @@ export function FogotPasswordPage() {
 
   return (
     <section className={loginStyles.container}>
-      <h2 className='text text_type_main-medium'>
-        Восстановление пароля
-      </h2>
-      <form name='login' className={'mt-6 ' + loginStyles.form}>
-        <fieldset className={loginStyles.form__info}>
+      <div className={loginStyles.content}>
+        <h2 className='text text_type_main-medium'>
+          Восстановление пароля
+        </h2>
+        <Form name='forgot-password' class={'mt-6 '}>
           <Input
             type={'email'}
             placeholder={'Укажите e-mail'}
@@ -36,15 +37,15 @@ export function FogotPasswordPage() {
           <Button type="primary" size='medium'>
             Восстановить
           </Button>
-        </fieldset>
-      </form>
-      <div className={'mt-20 ' + loginStyles.item}>
-        <p className='text text_type_main-default'>
-          Вспомнили пароль?
-        </p>
-        <Link className={'text text_type_main-default ' + loginStyles.link} to='/login'>
-          Войти
-        </Link>
+        </Form>
+        <div className={'mt-20 ' + loginStyles.item}>
+          <p className='text text_type_main-default'>
+            Вспомнили пароль?
+          </p>
+          <Link className={'text text_type_main-default ' + loginStyles.link} to='/login'>
+            Войти
+          </Link>
+        </div>
       </div>
     </section>
   );

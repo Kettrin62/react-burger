@@ -1,27 +1,17 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 480px;
-  /* height: 430px; */
   align-items: center;
-  position: fixed;
-  left: calc(50% - 240px);
-  top: calc(50% - 215px - 88px);
+  width: 100%;
+  padding-top: 180px;
 }
 
-.form {
-  width: 100%;
-}
-
-.form__info {
-  width: 100%;
-  border: none;
-  padding: 0;
-  margin: 0;
+.content {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  width: 480px;
   align-items: center;
+  justify-content: center;
 }
 
 .item {

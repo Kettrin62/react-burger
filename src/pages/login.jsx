@@ -5,6 +5,7 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
+import Form from '../components/form/form';
 import loginStyles from './login.module.css';
 
 
@@ -23,33 +24,33 @@ export function LoginPage() {
 
   return (
     <section className={loginStyles.container}>
-      <h2 className='text text_type_main-medium'>
-        Вход
-      </h2>
-      <form name='login' className={'mt-6 ' + loginStyles.form}>
-        <fieldset className={loginStyles.form__info}>
+      <div className={loginStyles.content}>
+        <h2 className='text text_type_main-medium'>
+          Вход
+        </h2>
+        <Form name='login' class={'mt-6 '}>
           <EmailInput onChange={onChangeEmail} value={emailValue} name={'email'} />
           <PasswordInput onChange={onChangePassword} value={passwordValue} name={'password'} />
           <Button type="primary" size='medium'>
             Войти
           </Button>
-        </fieldset>
-      </form>
-      <div className={'mt-20 ' + loginStyles.item}>
-        <p className='text text_type_main-default'>
-          Вы — новый пользователь?
-        </p>
-        <Link className={'text text_type_main-default ' + loginStyles.link} to='/register'>
-          Зарегистрироваться
-        </Link>
-      </div>
-      <div className={'mt-4 ' + loginStyles.item}>
-        <p className='text text_type_main-default'>
-          Забыли пароль?
-        </p>
-        <Link className={'text text_type_main-default ' + loginStyles.link} to='/forgot-password'>
-          Восстановить пароль
-        </Link>
+        </Form>
+        <div className={'mt-20 ' + loginStyles.item}>
+          <p className='text text_type_main-default'>
+            Вы — новый пользователь?
+          </p>
+          <Link className={'text text_type_main-default ' + loginStyles.link} to='/register'>
+            Зарегистрироваться
+          </Link>
+        </div>
+        <div className={'mt-4 ' + loginStyles.item}>
+          <p className='text text_type_main-default'>
+            Забыли пароль?
+          </p>
+          <Link className={'text text_type_main-default ' + loginStyles.link} to='/forgot-password'>
+            Восстановить пароль
+          </Link>
+        </div>
       </div>
     </section>
   );
