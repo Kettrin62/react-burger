@@ -11,10 +11,10 @@ code {
 }
 
 .input {
-  width: 480px;
-  height: 64px;
-  padding-right: calc(var(--offset-base-size) * 6);
-  padding-left: calc(var(--offset-base-size) * 6);
+  min-width: 480px;
+  /* height: 64px; */
+  /* padding-right: calc(var(--offset-base-size) * 6);
+  padding-left: calc(var(--offset-base-size) * 6); */
 }
 
 

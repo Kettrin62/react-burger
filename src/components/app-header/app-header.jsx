@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useHistory } from 'react-router-dom'; 
 import Navigation from '../navigation/navigation';
 import Link from '../link/link';
 import LinkText from '../link-text/link-text';
@@ -10,6 +11,17 @@ import appheaderStyles from './app-header.module.css';
 
 
 function AppHeader() {
+  const history = useHistory();
+
+
+
+  const onClickProfile = useCallback(
+    // () => {
+    //   history.replace({ pathname: '/profile' });
+    // },
+    // [history]
+  );
+
   return (
     <header className={appheaderStyles.header}>
       <Navigation>
@@ -23,7 +35,7 @@ function AppHeader() {
         </Link>
       </Navigation>
       <Logo />
-      <Link class={appheaderStyles.link_account}>
+      <Link class={appheaderStyles.link_account} >
         <ProfileIcon type='secondary' />
         <LinkText type='secondary' text='Личный кабинет' />
       </Link>

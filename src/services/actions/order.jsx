@@ -1,4 +1,4 @@
-import { BASEURL } from '../../utils/data';
+import { BASEURL, checkResponse } from '../../utils/data';
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
@@ -20,12 +20,7 @@ export function getOrder(cards) {
         ingredients: cards
       })
     })
-    .then(function (res) {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.statusText}`);
-    })
+    .then(checkResponse)
     .then( res  => {
       if (res && res.success) {
                 // В случае успешного получения данных вызываем экшен

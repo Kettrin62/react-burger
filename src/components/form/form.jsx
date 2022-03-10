@@ -3,7 +3,7 @@ import formStyles from './form.module.css';
 
 function Form(props) {
   return (
-    <form name={props.name} className={props.class}>
+    <form name={props.name} className={props.class} onSubmit={props.onSubmit}>
       <fieldset className={formStyles.form__info}>
         {props.children}
       </fieldset>

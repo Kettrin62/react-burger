@@ -3,17 +3,33 @@ import {
   Input,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Form from '../components/form/form';
+import { forgotPassword } from '../services/actions/forgot-password';
 import loginStyles from './login.module.css';
 
 
 export function ForgotPasswordPage() {
+  const { forgotPasswordSuccess } = useSelector(state => state.forgot);
+  const dispatch = useDispatch();
 
   const [emailValue, setEmailValue] = useState('');
 
   const inputRef = useRef(null);
 
+  const forgotPasswordSubmit = e => {
+    e.preventDefault();
+    if (emailValue) {
+      dispatch(forgotPassword(emailValue));
+    }
+  };
+
+  if (forgotPasswordSuccess) {
+    return (
+      <Redirect to={{ pathname: '/reset-password' }} />
+    )
+  }
 
 
   return (
@@ -22,7 +38,7 @@ export function ForgotPasswordPage() {
         <h2 className='text text_type_main-medium'>
           Восстановление пароля
         </h2>
-        <Form name='forgot-password' class={'mt-6 '}>
+        <Form name='forgot-password' class={'mt-6 '} onSubmit={forgotPasswordSubmit}>
           <Input
             type={'email'}
             placeholder={'Укажите e-mail'}
