@@ -48,7 +48,6 @@ export function ForgotPasswordPage() {
             error={false}
             ref={inputRef}
             errorText={'Ошибка'}
-            size={'default'}
           />
           <Button type="primary" size='medium'>
             Восстановить

@@ -27,8 +27,8 @@ function App() {
   return (
     <ErrorBoundary>
       <div className={appStyles.app}>
-        <AppHeader />
         <Router>
+        <AppHeader />
           <Switch>
             <Route path="/" exact={true}>
               <HomePage />

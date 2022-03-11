@@ -52,7 +52,6 @@ export function ResetPasswordPage() {
             error={false}
             ref={inputRef}
             errorText={'Ошибка'}
-            size={'default'}
           />
           <Input
             type={'text'}
@@ -63,7 +62,6 @@ export function ResetPasswordPage() {
             error={false}
             ref={inputRef}
             errorText={'Ошибка'}
-            size={'default'}
           />
           <Button type="primary" size='medium'>
             Сохранить

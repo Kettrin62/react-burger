@@ -3,6 +3,7 @@ import {
   Input,
 
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Form from '../components/form/form';
 import profileStyles from './profile.module.css';
@@ -33,17 +34,28 @@ export function ProfilePage() {
       <div className={'mr-15 ' + profileStyles.navigation}>
         <ul className={profileStyles.list}>
           <li className={profileStyles.list__item}>
-            <Link className={'text text_type_main-medium ' + profileStyles.link_active} to='/login'>
+            <NavLink
+              to='/profile'
+              className={'text text_type_main-medium text_color_inactive ' + profileStyles.link}
+              activeClassName={'text text_type_main-medium ' + profileStyles.link_active}
+            >
               Профиль
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link className={'text text_type_main-medium text_color_inactive ' + profileStyles.link} to='/login'>
+            <NavLink
+              to='/profile/orders'
+              className={'text text_type_main-medium text_color_inactive ' + profileStyles.link}
+              activeClassName={'text text_type_main-medium ' + profileStyles.link_active}
+            >
               История заказов
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link className={'text text_type_main-medium text_color_inactive ' + profileStyles.link} to='/login'>
+            <Link
+              to='/'
+              className={'text text_type_main-medium text_color_inactive ' + profileStyles.link}
+            >
               Выход
             </Link>
           </li>

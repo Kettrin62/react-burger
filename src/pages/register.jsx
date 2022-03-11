@@ -43,7 +43,6 @@ export function RegisterPage() {
             error={false}
             ref={inputRef}
             errorText={'Ошибка'}
-            size={'default'}
           />
           <EmailInput onChange={onChangeEmail} value={emailValue} name={'email'} size='default' />
           <PasswordInput onChange={onChangePassword} value={passwordValue} name={'password'} />

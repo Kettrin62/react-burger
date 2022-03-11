@@ -16,10 +16,10 @@ function AppHeader() {
 
 
   const onClickProfile = useCallback(
-    // () => {
-    //   history.replace({ pathname: '/profile' });
-    // },
-    // [history]
+    () => {
+      history.replace({ pathname: '/profile' });
+    },
+    [history]
   );
 
   return (
@@ -35,7 +35,7 @@ function AppHeader() {
         </Link>
       </Navigation>
       <Logo />
-      <Link class={appheaderStyles.link_account} >
+      <Link class={appheaderStyles.link_account} onClick={onClickProfile}>
         <ProfileIcon type='secondary' />
         <LinkText type='secondary' text='Личный кабинет' />
       </Link>
