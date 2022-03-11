@@ -29,7 +29,7 @@ export function ForgotPasswordPage() {
     return (
       <Redirect to={{ pathname: '/reset-password' }} />
     )
-  }
+  };
 
 
   return (

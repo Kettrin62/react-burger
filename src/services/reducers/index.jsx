@@ -8,6 +8,9 @@ import { modalReducer } from './modal';
 import { orderReducer } from './order';
 import { forgotPasswordReducer } from './forgot-password';
 import { resetPasswordReducer } from './reset-password';
+import { registerReducer } from './register';
+import { loginReducer } from './login';
+import { userReducer } from './user';
 
 // Корневой редьюсер
 export const rootReducer = combineReducers({
@@ -18,4 +21,7 @@ export const rootReducer = combineReducers({
   scroll: scrollReducer,
   forgot: forgotPasswordReducer,
   reset: resetPasswordReducer,
+  register: registerReducer,
+  login: loginReducer,
+  user: userReducer
 })

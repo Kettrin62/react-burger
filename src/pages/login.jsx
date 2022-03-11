@@ -1,25 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
+  Input,
   EmailInput,
   PasswordInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import Form from '../components/form/form';
+import { useDispatch, useSelector } from 'react-redux';
+
 import loginStyles from './login.module.css';
+import { getLogin } from '../services/actions/login';
 
 
 export function LoginPage() {
+  const { loginSuccess } = useSelector(state => state.login);
+  const { name, email, token } = useSelector(state => state.user);
+
+  const dispatch = useDispatch();
 
   const [emailValue, setEmailValue] = useState('');
-  const onChangeEmail = e => {
+  const onChangeEmailValue = e => {
     setEmailValue(e.target.value)
-  }
+  };
 
-  const [passwordValue, setPasswordValue] = React.useState('')
-  const onChangePassword = e => {
+  const [passwordValue, setPasswordValue] = React.useState('');
+  const onChangePasswordValue = e => {
     setPasswordValue(e.target.value)
-  }
+  };
+
+  const inputRef = useRef(null);
+
+  const loginSubmit = e => {
+    e.preventDefault();
+    if (emailValue && passwordValue) {
+      const dataRegister = {
+        email: emailValue,
+        password: passwordValue
+      };
+      dispatch(getLogin(dataRegister));
+      console.log(loginSuccess);
+    }
+  };
+
+  console.log(name, email, token);
 
 
   return (
@@ -28,9 +52,22 @@ export function LoginPage() {
         <h2 className='text text_type_main-medium'>
           Вход
         </h2>
-        <Form name='login' class={'mt-6 '}>
-          <EmailInput onChange={onChangeEmail} value={emailValue} name={'email'} />
-          <PasswordInput onChange={onChangePassword} value={passwordValue} name={'password'} />
+        <Form name='login' class={'mt-6 '} onSubmit={loginSubmit}>
+          <Input
+            type={'email'}
+            placeholder={'Email'}
+            onChange={onChangeEmailValue}
+            value={emailValue}
+            name={'email'}
+            error={false}
+            ref={inputRef}
+            errorText={'Ошибка'}
+          />
+          <PasswordInput
+            onChange={onChangePasswordValue}
+            value={passwordValue}
+            name={'password'}
+          />
           <Button type="primary" size='medium'>
             Войти
           </Button>
