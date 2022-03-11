@@ -7,6 +7,7 @@ import { cardsReducer } from './constructor';
 import { modalReducer } from './modal';
 import { orderReducer } from './order';
 import { forgotPasswordReducer } from './forgot-password';
+import { resetPasswordReducer } from './reset-password';
 
 // Корневой редьюсер
 export const rootReducer = combineReducers({
@@ -16,4 +17,5 @@ export const rootReducer = combineReducers({
   order: orderReducer,
   scroll: scrollReducer,
   forgot: forgotPasswordReducer,
+  reset: resetPasswordReducer,
 })

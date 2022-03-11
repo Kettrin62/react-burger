@@ -4,15 +4,34 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Form from '../components/form/form';
+import { resetPassword } from '../services/actions/reset-password';
 import loginStyles from './login.module.css';
 
 
 export function ResetPasswordPage() {
+  const { resetPasswordSuccess } = useSelector(state => state.reset);
+  const dispatch = useDispatch();
 
-  const [emailValue, setEmailValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
+  const onChangePasswordValue = e => {
+    setPasswordValue(e.target.value);
+  };
+
+  const [codeValue, setCodeValue] = React.useState("");
+  const onChangeCodeValue = e => {
+    setCodeValue(e.target.value);
+  };
 
   const inputRef = useRef(null);
+
+  const resetPasswordSubmit = e => {
+    e.preventDefault();
+    if (passwordValue && codeValue) {
+      dispatch(resetPassword(passwordValue, codeValue));
+    }
+  };
 
 
 
@@ -22,13 +41,13 @@ export function ResetPasswordPage() {
         <h2 className='text text_type_main-medium'>
           Восстановление пароля
         </h2>
-        <Form name='reset-password' class={'mt-6 '}>
+        <Form name='reset-password' class={'mt-6 '} onSubmit={resetPasswordSubmit}>
           <Input
-            type={'email'}
+            type={'password'}
             placeholder={'Введите новый пароль'}
-            onChange={e => setEmailValue(e.target.value)}
+            onChange={onChangePasswordValue}
             icon={'ShowIcon'}
-            value={emailValue}
+            value={passwordValue}
             name={'email'}
             error={false}
             ref={inputRef}
@@ -36,11 +55,11 @@ export function ResetPasswordPage() {
             size={'default'}
           />
           <Input
-            type={'email'}
+            type={'text'}
             placeholder={'Введите код из письма'}
-            onChange={e => setEmailValue(e.target.value)}
-            value={emailValue}
-            name={'email'}
+            onChange={onChangeCodeValue}
+            value={codeValue}
+            name={'code'}
             error={false}
             ref={inputRef}
             errorText={'Ошибка'}

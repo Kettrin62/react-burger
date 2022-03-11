@@ -5,13 +5,13 @@ export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
 export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
 
 
-export function resetPassword({ password, token }) {
+export function resetPassword(password, token) {
   return function(dispatch) {
     dispatch({
       type: RESET_PASSWORD_REQUEST
     })
     // Запрашиваем данные у сервера
-    fetch(`${BASEURL}/password-reset`, {
+    fetch(`${BASEURL}/password-reset/reset`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

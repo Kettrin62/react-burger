@@ -10,7 +10,7 @@ const initialState = {
   resetPasswordSuccess: false,
 };
 
-export const forgotPasswordReducer = (state = initialState, action) => {
+export const resetPasswordReducer = (state = initialState, action) => {
   switch (action.type) {
     case RESET_PASSWORD_REQUEST: {
       return {
