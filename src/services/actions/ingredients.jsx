@@ -1,4 +1,5 @@
-import { BASEURL, checkResponse } from '../../utils/data';
+import { BASEURL } from '../../utils/data';
+import { checkResponse } from '../../utils/functions';
 
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';

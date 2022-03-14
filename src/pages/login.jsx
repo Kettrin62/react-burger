@@ -5,7 +5,7 @@ import {
   PasswordInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Form from '../components/form/form';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -34,16 +34,19 @@ export function LoginPage() {
   const loginSubmit = e => {
     e.preventDefault();
     if (emailValue && passwordValue) {
-      const dataRegister = {
+      const dataLogin = {
         email: emailValue,
         password: passwordValue
       };
-      dispatch(getLogin(dataRegister));
-      console.log(loginSuccess);
+      dispatch(getLogin(dataLogin));
     }
   };
 
-  console.log(name, email, token);
+  if (loginSuccess) {
+    return (
+      <Redirect to={{ pathname: '/' }} />
+    )
+  };
 
 
   return (

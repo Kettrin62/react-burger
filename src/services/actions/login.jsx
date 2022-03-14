@@ -1,9 +1,15 @@
-import { BASEURL, checkResponse } from '../../utils/data';
-import { GET_USER_DATA } from './user';
+import { BASEURL } from '../../utils/data';
+import { checkResponse } from '../../utils/functions';
+import { setCookie } from '../../utils/functions';
+import {
+  SET_USER_DATA,
+  RESET_TOKEN
+} from './user';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
+
 
 export function getLogin({ email, password }) {
   return function(dispatch) {
@@ -28,13 +34,21 @@ export function getLogin({ email, password }) {
                 // для записи полученных данных в хранилище
         dispatch({
           type: LOGIN_SUCCESS,
-        })
+        });
         dispatch({
-          type: GET_USER_DATA,
+          type: SET_USER_DATA,
           name: res.user.name,
           email: res.user.email,
           token: res.accessToken
         });
+        const refreshToken = res.refreshToken;
+        setCookie('refreshToken', refreshToken);
+        function resetToken() {
+          dispatch({
+            type: RESET_TOKEN,
+          });
+        }
+        setTimeout(resetToken, 1200000);
       } else {
                 // Если произошла ошибка, отправляем соотвтествующий экшен
         dispatch({

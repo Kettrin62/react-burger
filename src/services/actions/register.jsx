@@ -1,4 +1,8 @@
-import { BASEURL, checkResponse } from '../../utils/data';
+import { BASEURL } from '../../utils/data';
+import { checkResponse } from '../../utils/functions';
+import { setCookie } from '../../utils/functions';
+
+import { SET_USER_DATA } from './user';
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
@@ -28,7 +32,15 @@ export function register({ email, password, name }) {
                 // для записи полученных данных в хранилище
         dispatch({
           type: REGISTER_SUCCESS,
-        })
+        });
+        dispatch({
+          type: SET_USER_DATA,
+          name: res.user.name,
+          email: res.user.email,
+          token: res.accessToken
+        });
+        const refreshToken = res.refreshToken;
+        setCookie('refreshToken', refreshToken);
       } else {
                 // Если произошла ошибка, отправляем соотвтествующий экшен
         dispatch({

@@ -1,4 +1,6 @@
-import { BASEURL, checkResponse } from '../../utils/data';
+import { BASEURL } from '../../utils/data';
+import { checkResponse } from '../../utils/functions';
+
 
 export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';

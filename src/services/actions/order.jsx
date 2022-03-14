@@ -1,4 +1,5 @@
-import { BASEURL, checkResponse } from '../../utils/data';
+import { BASEURL } from '../../utils/data';
+import { checkResponse } from '../../utils/functions';
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';

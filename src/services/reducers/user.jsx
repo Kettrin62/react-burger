@@ -1,15 +1,23 @@
-import { GET_USER_DATA } from "../actions/user";
+import {
+  SET_USER_DATA,
+  RESET_TOKEN,
+  UPDATE_TOKEN_REQUEST,
+  UPDATE_TOKEN_SUCCESS,
+  UPDATE_TOKEN_FAILED,
+} from "../actions/user";
 
 const initialState = {
   name: null,
   email: null,
   token: null,
   isAuthenticated: false,
+  updateTokenRequest: false,
+  updateTokenFailed: false,
 };
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_USER_DATA: {
+    case SET_USER_DATA: {
       return {
         ...state,
         name: action.name,
@@ -18,6 +26,35 @@ export const userReducer = (state = initialState, action) => {
         isAuthenticated: true
       };
     }
+    case UPDATE_TOKEN_REQUEST: {
+      return {
+        ...state,
+        updateTokenRequest: true,
+      }
+    }
+    case UPDATE_TOKEN_SUCCESS: {
+      return {
+        ...state,
+        updateTokenRequest: false,
+        updateTokenFailed: false,
+        token: action.token
+      }
+    }
+    case UPDATE_TOKEN_FAILED: {
+      return {
+        ...state,
+        updateTokenFailed: true,
+        updateTokenRequest: false,
+      }
+    }
+
+    case RESET_TOKEN: {
+      return {
+        ...state,
+        token: null
+      }
+    }
+
     
     default:
       return state;
