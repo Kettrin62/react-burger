@@ -1,30 +1,41 @@
 import React, { useState, useRef } from 'react';
-import { 
-  Input,
-
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Form from '../components/form/form';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCookie } from '../utils/functions';
+import { logout } from '../services/actions/logout';
 import profileStyles from './profile.module.css';
 
 
 export function ProfilePage() {
+  const { name, email, token } = useSelector(state => state.user);
+
+  const dispatch = useDispatch();
 
   const [emailValue, setEmailValue] = useState('mail@stellar.burgers');
   const onChangeEmail = e => {
     setEmailValue(e.target.value)
   };
 
-  const [passwordValue, setPasswordValue] = React.useState('lalala')
+  const [passwordValue, setPasswordValue] = React.useState('lalala');
   const onChangePassword = e => {
     setPasswordValue(e.target.value)
   };
 
   const [nameValue, setNameValue] = useState('Марк');
+  const onChangeName = e => {
+    setNameValue(e.target.value)
+  };
 
   const inputRef = useRef(null);
 
+  const onClickLogout = () => {
+    const refreshToken = getCookie('refreshToken');
+    dispatch(logout(refreshToken));
+  }
+  
 
 
 
@@ -55,6 +66,7 @@ export function ProfilePage() {
             <Link
               to='/'
               className={'text text_type_main-medium text_color_inactive ' + profileStyles.link}
+              onClick={onClickLogout}
             >
               Выход
             </Link>
@@ -68,7 +80,7 @@ export function ProfilePage() {
         <Input
           type={'text'}
           placeholder={'Имя'}
-          onChange={e => setNameValue(e.target.value)}
+          onChange={onChangeName}
           icon={'EditIcon'}
           value={nameValue}
           name={'name'}

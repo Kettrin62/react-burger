@@ -4,6 +4,7 @@ import {
   UPDATE_TOKEN_REQUEST,
   UPDATE_TOKEN_SUCCESS,
   UPDATE_TOKEN_FAILED,
+  DELETE_USER_DATA
 } from "../actions/user";
 
 const initialState = {
@@ -47,11 +48,19 @@ export const userReducer = (state = initialState, action) => {
         updateTokenRequest: false,
       }
     }
-
     case RESET_TOKEN: {
       return {
         ...state,
         token: null
+      }
+    }
+    case DELETE_USER_DATA: {
+      return {
+        ...state,
+        name: null,
+        email: null,
+        token: null,
+        isAuthenticated: false
       }
     }
 

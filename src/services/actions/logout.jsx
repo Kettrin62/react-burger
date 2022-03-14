@@ -1,31 +1,26 @@
 import { BASEURL } from '../../utils/data';
 import { checkResponse } from '../../utils/functions';
-import { setCookie } from '../../utils/functions';
+import { DELETE_USER_DATA } from './user';
+import { deleteCookie, getCookie } from '../../utils/functions';
 
-import {
-  SET_USER_DATA,
-  RESET_TOKEN
-} from './user';
 
-export const REGISTER_REQUEST = 'REGISTER_REQUEST';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_FAILED = 'REGISTER_FAILED';
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILED = 'LOGOUT_FAILED';
 
-export function register({ email, password, name }) {
+export function logout(token) {
   return function(dispatch) {
     dispatch({
-      type: REGISTER_REQUEST
+      type: LOGOUT_REQUEST
     })
     // Запрашиваем данные у сервера
-    fetch(`${BASEURL}/auth/register`, {
+    fetch(`${BASEURL}/auth/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: email,
-        password: password,
-        name: name
+        token: token
       })
     })
     .then(checkResponse)
@@ -34,33 +29,20 @@ export function register({ email, password, name }) {
                 // В случае успешного получения данных вызываем экшен
                 // для записи полученных данных в хранилище
         dispatch({
-          type: REGISTER_SUCCESS,
+          type: DELETE_USER_DATA
         });
-        dispatch({
-          type: SET_USER_DATA,
-          name: res.user.name,
-          email: res.user.email,
-          token: res.accessToken
-        });
-        const refreshToken = res.refreshToken;
-        setCookie('refreshToken', refreshToken);
-        function resetToken() {
-          dispatch({
-            type: RESET_TOKEN,
-          });
-        }
-        setTimeout(resetToken, 1200000);
+        deleteCookie('refreshToken');
       } else {
                 // Если произошла ошибка, отправляем соотвтествующий экшен
         dispatch({
-          type: REGISTER_FAILED
+          type: LOGOUT_FAILED
         })
       }
     })
     .catch( err => {
             // Если сервер не вернул данных, также отправляем экшен об ошибке
       dispatch({
-          type: REGISTER_FAILED
+          type: LOGOUT_FAILED
       })
     })
   }
