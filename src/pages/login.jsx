@@ -5,17 +5,16 @@ import {
   PasswordInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, Redirect } from 'react-router-dom';
 import Form from '../components/form/form';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { Link,  Redirect, useLocation } from "react-router-dom";
 import loginStyles from './login.module.css';
 import { getLogin } from '../services/actions/login';
 
 
 export function LoginPage() {
-  // const { loginSuccess } = useSelector(state => state.login);
   const { name, email, token, isAuthenticated } = useSelector(state => state.user);
+  const { state } = useLocation();
 
   const dispatch = useDispatch();
 
@@ -44,7 +43,7 @@ export function LoginPage() {
 
   if (isAuthenticated) {
     return (
-      <Redirect to={{ pathname: '/' }} />
+      <Redirect to={ state?.from || '/' } />
     )
   };
 

@@ -85,7 +85,8 @@ export const userReducer = (state = initialState, action) => {
         userDataRequest: false,
         userDataFailed: false,
         name: action.name,
-        email: action.email
+        email: action.email,
+        isAuthenticated: true
       }
     }
     case GET_USER_DATA_FAILED: {

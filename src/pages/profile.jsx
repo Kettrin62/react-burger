@@ -15,7 +15,6 @@ import { updateUserData } from '../services/actions/user';
 
 export function ProfilePage() {
   const { name, email, token, isAuthenticated } = useSelector(state => state.user);
-  console.log(name, email, token);
   const [changValue, setChangeValue] = useState(false);
 
   const dispatch = useDispatch();
@@ -66,11 +65,6 @@ export function ProfilePage() {
     setNameValue(name);
     setPasswordValue('');
   };
-  
-
-  console.log(changValue);
-
-
 
   return (
     <section className={profileStyles.container}>

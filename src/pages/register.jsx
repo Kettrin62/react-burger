@@ -6,14 +6,14 @@ import {
   PasswordInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import Form from '../components/form/form';
 import { register } from '../services/actions/register';
 import loginStyles from './login.module.css';
 
 
 export function RegisterPage() {
-  // const { registerSuccess } = useSelector(state => state.register);
+  const { state } = useLocation();
   const { isAuthenticated } = useSelector(state => state.user);
   const dispatch = useDispatch();
 
@@ -46,14 +46,9 @@ export function RegisterPage() {
     }
   };
 
-  // if (registerSuccess) {
-  //   return (
-  //     <Redirect to={{ pathname: '/' }} />
-  //   )
-  // };
   if (isAuthenticated) {
     return (
-      <Redirect to={{ pathname: '/' }} />
+      <Redirect to={ state?.from || '/' } />
     )
   };
 

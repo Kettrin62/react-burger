@@ -12,13 +12,14 @@ import { NotFound404 } from '../../pages/not-found';
 import ErrorBoundary from '../error-boundary/error-boundary';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients';
+import { ProtectedRoute } from '../protected-route/protected-route';
 import { getCookie } from '../../utils/functions';
 
 import { updateToken, getUserData } from '../../services/actions/user';
 
 
 function App() {
-  const { name, email, token } = useSelector(state => state.user);
+  const { name, email, token, isAuthenticated } = useSelector(state => state.user);
 
   const dispatch = useDispatch();
 
@@ -32,14 +33,16 @@ function App() {
   useEffect(
     () => {
       const refreshToken = getCookie('refreshToken');
+      console.log(refreshToken)
       if (refreshToken) {
         dispatch(getUserData(refreshToken));
+        console.log(name);
       }
     },
     []
   );
 
-  console.log(token, name);
+  console.log(isAuthenticated)
 
   return (
     <ErrorBoundary>
@@ -62,9 +65,9 @@ function App() {
             <Route path="/reset-password" exact={true}>
               <ResetPasswordPage />
             </Route>
-            <Route path="/profile" exact={true}>
+            <ProtectedRoute path="/profile" exact={true}>
               <ProfilePage />
-            </Route>
+            </ProtectedRoute>
             <Route path="/ingredients/:id" exact={true}>
               {/* <IngredientIdPage /> */}
             </Route>

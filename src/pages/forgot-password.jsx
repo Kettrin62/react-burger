@@ -3,7 +3,7 @@ import {
   Input,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Form from '../components/form/form';
 import { forgotPassword } from '../services/actions/forgot-password';
@@ -12,6 +12,9 @@ import loginStyles from './login.module.css';
 
 export function ForgotPasswordPage() {
   const { forgotPasswordSuccess } = useSelector(state => state.forgot);
+  const { isAuthenticated } = useSelector(state => state.user);
+  const { state } = useLocation();
+
   const dispatch = useDispatch();
 
   const [emailValue, setEmailValue] = useState('');
@@ -28,6 +31,12 @@ export function ForgotPasswordPage() {
   if (forgotPasswordSuccess) {
     return (
       <Redirect to={{ pathname: '/reset-password' }} />
+    )
+  };
+
+  if (isAuthenticated) {
+    return (
+      <Redirect to={ state?.from || '/' } />
     )
   };
 
