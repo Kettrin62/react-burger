@@ -14,8 +14,8 @@ import { getLogin } from '../services/actions/login';
 
 
 export function LoginPage() {
-  const { loginSuccess } = useSelector(state => state.login);
-  const { name, email, token } = useSelector(state => state.user);
+  // const { loginSuccess } = useSelector(state => state.login);
+  const { name, email, token, isAuthenticated } = useSelector(state => state.user);
 
   const dispatch = useDispatch();
 
@@ -24,7 +24,7 @@ export function LoginPage() {
     setEmailValue(e.target.value)
   };
 
-  const [passwordValue, setPasswordValue] = React.useState('');
+  const [passwordValue, setPasswordValue] = useState('');
   const onChangePasswordValue = e => {
     setPasswordValue(e.target.value)
   };
@@ -42,7 +42,7 @@ export function LoginPage() {
     }
   };
 
-  if (loginSuccess) {
+  if (isAuthenticated) {
     return (
       <Redirect to={{ pathname: '/' }} />
     )

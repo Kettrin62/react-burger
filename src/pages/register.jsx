@@ -13,7 +13,8 @@ import loginStyles from './login.module.css';
 
 
 export function RegisterPage() {
-  const { registerSuccess } = useSelector(state => state.register);
+  // const { registerSuccess } = useSelector(state => state.register);
+  const { isAuthenticated } = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   const [nameValue, setNameValue] = React.useState('');
@@ -45,7 +46,12 @@ export function RegisterPage() {
     }
   };
 
-  if (registerSuccess) {
+  // if (registerSuccess) {
+  //   return (
+  //     <Redirect to={{ pathname: '/' }} />
+  //   )
+  // };
+  if (isAuthenticated) {
     return (
       <Redirect to={{ pathname: '/' }} />
     )

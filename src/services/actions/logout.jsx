@@ -8,6 +8,7 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILED = 'LOGOUT_FAILED';
 
+
 export function logout(token) {
   return function(dispatch) {
     dispatch({
@@ -26,12 +27,14 @@ export function logout(token) {
     .then(checkResponse)
     .then( res  => {
       if (res && res.success) {
-                // В случае успешного получения данных вызываем экшен
-                // для записи полученных данных в хранилище
+        dispatch({
+          type: LOGOUT_SUCCESS,
+        })
         dispatch({
           type: DELETE_USER_DATA
         });
         deleteCookie('refreshToken');
+        console.log(getCookie('refreshToken'))
       } else {
                 // Если произошла ошибка, отправляем соотвтествующий экшен
         dispatch({

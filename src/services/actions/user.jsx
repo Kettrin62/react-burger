@@ -9,6 +9,12 @@ export const UPDATE_TOKEN_REQUEST = 'UPDATE_TOKEN_REQUEST';
 export const UPDATE_TOKEN_SUCCESS = 'UPDATE_TOKEN_SUCCESS';
 export const UPDATE_TOKEN_FAILED = 'UPDATE_TOKEN_FAILED';
 export const DELETE_USER_DATA = 'DELETE_USER_DATA';
+export const GET_USER_DATA_REQUEST = 'GET_USER_DATA_REQUEST';
+export const GET_USER_DATA_SUCCESS = 'GET_USER_DATA_SUCCESS';
+export const GET_USER_DATA_FAILED = 'GET_USER_DATA_FAILED';
+export const UPDATE_USER_DATA_REQUEST = 'UPDATE_USER_DATA_REQUEST';
+export const UPDATE_USER_DATA_SUCCESS = 'UPDATE_USER_DATA_SUCCESS';
+export const UPDATE_USER_DATA_FAILED = 'UPDATE_USER_DATA_FAILED';
 
 export function updateToken(token) {
   return function(dispatch) {
@@ -56,4 +62,143 @@ export function updateToken(token) {
       })
     })
   }
+};
+
+export function getUserData(token) {
+  return function (dispatch) {
+    dispatch({
+      type: GET_USER_DATA_REQUEST
+    })
+    fetch(`${BASEURL}/auth/token`, {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        token: token
+      }),
+    })
+    .then(checkResponse)
+    .then( res => {
+      if (res && res.success) {
+        dispatch({
+          type: UPDATE_TOKEN_SUCCESS,
+          token: res.accessToken
+        });
+        const refreshToken = res.refreshToken;
+        setCookie('refreshToken', refreshToken);
+        function resetToken() {
+          dispatch({
+            type: RESET_TOKEN,
+          });
+        }
+        setTimeout(resetToken, 1200000);
+        return res;
+      }
+    })
+    .then( res => {
+      fetch(`${BASEURL}/auth/user`, {
+        headers: { 
+          authorization: res.accessToken,
+          "Content-Type": "application/json"
+        },
+      })
+      .then(checkResponse)
+      .then( res => {
+        if (res && res.success) {
+          dispatch({
+            type: GET_USER_DATA_SUCCESS,
+            name: res.user.name,
+            email: res.user.email
+          });
+        } else {
+          dispatch({
+            type: GET_USER_DATA_FAILED
+          });
+        }
+      }).catch( err => {
+        dispatch({
+          type: GET_USER_DATA_FAILED
+        });
+      })
+    })
+    .catch( err => {
+      dispatch({
+        type: GET_USER_DATA_FAILED
+      });
+    });
+  }
+};
+
+export function updateUserData(token, data) {
+  return function (dispatch) {
+    dispatch({
+      type: UPDATE_USER_DATA_REQUEST
+    })
+    fetch(`${BASEURL}/auth/token`, {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        token: token
+      }),
+    })
+    .then(checkResponse)
+    .then( res => {
+      if (res && res.success) {
+        dispatch({
+          type: UPDATE_TOKEN_SUCCESS,
+          token: res.accessToken
+        });
+        const refreshToken = res.refreshToken;
+        setCookie('refreshToken', refreshToken);
+        function resetToken() {
+          dispatch({
+            type: RESET_TOKEN,
+          });
+        }
+        setTimeout(resetToken, 1200000);
+        return res;
+      }
+    })
+    .then( res => {
+      fetch(`${BASEURL}/auth/user`, {
+        method: "PATCH",
+        headers: { 
+          authorization: res.accessToken,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          password: data.password
+        }),
+      })
+      .then(checkResponse)
+      .then( res => {
+        if (res && res.success) {
+          dispatch({
+            type: UPDATE_USER_DATA_SUCCESS,
+            name: res.user.name,
+            email: res.user.email
+          });
+        } else {
+          dispatch({
+            type: UPDATE_USER_DATA_FAILED
+          });
+        }
+      }).catch( err => {
+        dispatch({
+          type: UPDATE_USER_DATA_FAILED
+        });
+      })
+    })
+    .catch( err => {
+      dispatch({
+        type: UPDATE_USER_DATA_FAILED
+      });
+    });
+  }
 }
+

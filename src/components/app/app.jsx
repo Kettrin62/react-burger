@@ -10,11 +10,16 @@ import { ResetPasswordPage } from '../../pages/reset-password';
 import { ProfilePage } from '../../pages/profile';
 import { NotFound404 } from '../../pages/not-found';
 import ErrorBoundary from '../error-boundary/error-boundary';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients';
+import { getCookie } from '../../utils/functions';
+
+import { updateToken, getUserData } from '../../services/actions/user';
 
 
 function App() {
+  const { name, email, token } = useSelector(state => state.user);
+
   const dispatch = useDispatch();
 
   useEffect(
@@ -23,6 +28,18 @@ function App() {
     },
     [dispatch]
   );
+
+  useEffect(
+    () => {
+      const refreshToken = getCookie('refreshToken');
+      if (refreshToken) {
+        dispatch(getUserData(refreshToken));
+      }
+    },
+    []
+  );
+
+  console.log(token, name);
 
   return (
     <ErrorBoundary>

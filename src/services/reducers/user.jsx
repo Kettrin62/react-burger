@@ -4,16 +4,26 @@ import {
   UPDATE_TOKEN_REQUEST,
   UPDATE_TOKEN_SUCCESS,
   UPDATE_TOKEN_FAILED,
-  DELETE_USER_DATA
+  DELETE_USER_DATA,
+  GET_USER_DATA_REQUEST,
+  GET_USER_DATA_SUCCESS,
+  GET_USER_DATA_FAILED,
+  UPDATE_USER_DATA_REQUEST,
+  UPDATE_USER_DATA_SUCCESS,
+  UPDATE_USER_DATA_FAILED,
 } from "../actions/user";
 
 const initialState = {
-  name: null,
-  email: null,
+  name: '',
+  email: '',
   token: null,
   isAuthenticated: false,
+
   updateTokenRequest: false,
   updateTokenFailed: false,
+  userDataRequest: false,
+  userDataFailed: false,
+
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -57,10 +67,54 @@ export const userReducer = (state = initialState, action) => {
     case DELETE_USER_DATA: {
       return {
         ...state,
-        name: null,
-        email: null,
+        name: '',
+        email: '',
         token: null,
         isAuthenticated: false
+      }
+    }
+    case GET_USER_DATA_REQUEST: {
+      return {
+        ...state,
+        userDataRequest: true,
+      }
+    }
+    case GET_USER_DATA_SUCCESS: {
+      return {
+        ...state,
+        userDataRequest: false,
+        userDataFailed: false,
+        name: action.name,
+        email: action.email
+      }
+    }
+    case GET_USER_DATA_FAILED: {
+      return {
+        ...state,
+        userDataFailed: true,
+        userDataRequest: false,
+      }
+    }
+    case UPDATE_USER_DATA_REQUEST: {
+      return {
+        ...state,
+        userDataRequest: true,
+      }
+    }
+    case UPDATE_USER_DATA_SUCCESS: {
+      return {
+        ...state,
+        userDataRequest: false,
+        userDataFailed: false,
+        name: action.name,
+        email: action.email
+      }
+    }
+    case UPDATE_USER_DATA_FAILED: {
+      return {
+        ...state,
+        userDataFailed: true,
+        userDataRequest: false,
       }
     }
 
