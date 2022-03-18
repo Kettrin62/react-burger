@@ -20,6 +20,7 @@ import { updateToken, getUserData } from '../../services/actions/user';
 
 function App() {
   const { name, email, token, isAuthenticated } = useSelector(state => state.user);
+  // console.log(name);
 
   const dispatch = useDispatch();
 
@@ -30,25 +31,22 @@ function App() {
     [dispatch]
   );
 
-  useEffect(
-    () => {
-      const refreshToken = getCookie('refreshToken');
-      console.log(refreshToken)
-      if (refreshToken) {
-        dispatch(getUserData(refreshToken));
-        console.log(name);
-      }
-    },
-    []
-  );
+  const initUser = () => {
+    const refreshToken = getCookie('refreshToken');
+    if (refreshToken) {
+      dispatch(getUserData(refreshToken));
+    }
+  };
 
-  console.log(isAuthenticated)
+  useEffect(() => {
+    initUser();
+  }, []);
 
   return (
     <ErrorBoundary>
       <div className={appStyles.app}>
         <Router>
-        <AppHeader />
+          <AppHeader />
           <Switch>
             <Route path="/" exact={true}>
               <HomePage />

@@ -34,7 +34,6 @@ export function logout(token) {
           type: DELETE_USER_DATA
         });
         deleteCookie('refreshToken');
-        console.log(getCookie('refreshToken'))
       } else {
                 // Если произошла ошибка, отправляем соотвтествующий экшен
         dispatch({

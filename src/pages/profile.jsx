@@ -90,7 +90,7 @@ export function ProfilePage() {
           </li>
           <li>
             <Link
-              to='/'
+              to='/login'
               className={'text text_type_main-medium text_color_inactive ' + profileStyles.link}
               onClick={onClickLogout}
             >

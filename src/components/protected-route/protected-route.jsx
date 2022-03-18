@@ -12,23 +12,23 @@ export function ProtectedRoute({ children, ...rest }) {
   
   const dispatch = useDispatch();
   
-  const init = async () => {
-    const refreshToken = getCookie('refreshToken');
-    if (refreshToken) {
-      dispatch(getUserData(refreshToken));
-    }
-    setUserLoaded(true);
-  };
+  // const init = async () => {
+  //   const refreshToken = getCookie('refreshToken');
+  //   if (refreshToken) {
+  //     dispatch(getUserData(refreshToken));
+  //   }
+  //   setUserLoaded(true);
+  // };
   
-  useEffect(() => {
-    init();
-    console.log(isAuthenticated);
-    console.log(isUserLoaded)
-  }, []);
+  // useEffect(() => {
+  //   init();
+  // }, []);
+
+  // console.log(isUserLoaded);
   
-  if (!isUserLoaded) {
-    return null;
-  }
+  // if (!isUserLoaded) {
+  //   return null;
+  // }
 
   return (
     <Route

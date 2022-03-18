@@ -43,7 +43,6 @@ export function getLogin({ email, password }) {
         });
         const refreshToken = res.refreshToken;
         setCookie('refreshToken', refreshToken);
-        console.log(refreshToken);
         function resetToken() {
           dispatch({
             type: RESET_TOKEN,
