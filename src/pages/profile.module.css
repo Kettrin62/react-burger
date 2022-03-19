@@ -29,6 +29,7 @@
 .link {
   text-decoration: none;
   padding: 0;
+  cursor: pointer;
 }
 
 .link_active {

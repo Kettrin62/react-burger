@@ -10,6 +10,8 @@ import { Link, Redirect, useLocation } from 'react-router-dom';
 import Form from '../components/form/form';
 import { register } from '../services/actions/register';
 import loginStyles from './login.module.css';
+import { getCookie } from '../utils/functions';
+
 
 
 export function RegisterPage() {
@@ -45,6 +47,15 @@ export function RegisterPage() {
       dispatch(register(dataRegister));
     }
   };
+
+  const refreshToken = getCookie('refreshToken');
+
+  if (refreshToken) {
+    if (!isAuthenticated) {
+      return <p>Загрузка...</p>;
+    }
+  };
+
 
   if (isAuthenticated) {
     return (

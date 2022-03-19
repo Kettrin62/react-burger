@@ -20,7 +20,7 @@ import { updateToken, getUserData } from '../../services/actions/user';
 
 function App() {
   const { name, email, token, isAuthenticated } = useSelector(state => state.user);
-  // console.log(name);
+  console.log(isAuthenticated);
 
   const dispatch = useDispatch();
 

@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Form from '../components/form/form';
 import { forgotPassword } from '../services/actions/forgot-password';
 import loginStyles from './login.module.css';
+import { getCookie } from '../utils/functions';
+
 
 
 export function ForgotPasswordPage() {
@@ -32,6 +34,14 @@ export function ForgotPasswordPage() {
     return (
       <Redirect to={{ pathname: '/reset-password' }} />
     )
+  };
+
+  const refreshToken = getCookie('refreshToken');
+
+  if (refreshToken) {
+    if (!isAuthenticated) {
+      return <p>Загрузка...</p>;
+    }
   };
 
   if (isAuthenticated) {

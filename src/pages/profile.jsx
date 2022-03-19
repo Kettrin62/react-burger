@@ -4,7 +4,7 @@ import {
   Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink } from 'react-router-dom';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import Form from '../components/form/form';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCookie } from '../utils/functions';
@@ -16,6 +16,9 @@ import { updateUserData } from '../services/actions/user';
 export function ProfilePage() {
   const { name, email, token, isAuthenticated } = useSelector(state => state.user);
   const [changValue, setChangeValue] = useState(false);
+
+  const { state } = useLocation();
+  console.log(state);
 
   const dispatch = useDispatch();
 
@@ -58,12 +61,14 @@ export function ProfilePage() {
     };
     const refreshToken = getCookie('refreshToken');
     dispatch(updateUserData(refreshToken, dataUser));    
+    setChangeValue(false);
   };
 
   const onClickCancel = () => {
     setEmailValue(email);
     setNameValue(name);
     setPasswordValue('');
+    setChangeValue(false);
   };
 
   return (
@@ -89,13 +94,12 @@ export function ProfilePage() {
             </NavLink>
           </li>
           <li>
-            <Link
-              to='/login'
+            <p
               className={'text text_type_main-medium text_color_inactive ' + profileStyles.link}
               onClick={onClickLogout}
             >
               Выход
-            </Link>
+            </p>
           </li>
         </ul>
         <p className='mt-20 text text_type_main-default text_color_inactive '>
