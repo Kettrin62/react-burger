@@ -153,12 +153,13 @@ export function updateUserData(token, data) {
         });
         const refreshToken = res.refreshToken;
         setCookie('refreshToken', refreshToken);
-        function resetToken() {
+        function updateToken() {
           dispatch({
-            type: RESET_TOKEN,
+            type: UPDATE_TOKEN_SUCCESS,
+            token: res.accessToken
           });
         }
-        setTimeout(resetToken, 1200000);
+        setInterval(updateToken, 1200000);
         return res;
       }
     })
