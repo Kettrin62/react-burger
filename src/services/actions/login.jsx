@@ -3,7 +3,7 @@ import { checkResponse } from '../../utils/functions';
 import { setCookie } from '../../utils/functions';
 import {
   SET_USER_DATA,
-  UPDATE_TOKEN_SUCCESS
+  RESET_TOKEN
 } from './user';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
@@ -43,13 +43,12 @@ export function getLogin({ email, password }) {
         });
         const refreshToken = res.refreshToken;
         setCookie('refreshToken', refreshToken);
-        function updateToken() {
+        function resetToken() {
           dispatch({
-            type: UPDATE_TOKEN_SUCCESS,
-            token: res.accessToken
+            type: RESET_TOKEN,
           });
         }
-        setInterval(updateToken, 1200000);
+        setTimeout(resetToken, 1200000);
       } else {
                 // Если произошла ошибка, отправляем соотвтествующий экшен
         dispatch({

@@ -1,12 +1,18 @@
 import { BASEURL } from '../../utils/data';
 import { checkResponse } from '../../utils/functions';
+import {
+  UPDATE_TOKEN_SUCCESS,
+  RESET_TOKEN
+} from './user';
+import { setCookie } from '../../utils/functions';
+
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
 
 
-export function getOrder(cards) {
+export function getOrder(token, cards) {
   return function(dispatch) {
     dispatch({
       type: GET_ORDER_REQUEST
@@ -15,6 +21,7 @@ export function getOrder(cards) {
     fetch(`${BASEURL}/orders`, {
       method: 'POST',
       headers: {
+        authorization: token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -44,4 +51,74 @@ export function getOrder(cards) {
       })
     })
   }
-}
+};
+
+export function getOrderToken(token, cards) {
+  return function (dispatch) {
+    dispatch({
+      type: GET_ORDER_REQUEST
+    })
+    fetch(`${BASEURL}/auth/token`, {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        token: token
+      }),
+    })
+    .then(checkResponse)
+    .then( res => {
+      if (res && res.success) {
+        dispatch({
+          type: UPDATE_TOKEN_SUCCESS,
+          token: res.accessToken
+        });
+        const refreshToken = res.refreshToken;
+        setCookie('refreshToken', refreshToken);
+        function resetToken() {
+          dispatch({
+            type: RESET_TOKEN,
+          });
+        }
+        setTimeout(resetToken, 1200000);
+        return res;
+      }
+    })
+    .then( res => {
+      fetch(`${BASEURL}/orders`, {
+        method: 'POST',
+        headers: { 
+          authorization: res.accessToken,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ingredients: cards
+        })
+      })
+      .then(checkResponse)
+      .then( res => {
+        if (res && res.success) {
+          dispatch({
+            type: GET_ORDER_SUCCESS,
+            order: res.order.number
+          });
+        } else {
+          dispatch({
+            type: GET_ORDER_FAILED
+          });
+        }
+      })
+      .catch( err => {
+        dispatch({
+          type: GET_ORDER_FAILED
+        });
+      })
+    })
+    .catch( err => {
+      dispatch({
+        type: GET_ORDER_FAILED
+      });
+    });
+  }
+};

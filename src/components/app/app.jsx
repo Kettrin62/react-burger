@@ -14,13 +14,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { getCookie } from '../../utils/functions';
+import { IngredientPage } from '../../pages/ingredient';
 
 import { updateToken, getUserData } from '../../services/actions/user';
 
 
 function App() {
   const { name, email, token, isAuthenticated } = useSelector(state => state.user);
-  console.log(isAuthenticated);
 
   const dispatch = useDispatch();
 
@@ -33,9 +33,9 @@ function App() {
 
   const initUser = () => {
     const refreshToken = getCookie('refreshToken');
-    if (refreshToken) {
+    if (refreshToken && (refreshToken !== 'null')) {
       dispatch(getUserData(refreshToken));
-    }
+    };
   };
 
   useEffect(() => {
@@ -67,7 +67,7 @@ function App() {
               <ProfilePage />
             </ProtectedRoute>
             <Route path="/ingredients/:id" exact={true}>
-              {/* <IngredientIdPage /> */}
+              <IngredientPage />
             </Route>
             <Route>
               <NotFound404 />

@@ -4,7 +4,7 @@ import { setCookie } from '../../utils/functions';
 
 import {
   SET_USER_DATA,
-  UPDATE_TOKEN_SUCCESS
+  RESET_TOKEN
 } from './user';
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
@@ -44,13 +44,12 @@ export function register({ email, password, name }) {
         });
         const refreshToken = res.refreshToken;
         setCookie('refreshToken', refreshToken);
-        function updateToken() {
+        function resetToken() {
           dispatch({
-            type: UPDATE_TOKEN_SUCCESS,
-            token: res.accessToken
+            type: RESET_TOKEN,
           });
         }
-        setInterval(updateToken, 1200000);
+        setTimeout(resetToken, 1200000);
       } else {
                 // Если произошла ошибка, отправляем соотвтествующий экшен
         dispatch({

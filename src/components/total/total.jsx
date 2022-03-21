@@ -4,7 +4,12 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrder } from '../../services/actions/order';
+import { useHistory } from "react-router-dom";
+import {
+  getOrder,
+  getOrderToken
+} from '../../services/actions/order';
+import { getCookie } from '../../utils/functions';
 import { CLEAR_CARDS } from '../../services/actions/constructor';
 import totalStyles from './total.module.css';
 
@@ -12,6 +17,9 @@ import totalStyles from './total.module.css';
 const Total = () => {
   const { cards, cardBun } = useSelector(state => state.cards);
   const { ingredients } = useSelector(state => state.ingredients);
+  const { isAuthenticated, token } = useSelector(state => state.user);
+
+  const history = useHistory();
 
   const totalPrice = useMemo(() => {
     let total = 0;
@@ -32,11 +40,21 @@ const Total = () => {
   
   const dispatch = useDispatch();
 
-  const handleOpenModal = async () => {
-    setVisible(true);
-    const cardsOrder = cards.map(item => item.id).concat(cardBun, cardBun);
-    dispatch(getOrder(cardsOrder));
-  };
+  const handleOpenModal = () => {
+    if (!isAuthenticated) {
+      history.replace({ pathname: `/login` });
+    } else {
+      setVisible(true);
+      const cardsOrder = cards.map(item => item.id).concat(cardBun, cardBun);
+      if (!token) {
+        const refreshToken = getCookie('refreshToken');
+        dispatch(getOrderToken(refreshToken, cardsOrder));    
+      } else {
+        dispatch(getOrder(token, cardsOrder));
+      }
+    }
+  }
+
   const handleCloseModal = () => {
     setVisible(false);
     dispatch({

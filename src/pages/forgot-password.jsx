@@ -11,12 +11,12 @@ import loginStyles from './login.module.css';
 import { getCookie } from '../utils/functions';
 
 
-
 export function ForgotPasswordPage() {
   const { forgotPasswordSuccess } = useSelector(state => state.forgot);
   const { isAuthenticated } = useSelector(state => state.user);
   const { state } = useLocation();
 
+  console.log(isAuthenticated)
   const dispatch = useDispatch();
 
   const [emailValue, setEmailValue] = useState('');
@@ -37,19 +37,11 @@ export function ForgotPasswordPage() {
   };
 
   const refreshToken = getCookie('refreshToken');
-
-  if (refreshToken) {
-    if (!isAuthenticated) {
-      return <p>Загрузка...</p>;
-    }
-  };
-
   if (isAuthenticated) {
     return (
       <Redirect to={ state?.from || '/' } />
     )
   };
-
 
   return (
     <section className={loginStyles.container}>

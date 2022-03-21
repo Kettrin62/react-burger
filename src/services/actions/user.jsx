@@ -48,7 +48,6 @@ export function updateToken(token) {
           });
         }
         setTimeout(resetToken, 1200000);
-      } else {
                 // Если произошла ошибка, отправляем соотвтествующий экшен
         dispatch({
           type: UPDATE_TOKEN_FAILED
@@ -70,9 +69,9 @@ export function getUserData(token) {
       type: GET_USER_DATA_REQUEST
     })
     fetch(`${BASEURL}/auth/token`, {
-      method: "POST",
+      method: 'POST',
       headers: { 
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         token: token
@@ -100,7 +99,7 @@ export function getUserData(token) {
       fetch(`${BASEURL}/auth/user`, {
         headers: { 
           authorization: res.accessToken,
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         },
       })
       .then(checkResponse)
@@ -130,15 +129,15 @@ export function getUserData(token) {
   }
 };
 
-export function updateUserData(token, data) {
+export function updateUserDataToken(token, data) {
   return function (dispatch) {
     dispatch({
       type: UPDATE_USER_DATA_REQUEST
     })
     fetch(`${BASEURL}/auth/token`, {
-      method: "POST",
+      method: 'POST',
       headers: { 
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         token: token
@@ -153,22 +152,21 @@ export function updateUserData(token, data) {
         });
         const refreshToken = res.refreshToken;
         setCookie('refreshToken', refreshToken);
-        function updateToken() {
+        function resetToken() {
           dispatch({
-            type: UPDATE_TOKEN_SUCCESS,
-            token: res.accessToken
+            type: RESET_TOKEN,
           });
         }
-        setInterval(updateToken, 1200000);
+        setTimeout(resetToken, 1200000);
         return res;
       }
     })
     .then( res => {
       fetch(`${BASEURL}/auth/user`, {
-        method: "PATCH",
+        method: 'PATCH',
         headers: { 
           authorization: res.accessToken,
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           name: data.name,
@@ -189,7 +187,8 @@ export function updateUserData(token, data) {
             type: UPDATE_USER_DATA_FAILED
           });
         }
-      }).catch( err => {
+      })
+      .catch( err => {
         dispatch({
           type: UPDATE_USER_DATA_FAILED
         });
@@ -201,5 +200,44 @@ export function updateUserData(token, data) {
       });
     });
   }
-}
+};
+
+export function updateUserData(token, data) {
+  return function (dispatch) {
+    dispatch({
+      type: UPDATE_USER_DATA_REQUEST
+    })
+    fetch(`${BASEURL}/auth/user`, {
+      method: 'PATCH',
+      headers: { 
+        authorization: token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: data.name,
+        email: data.email,
+        password: data.password
+      }),
+    })
+    .then(checkResponse)
+    .then( res => {
+      if (res && res.success) {
+        dispatch({
+          type: UPDATE_USER_DATA_SUCCESS,
+          name: res.user.name,
+          email: res.user.email
+        });
+      } else {
+        dispatch({
+          type: UPDATE_USER_DATA_FAILED
+        });
+      }
+    })
+    .catch( err => {
+      dispatch({
+        type: UPDATE_USER_DATA_FAILED
+      });
+    })
+  }
+};
 

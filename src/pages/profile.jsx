@@ -4,21 +4,23 @@ import {
   Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink } from 'react-router-dom';
-import { Link, Redirect, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Form from '../components/form/form';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCookie } from '../utils/functions';
 import { logout } from '../services/actions/logout';
 import profileStyles from './profile.module.css';
-import { updateUserData } from '../services/actions/user';
+import { 
+  updateUserDataToken,
+  updateUserData
+} from '../services/actions/user';
 
 
 export function ProfilePage() {
-  const { name, email, token, isAuthenticated } = useSelector(state => state.user);
+  const { name, email, token } = useSelector(state => state.user);
   const [changValue, setChangeValue] = useState(false);
 
   const { state } = useLocation();
-  console.log(state);
 
   const dispatch = useDispatch();
 
@@ -59,9 +61,14 @@ export function ProfilePage() {
       email: emailValue,
       password: passwordValue
     };
-    const refreshToken = getCookie('refreshToken');
-    dispatch(updateUserData(refreshToken, dataUser));    
+    if (!token) {
+      const refreshToken = getCookie('refreshToken');
+      dispatch(updateUserDataToken(refreshToken, dataUser));    
+    } else {
+      dispatch(updateUserData(token, dataUser));
+    }
     setChangeValue(false);
+    setPasswordValue('');
   };
 
   const onClickCancel = () => {

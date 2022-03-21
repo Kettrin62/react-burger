@@ -45,17 +45,15 @@ export function ResetPasswordPage() {
     )
   };
 
-  const refreshToken = getCookie('refreshToken');
-
-  if (refreshToken) {
-    if (!isAuthenticated) {
-      return <p>Загрузка...</p>;
-    }
-  };
-
   if (isAuthenticated) {
     return (
       <Redirect to={ state?.from || '/' } />
+    )
+  };
+
+  if (resetPasswordSuccess) {
+    return (
+      <Redirect to={ '/profile' } />
     )
   };
 

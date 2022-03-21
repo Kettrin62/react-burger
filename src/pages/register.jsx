@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Input,
-  EmailInput,
   PasswordInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -11,7 +10,6 @@ import Form from '../components/form/form';
 import { register } from '../services/actions/register';
 import loginStyles from './login.module.css';
 import { getCookie } from '../utils/functions';
-
 
 
 export function RegisterPage() {
@@ -50,19 +48,17 @@ export function RegisterPage() {
 
   const refreshToken = getCookie('refreshToken');
 
-  if (refreshToken) {
-    if (!isAuthenticated) {
-      return <p>Загрузка...</p>;
-    }
-  };
-
+  // if (refreshToken) {
+  //   if (!isAuthenticated) {
+  //     return <p>Загрузка...</p>;
+  //   }
+  // };
 
   if (isAuthenticated) {
     return (
       <Redirect to={ state?.from || '/' } />
     )
   };
-
 
   return (
     <section className={loginStyles.container}>
