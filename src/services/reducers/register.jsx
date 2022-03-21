@@ -7,7 +7,6 @@ import {
 const initialState = {
   registerRequest: false,
   registerFailed: false,
-  // registerSuccess: false,
 };
 
 export const registerReducer = (state = initialState, action) => {
@@ -23,7 +22,6 @@ export const registerReducer = (state = initialState, action) => {
         ...state,
         registerRequest: false,
         registerFailed: false,
-        // registerSuccess: true,
       }
     }
     case REGISTER_FAILED: {
@@ -31,7 +29,6 @@ export const registerReducer = (state = initialState, action) => {
         ...state,
         registerFailed: true,
         registerRequest: false,
-        // registerSuccess: false,
       }
     }
     default:

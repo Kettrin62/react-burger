@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
@@ -10,17 +10,15 @@ import { ResetPasswordPage } from '../../pages/reset-password';
 import { ProfilePage } from '../../pages/profile';
 import { NotFound404 } from '../../pages/not-found';
 import ErrorBoundary from '../error-boundary/error-boundary';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { getCookie } from '../../utils/functions';
 import { IngredientPage } from '../../pages/ingredient';
-
-import { updateToken, getUserData } from '../../services/actions/user';
+import { getUserData } from '../../services/actions/user';
 
 
 function App() {
-  const { name, email, token, isAuthenticated } = useSelector(state => state.user);
 
   const dispatch = useDispatch();
 
@@ -72,7 +70,6 @@ function App() {
             <Route>
               <NotFound404 />
             </Route>
-
           </Switch>
         </Router>
       </div>

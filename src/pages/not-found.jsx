@@ -1,11 +1,8 @@
-import React, { useEffect } from 'react';
-import { useHistory, Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import notFoundStyles from './not-found.module.css';
 
 
 export function NotFound404() {
-  const history = useHistory();
-  const { pathname } = useLocation();
 
   return (
     <div className={notFoundStyles.container}>

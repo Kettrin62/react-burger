@@ -1,12 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import Navigation from '../navigation/navigation';
 import Link from '../link/link';
 import { 
   useHistory,
-  useRouteMatch,
   useLocation,
 } from 'react-router-dom';
-
 import LinkText from '../link-text/link-text';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgerIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -17,7 +15,6 @@ import appheaderStyles from './app-header.module.css';
 
 function AppHeader() {
   const history = useHistory();
-  const { path } = useRouteMatch();
   const { pathname } = useLocation();
 
   const onClickMain = useCallback(
@@ -61,7 +58,6 @@ function AppHeader() {
         <ProfileIcon type={profileLinks.includes(pathname) ? "primary" : 'secondary'} />
         <LinkText type={profileLinks.includes(pathname) ? "primary" : 'secondary'} text='Личный кабинет' />
       </Link>
-
     </header>
   );
 }

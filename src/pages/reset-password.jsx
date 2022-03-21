@@ -8,8 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Form from '../components/form/form';
 import { resetPassword } from '../services/actions/reset-password';
 import loginStyles from './login.module.css';
-import { getCookie } from '../utils/functions';
-
 
 
 export function ResetPasswordPage() {

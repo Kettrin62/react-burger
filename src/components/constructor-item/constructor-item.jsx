@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
@@ -10,7 +10,7 @@ import constructoritemStyles from './constructor-item.module.css';
 
 
 const ConstructorItem = ({ card, cardKey, index, moveCard  }) => {
-  const { image, price, name, type } = card;
+  const { image, price, name } = card;
   const dispatch = useDispatch();
   const ref = useRef(null);
 

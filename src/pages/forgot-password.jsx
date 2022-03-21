@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import {
   Input,
   Button,
@@ -36,7 +36,6 @@ export function ForgotPasswordPage() {
     )
   };
 
-  const refreshToken = getCookie('refreshToken');
   if (isAuthenticated) {
     return (
       <Redirect to={ state?.from || '/' } />

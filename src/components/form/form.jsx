@@ -11,9 +11,10 @@ function Form(props) {
   )
 };
 
-// Form.propTypes = {
-//   name: PropTypes.string.isRequired,
-//   class: PropTypes.string.isRequired,
-// };
+Form.propTypes = {
+  name: PropTypes.string.isRequired,
+  class: PropTypes.string,
+  onSubmit: PropTypes.func.isRequired
+};
 
 export default Form;

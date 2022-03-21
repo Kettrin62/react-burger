@@ -3,20 +3,15 @@ import {
   Input,
   Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
-import { NavLink } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import Form from '../components/form/form';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCookie } from '../utils/functions';
-import { logout } from '../services/actions/logout';
 import profileStyles from './profile.module.css';
 import { 
   updateUserDataToken,
   updateUserData
 } from '../services/actions/user';
-import { ProfileOrdersPage } from './profile-orders';
 
 export function ProfileProfilePage() {
   const { name, email, token } = useSelector(state => state.user);

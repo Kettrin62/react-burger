@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { 
   Input,
   PasswordInput,
@@ -14,8 +14,6 @@ import { getLogin } from '../services/actions/login';
 export function LoginPage() {
   const { isAuthenticated } = useSelector(state => state.user);
   const { state } = useLocation();
-  const hist = useHistory();
-  console.log(isAuthenticated)
   const dispatch = useDispatch();
 
   const [emailValue, setEmailValue] = useState('');
@@ -44,7 +42,7 @@ export function LoginPage() {
   if (isAuthenticated) {
     return (
       <Redirect to={ state?.from || '/' } />
-      )
+    )
   };
 
   return (

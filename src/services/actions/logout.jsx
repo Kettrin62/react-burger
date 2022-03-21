@@ -1,7 +1,7 @@
 import { BASEURL } from '../../utils/data';
 import { checkResponse } from '../../utils/functions';
 import { DELETE_USER_DATA } from './user';
-import { deleteCookie, getCookie } from '../../utils/functions';
+import { deleteCookie } from '../../utils/functions';
 
 
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';

@@ -7,7 +7,6 @@ import {
 const initialState = {
   loginRequest: false,
   loginFailed: false,
-  // loginSuccess: false,
 };
 
 export const loginReducer = (state = initialState, action) => {
@@ -23,7 +22,6 @@ export const loginReducer = (state = initialState, action) => {
         ...state,
         loginRequest: false,
         loginFailed: false,
-        // loginSuccess: true,
       }
     }
     case LOGIN_FAILED: {
@@ -31,7 +29,6 @@ export const loginReducer = (state = initialState, action) => {
         ...state,
         loginFailed: true,
         loginRequest: false,
-        // loginSuccess: false,
       }
     }
     default:
