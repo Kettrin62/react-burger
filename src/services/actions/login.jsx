@@ -2,13 +2,19 @@ import { BASEURL } from '../../utils/data';
 import { checkResponse } from '../../utils/functions';
 import { setCookie } from '../../utils/functions';
 import {
-  SET_USER_DATA,
-  RESET_TOKEN
+  setUserData,
+  resetToken
 } from './user';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
+
+function loginFailed() {
+  return {
+    type: LOGIN_FAILED
+  }
+};
 
 
 export function getLogin({ email, password }) {
@@ -35,32 +41,18 @@ export function getLogin({ email, password }) {
         dispatch({
           type: LOGIN_SUCCESS,
         });
-        dispatch({
-          type: SET_USER_DATA,
-          name: res.user.name,
-          email: res.user.email,
-          token: res.accessToken
-        });
+        dispatch(setUserData(res.user.name, res.user.email, res.accessToken));
         const refreshToken = res.refreshToken;
         setCookie('refreshToken', refreshToken);
-        function resetToken() {
-          dispatch({
-            type: RESET_TOKEN,
-          });
-        }
-        setTimeout(resetToken, 1200000);
+        setTimeout(() => dispatch(resetToken), 1200000);
       } else {
                 // Если произошла ошибка, отправляем соотвтествующий экшен
-        dispatch({
-          type: LOGIN_FAILED
-        })
+        dispatch(loginFailed())
       }
     })
     .catch( err => {
             // Если сервер не вернул данных, также отправляем экшен об ошибке
-      dispatch({
-          type: LOGIN_FAILED
-      })
+      dispatch(loginFailed())
     })
   }
 }

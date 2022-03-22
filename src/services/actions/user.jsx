@@ -16,6 +16,61 @@ export const UPDATE_USER_DATA_REQUEST = 'UPDATE_USER_DATA_REQUEST';
 export const UPDATE_USER_DATA_SUCCESS = 'UPDATE_USER_DATA_SUCCESS';
 export const UPDATE_USER_DATA_FAILED = 'UPDATE_USER_DATA_FAILED';
 
+export function setUserData(name, email, token) {
+  return {
+    type: SET_USER_DATA,
+    name: name,
+    email: email,
+    token: token
+  }
+};
+
+function updateTokenFailed() {
+  return {
+    type: UPDATE_TOKEN_FAILED
+  }
+};
+
+export function resetToken() {
+  return {
+    type: RESET_TOKEN
+  }
+};
+
+export function updateTokenSuccess(token) {
+  return {
+    type: UPDATE_TOKEN_SUCCESS,
+    token: token
+  }
+};
+
+function getUserDataFailed() {
+  return {
+    type: GET_USER_DATA_FAILED
+  }
+};
+
+function updateUserDataRequest() {
+  return {
+    type: UPDATE_USER_DATA_REQUEST
+  }
+};
+
+function updateUserDataSuccess(name, email) {
+  return {
+    type: UPDATE_USER_DATA_SUCCESS,
+    name: name,
+    email: email
+  }
+};
+
+function updateUserDataFailed() {
+  return {
+    type: UPDATE_USER_DATA_FAILED
+  }
+};
+
+
 export function updateToken(token) {
   return function(dispatch) {
     dispatch({
@@ -36,29 +91,17 @@ export function updateToken(token) {
       if (res && res.success) {
                 // В случае успешного получения данных вызываем экшен
                 // для записи полученных данных в хранилище
-        dispatch({
-          type: UPDATE_TOKEN_SUCCESS,
-          token: res.accessToken
-        });
+        dispatch(updateTokenSuccess(res.accessToken));
         const refreshToken = res.refreshToken;
         setCookie('refreshToken', refreshToken);
-        function resetToken() {
-          dispatch({
-            type: RESET_TOKEN,
-          });
-        }
-        setTimeout(resetToken, 1200000);
+        setTimeout(() => dispatch(resetToken), 1200000);
                 // Если произошла ошибка, отправляем соотвтествующий экшен
-        dispatch({
-          type: UPDATE_TOKEN_FAILED
-        })
+        dispatch(updateTokenFailed())
       }
     })
     .catch( err => {
             // Если сервер не вернул данных, также отправляем экшен об ошибке
-      dispatch({
-          type: UPDATE_TOKEN_FAILED
-      })
+      dispatch(updateTokenFailed())
     })
   }
 };
@@ -80,18 +123,10 @@ export function getUserData(token) {
     .then(checkResponse)
     .then( res => {
       if (res && res.success) {
-        dispatch({
-          type: UPDATE_TOKEN_SUCCESS,
-          token: res.accessToken
-        });
+        dispatch(updateTokenSuccess(res.accessToken));
         const refreshToken = res.refreshToken;
         setCookie('refreshToken', refreshToken);
-        function resetToken() {
-          dispatch({
-            type: RESET_TOKEN,
-          });
-        }
-        setTimeout(resetToken, 1200000);
+        setTimeout(() => dispatch(resetToken), 1200000);
         return res;
       }
     })
@@ -111,29 +146,21 @@ export function getUserData(token) {
             email: res.user.email
           });
         } else {
-          dispatch({
-            type: GET_USER_DATA_FAILED
-          });
+          dispatch(getUserDataFailed());
         }
       }).catch( err => {
-        dispatch({
-          type: GET_USER_DATA_FAILED
-        });
+        dispatch(getUserDataFailed());
       })
     })
     .catch( err => {
-      dispatch({
-        type: GET_USER_DATA_FAILED
-      });
+      dispatch(getUserDataFailed());
     });
   }
 };
 
 export function updateUserDataToken(token, data) {
   return function (dispatch) {
-    dispatch({
-      type: UPDATE_USER_DATA_REQUEST
-    })
+    dispatch(updateUserDataRequest())
     fetch(`${BASEURL}/auth/token`, {
       method: 'POST',
       headers: { 
@@ -146,18 +173,10 @@ export function updateUserDataToken(token, data) {
     .then(checkResponse)
     .then( res => {
       if (res && res.success) {
-        dispatch({
-          type: UPDATE_TOKEN_SUCCESS,
-          token: res.accessToken
-        });
+        dispatch(updateTokenSuccess(res.accessToken));
         const refreshToken = res.refreshToken;
         setCookie('refreshToken', refreshToken);
-        function resetToken() {
-          dispatch({
-            type: RESET_TOKEN,
-          });
-        }
-        setTimeout(resetToken, 1200000);
+        setTimeout(() => dispatch(resetToken), 1200000);
         return res;
       }
     })
@@ -177,36 +196,24 @@ export function updateUserDataToken(token, data) {
       .then(checkResponse)
       .then( res => {
         if (res && res.success) {
-          dispatch({
-            type: UPDATE_USER_DATA_SUCCESS,
-            name: res.user.name,
-            email: res.user.email
-          });
+          dispatch(updateUserDataSuccess(res.user.name, res.user.email))
         } else {
-          dispatch({
-            type: UPDATE_USER_DATA_FAILED
-          });
+          dispatch(updateUserDataFailed());
         }
       })
       .catch( err => {
-        dispatch({
-          type: UPDATE_USER_DATA_FAILED
-        });
+        dispatch(updateUserDataFailed());
       })
     })
     .catch( err => {
-      dispatch({
-        type: UPDATE_USER_DATA_FAILED
-      });
+      dispatch(updateUserDataFailed());
     });
   }
 };
 
 export function updateUserData(token, data) {
   return function (dispatch) {
-    dispatch({
-      type: UPDATE_USER_DATA_REQUEST
-    })
+    dispatch(updateUserDataRequest())
     fetch(`${BASEURL}/auth/user`, {
       method: 'PATCH',
       headers: { 
@@ -222,21 +229,13 @@ export function updateUserData(token, data) {
     .then(checkResponse)
     .then( res => {
       if (res && res.success) {
-        dispatch({
-          type: UPDATE_USER_DATA_SUCCESS,
-          name: res.user.name,
-          email: res.user.email
-        });
+        dispatch(updateUserDataSuccess(res.user.name, res.user.email))
       } else {
-        dispatch({
-          type: UPDATE_USER_DATA_FAILED
-        });
+        dispatch(updateUserDataFailed());
       }
     })
     .catch( err => {
-      dispatch({
-        type: UPDATE_USER_DATA_FAILED
-      });
+      dispatch(updateUserDataFailed());
     })
   }
 };

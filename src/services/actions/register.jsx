@@ -3,13 +3,20 @@ import { checkResponse } from '../../utils/functions';
 import { setCookie } from '../../utils/functions';
 
 import {
-  SET_USER_DATA,
-  RESET_TOKEN
+  setUserData,
+  resetToken
 } from './user';
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAILED = 'REGISTER_FAILED';
+
+function registerFailed() {
+  return {
+    type: REGISTER_FAILED
+  }
+};
+
 
 export function register({ email, password, name }) {
   return function(dispatch) {
@@ -36,32 +43,18 @@ export function register({ email, password, name }) {
         dispatch({
           type: REGISTER_SUCCESS,
         });
-        dispatch({
-          type: SET_USER_DATA,
-          name: res.user.name,
-          email: res.user.email,
-          token: res.accessToken
-        });
+        dispatch(setUserData(res.user.name, res.user.email, res.accessToken));
         const refreshToken = res.refreshToken;
         setCookie('refreshToken', refreshToken);
-        function resetToken() {
-          dispatch({
-            type: RESET_TOKEN,
-          });
-        }
-        setTimeout(resetToken, 1200000);
+        setTimeout(() => dispatch(resetToken), 1200000);
       } else {
                 // Если произошла ошибка, отправляем соотвтествующий экшен
-        dispatch({
-          type: REGISTER_FAILED
-        })
+        dispatch(registerFailed())
       }
     })
     .catch( err => {
             // Если сервер не вернул данных, также отправляем экшен об ошибке
-      dispatch({
-          type: REGISTER_FAILED
-      })
+      dispatch(registerFailed())
     })
   }
 }

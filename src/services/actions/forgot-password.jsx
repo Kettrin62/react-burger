@@ -5,6 +5,12 @@ export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST';
 export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
 export const FORGOT_PASSWORD_FAILED = 'FORGOT_PASSWORD_FAILED';
 
+function forgotPasswordFailed() {
+  return {
+    type: FORGOT_PASSWORD_FAILED
+  }
+};
+
 
 export function forgotPassword(email) {
   return function(dispatch) {
@@ -31,16 +37,12 @@ export function forgotPassword(email) {
         })
       } else {
                 // Если произошла ошибка, отправляем соотвтествующий экшен
-        dispatch({
-          type: FORGOT_PASSWORD_FAILED
-        })
+        dispatch(forgotPasswordFailed())
       }
     })
     .catch( err => {
             // Если сервер не вернул данных, также отправляем экшен об ошибке
-      dispatch({
-          type: FORGOT_PASSWORD_FAILED
-      })
+      dispatch(forgotPasswordFailed())
     })
   }
 }

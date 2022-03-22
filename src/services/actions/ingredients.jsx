@@ -6,6 +6,12 @@ export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
 export const CHANGE_TUB = 'CHANGE_TUB';
 
+function getIngredientsFailed() {
+  return {
+    type: GET_INGREDIENTS_FAILED
+  }
+};
+
 
 export function getIngredients() {
   return function(dispatch) {
@@ -25,16 +31,12 @@ export function getIngredients() {
         })
       } else {
                 // Если произошла ошибка, отправляем соотвтествующий экшен
-        dispatch({
-          type: GET_INGREDIENTS_FAILED
-        })
+        dispatch(getIngredientsFailed())
       }
     })
     .catch( err => {
             // Если сервер не вернул данных, также отправляем экшен об ошибке
-      dispatch({
-          type: GET_INGREDIENTS_FAILED
-      })
+      dispatch(getIngredientsFailed())
     })
   }
 }

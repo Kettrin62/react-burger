@@ -1,8 +1,8 @@
 import { BASEURL } from '../../utils/data';
 import { checkResponse } from '../../utils/functions';
 import {
-  UPDATE_TOKEN_SUCCESS,
-  RESET_TOKEN
+  updateTokenSuccess,
+  resetToken
 } from './user';
 import { setCookie } from '../../utils/functions';
 
@@ -11,12 +11,29 @@ export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
 
+function getOrderRequest() {
+  return {
+    type: GET_ORDER_REQUEST
+  }
+};
+
+function getOrderSuccess(order) {
+  return {
+    type: GET_ORDER_SUCCESS,
+    order: order
+  }
+};
+
+function getOrderFailed() {
+  return {
+    type: GET_ORDER_FAILED
+  }
+};
+
 
 export function getOrder(token, cards) {
   return function(dispatch) {
-    dispatch({
-      type: GET_ORDER_REQUEST
-    })
+    dispatch(getOrderRequest())
     // Запрашиваем данные у сервера
     fetch(`${BASEURL}/orders`, {
       method: 'POST',
@@ -33,31 +50,22 @@ export function getOrder(token, cards) {
       if (res && res.success) {
                 // В случае успешного получения данных вызываем экшен
                 // для записи полученных данных в хранилище
-        dispatch({
-          type: GET_ORDER_SUCCESS,
-          order: res.order.number
-        })
+        dispatch(getOrderSuccess(res.order.number))
       } else {
                 // Если произошла ошибка, отправляем соотвтествующий экшен
-        dispatch({
-          type: GET_ORDER_FAILED
-        })
+        dispatch(getOrderFailed())
       }
     })
     .catch( err => {
             // Если сервер не вернул данных, также отправляем экшен об ошибке
-      dispatch({
-          type: GET_ORDER_FAILED
-      })
+      dispatch(getOrderFailed())
     })
   }
 };
 
 export function getOrderToken(token, cards) {
   return function (dispatch) {
-    dispatch({
-      type: GET_ORDER_REQUEST
-    })
+    dispatch(getOrderRequest())
     fetch(`${BASEURL}/auth/token`, {
       method: "POST",
       headers: { 
@@ -70,18 +78,10 @@ export function getOrderToken(token, cards) {
     .then(checkResponse)
     .then( res => {
       if (res && res.success) {
-        dispatch({
-          type: UPDATE_TOKEN_SUCCESS,
-          token: res.accessToken
-        });
+        dispatch(updateTokenSuccess(res.accessToken));
         const refreshToken = res.refreshToken;
         setCookie('refreshToken', refreshToken);
-        function resetToken() {
-          dispatch({
-            type: RESET_TOKEN,
-          });
-        }
-        setTimeout(resetToken, 1200000);
+        setTimeout(() => dispatch(resetToken), 1200000);
         return res;
       }
     })
@@ -99,26 +99,17 @@ export function getOrderToken(token, cards) {
       .then(checkResponse)
       .then( res => {
         if (res && res.success) {
-          dispatch({
-            type: GET_ORDER_SUCCESS,
-            order: res.order.number
-          });
+          dispatch(getOrderSuccess(res.order.number));
         } else {
-          dispatch({
-            type: GET_ORDER_FAILED
-          });
+          dispatch(getOrderFailed());
         }
       })
       .catch( err => {
-        dispatch({
-          type: GET_ORDER_FAILED
-        });
+        dispatch(getOrderFailed());
       })
     })
     .catch( err => {
-      dispatch({
-        type: GET_ORDER_FAILED
-      });
+      dispatch(getOrderFailed());
     });
   }
 };
