@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import orderdetailsStyles from './order-details.module.css';
 import { useSelector } from 'react-redux';

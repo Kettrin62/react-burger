@@ -12,8 +12,8 @@ const CaloricContentItem = (props) => {
 };
 
 CaloricContentItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  quantity: PropTypes.number.isRequired,
+  title: PropTypes.string,
+  quantity: PropTypes.number,
 };
 
 export default CaloricContentItem;

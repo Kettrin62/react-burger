@@ -11,7 +11,6 @@ import ingredientsitemStyles from './ingredients-item.module.css';
 
 
 const IngredientsItem = ({ card }) => {
-  
   const { image, price, name, __v, _id: id, type } = card;
   const { cards, cardBun } = useSelector(state => state.cards);
   const { ingredients } = useSelector(state => state.ingredients);
@@ -39,12 +38,14 @@ const IngredientsItem = ({ card }) => {
   const handleOpenModal = () => {
     setVisible(true);
     dispatch(getCard(card));
+    window.history.pushState({ path: `/ingredients/:${card._id}` }, '', `/ingredients/:${card._id}`);
   };
   const handleCloseModal = () => {
     setVisible(false);
     dispatch({
       type: CLOSE_MODAL,
     });
+    window.history.pushState({ path: '/' }, '', '/');
   };
   const modal = (
     <Modal header='Детали ингредиента' onClose={handleCloseModal}>

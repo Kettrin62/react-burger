@@ -1,42 +1,48 @@
 import { BASEURL } from '../../utils/data';
 import { checkResponse } from '../../utils/functions';
 
-export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
-export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
-export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
-export const CHANGE_TUB = 'CHANGE_TUB';
+export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST';
+export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
+export const FORGOT_PASSWORD_FAILED = 'FORGOT_PASSWORD_FAILED';
 
-function getIngredientsFailed() {
+function forgotPasswordFailed() {
   return {
-    type: GET_INGREDIENTS_FAILED
+    type: FORGOT_PASSWORD_FAILED
   }
 };
 
 
-export function getIngredients() {
+export function forgotPassword(email) {
   return function(dispatch) {
     dispatch({
-      type: GET_INGREDIENTS_REQUEST
+      type: FORGOT_PASSWORD_REQUEST
     })
     // Запрашиваем данные у сервера
-    fetch(`${BASEURL}/ingredients`)
+    fetch(`${BASEURL}/password-reset`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email
+      })
+    })
     .then(checkResponse)
     .then( res  => {
       if (res && res.success) {
                 // В случае успешного получения данных вызываем экшен
                 // для записи полученных данных в хранилище
         dispatch({
-          type: GET_INGREDIENTS_SUCCESS,
-          ingredients: res.data
+          type: FORGOT_PASSWORD_SUCCESS,
         })
       } else {
                 // Если произошла ошибка, отправляем соотвтествующий экшен
-        dispatch(getIngredientsFailed())
+        dispatch(forgotPasswordFailed())
       }
     })
     .catch( err => {
             // Если сервер не вернул данных, также отправляем экшен об ошибке
-      dispatch(getIngredientsFailed())
+      dispatch(forgotPasswordFailed())
     })
   }
 }
