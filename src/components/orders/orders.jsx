@@ -5,7 +5,7 @@ import ordersStyles from './orders.module.css';
 
 function Orders() {
   return (
-    <section className={ordersStyles.section}>
+    <section className={'pr-8 ' + ordersStyles.section}>
       <Title text='Лента заказов' />
       <ul className={ordersStyles.list}>
         
