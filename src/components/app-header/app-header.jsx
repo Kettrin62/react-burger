@@ -31,6 +31,13 @@ function AppHeader() {
     [history]
   );
 
+  const onClickFeed = useCallback(
+    () => {
+      history.replace({ pathname: '/feed' });
+    },
+    [history]
+  );
+
   const profileLinks = [
     '/login',
     '/register',
@@ -46,9 +53,9 @@ function AppHeader() {
           <BurgerIcon type={pathname === "/" ? "primary" : "secondary"} />
           <LinkText type={pathname === "/" ? "primary" : "secondary"} text='Конструктор'/>
         </Link> 
-        <Link class={appheaderStyles.link}>
-          <ListIcon type='secondary' />
-          <LinkText type='secondary' text='Лента заказов' />
+        <Link class={appheaderStyles.link} onClick={onClickFeed}>
+          <ListIcon type={pathname === "/feed" ? "primary" : "secondary"} />
+          <LinkText type={pathname === "/feed" ? "primary" : "secondary"} text='Лента заказов' />
         </Link>
       </Navigation>
       <Link class={appheaderStyles.link} onClick={onClickMain}>

@@ -16,6 +16,7 @@ import { ProtectedRoute } from '../protected-route/protected-route';
 import { getCookie } from '../../utils/functions';
 import { IngredientPage } from '../../pages/ingredient';
 import { getUserData } from '../../services/actions/user';
+import { OrderFeedPage } from '../../pages/order-feed';
 
 
 function App() {
@@ -48,6 +49,9 @@ function App() {
           <Switch>
             <Route path="/" exact={true}>
               <HomePage />
+            </Route>
+            <Route path="/feed" exact={true}>
+              <OrderFeedPage />
             </Route>
             <Route path="/login" exact={true}>
               <LoginPage />
