@@ -15,9 +15,9 @@ const IngredientsList = ({ type }) => {
   } else {
     return (
       <ul className={'pt-2 pb-1 pl-1 pr-1 ' + ingredientslistStyles.list}>
-        {ingredientsType.map((item) => (
+        {ingredientsType.map(item => (
           <IngredientsItem key={item._id} card={item} />
-          ))}
+        ))}
       </ul>
     );
   }

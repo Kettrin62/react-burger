@@ -13,6 +13,7 @@
   overflow-y: auto;
   scrollbar-color: #8585ad #2f2f37;
   scrollbar-width: auto;
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {

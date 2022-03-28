@@ -11,6 +11,7 @@ import { resetPasswordReducer } from './reset-password';
 import { registerReducer } from './register';
 import { loginReducer } from './login';
 import { userReducer } from './user';
+import { wsReducer } from './ws';
 
 // Корневой редьюсер
 export const rootReducer = combineReducers({
@@ -23,5 +24,6 @@ export const rootReducer = combineReducers({
   reset: resetPasswordReducer,
   register: registerReducer,
   login: loginReducer,
-  user: userReducer
+  user: userReducer,
+  ws: wsReducer
 })

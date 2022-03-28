@@ -5,14 +5,15 @@ export const socketMiddleware = (wsUrl, wsActions) => {
     return next => action => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
-      const { ws, wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
+      const { ws, wsInit, wsSendMessage, onOpen, onClose, onError, onMessage, wsClose } = wsActions;
       const { user } = getState().user;
       if (type === ws) {
-        socket = new WebSocket(`${wsUrl}all`);
+        socket = new WebSocket(`${wsUrl}/all`);
       }
       if (type === wsInit && user) {
         socket = new WebSocket(`${wsUrl}?token=${user.token.split('Bearer ')[1]}`);
       }
+      console.log(socket)
       if (socket) {
         socket.onopen = event => {
           dispatch({ type: onOpen, payload: event });
@@ -26,7 +27,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
-
+          console.log(restParsedData);
           dispatch({ type: onMessage, payload: restParsedData });
         };
 
@@ -38,6 +39,10 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           const message = { ...payload, token: user.token };
                     // функция для отправки сообщения на сервер
           socket.send(JSON.stringify(message));
+        }
+
+        if (type === wsClose) {
+          socket.close(1000, 'Закрытие cоединения')
         }
       }
 
