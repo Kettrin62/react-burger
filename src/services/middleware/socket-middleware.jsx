@@ -13,7 +13,6 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       if (type === wsInit && user) {
         socket = new WebSocket(`${wsUrl}?token=${user.token.split('Bearer ')[1]}`);
       }
-      console.log(socket)
       if (socket) {
         socket.onopen = event => {
           dispatch({ type: onOpen, payload: event });
@@ -27,7 +26,6 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
-          console.log(restParsedData);
           dispatch({ type: onMessage, payload: restParsedData });
         };
 

@@ -14,8 +14,8 @@ import {
 
 export function OrderFeedPage() {
   const { orders, total, totalToday } = useSelector(state => state.ws);
-  console.log(orders);
-  console.log(total, totalToday);
+  // console.log(orders);
+  // console.log(total, totalToday);
 
   const dispatch = useDispatch();
 

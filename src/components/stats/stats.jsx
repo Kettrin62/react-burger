@@ -15,8 +15,6 @@ function Stats() {
     }
   });
 
-  console.log(ordersDone.length);
-
   const ordersNotDone = orders?.map(item => {
     if (item.status === 'done') {
       return (

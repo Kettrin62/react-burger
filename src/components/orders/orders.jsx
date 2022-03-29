@@ -1,30 +1,30 @@
+import { useSelector, useDispatch } from 'react-redux';
 import Title from '../title/title';
 import CardOrder from '../card-order/card-order';
 import ordersStyles from './orders.module.css';
 
 
 function Orders() {
+  const { orders, total, totalToday } = useSelector(state => state.ws);
+  // console.log(orders);
+
   return (
     <section className={'pr-8 ' + ordersStyles.section}>
       <Title text='Лента заказов' />
       <ul className={ordersStyles.list}>
+        {orders?.map(item => (
+          <CardOrder key={item._id} card={item} />
+        ))}
         
+          {/* <CardOrder />
           <CardOrder />
           <CardOrder />
           <CardOrder />
           <CardOrder />
           <CardOrder />
           <CardOrder />
-          <CardOrder />
-          <CardOrder />
-          {/* <Subtitle text='Булки' />
-          <IngredientsList type='bun' /> */}
-        
-          {/* <Subtitle text='Соусы' />
-          <IngredientsList type='sauce' /> */}
-        
-          {/* <Subtitle text='Начинки' />
-          <IngredientsList type='main' /> */}
+          <CardOrder /> */}
+
   
       </ul>
     </section>
