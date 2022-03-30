@@ -12,6 +12,7 @@ export function getCookie(name) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 };
 
+
 export function setCookie(name, value, props) {
   props = props || {};
   let exp = props.expires;
@@ -41,6 +42,8 @@ export function deleteCookie(name) {
   setCookie(name, null, { expires: -1 });
 };
 
+
+// функция для создания адекватной даты в ленте заказов
 function dropHMS(date) {
   date.setHours(0);
   date.setMinutes(0);
@@ -61,15 +64,18 @@ export function showMessageDateTime(dateTime) {
   dropHMS(twoDaysAgo);
   dropHMS(roomLastMessageDate );
 
+  const dateMins = ('0'+ dateTime.getMinutes()).slice(-2);
+  const timeZone = dateTime.getTimezoneOffset()/60 < 0 ? `i-GMT+${-dateTime.getTimezoneOffset()/60}` : `i-GMT-${-dateTime.getTimezoneOffset()/60}`;
+
   if (dateTime) {
     if (today.getTime() === roomLastMessageDate.getTime()) {
-      return 'Сегодня'
+      return `Сегодня, ${dateTime.getHours()}:${dateMins} ${timeZone}`
     } else if (yesterday.getTime() === roomLastMessageDate.getTime()) {
-      return 'Вчера'
+      return `Вчера, ${dateTime.getHours()}:${dateMins} ${timeZone}`
     } else if (twoDaysAgo.getTime() === roomLastMessageDate.getTime()) {
-      return '2 дня назад'
+      return `2 дня назад, ${dateTime.getHours()}:${dateMins} ${timeZone}`
   } else {
-      return roomLastMessageDate;
+      return `${roomLastMessageDate}, ${dateTime.getHours()}:${dateMins} ${timeZone}`;
     }
   };
 };
