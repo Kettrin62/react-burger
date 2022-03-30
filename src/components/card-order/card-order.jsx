@@ -3,44 +3,21 @@ import { useSelector } from 'react-redux';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import cardorderStyles from './card-order.module.css';
+import { showMessageDateTime } from '../../utils/functions';
 
 
 
 function CardOrder({ card }) {
-  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients);
+  const { ingredients } = useSelector(state => state.ingredients);
   // console.log(card)
-  const { number, name, ingredients: ingredientsId, createdAt: date } = card;
-  // console.log(ingredients);
-  // console.log(ingredientsId);
-  console.log(date);
-  const dateString = new Date(date).toLocaleDateString();
-  console.log(dateString);
-  console.log(new Date(date).toTimeString());
-  console.log(new Date(date).toUTCString());
-  console.log(new Date(date).toLocaleTimeString());
-
-  var options = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timezone: 'UTC'
-  };
-  console.log(new Date(date).toLocaleDateString("ru", options));
+  const { number, name, ingredients: ingredientsId, createdAt } = card;
+  const date = new Date(createdAt);
 
 
 
-  // var d = new Date();
-  // console.log('сегодня', d.getDate());
-  // d.setDate(d.getDate() - 1);
-  // console.log('вчера', d.getDate())
 
-  function dtime_nums(e) {
-    var n = new Date;
-    n.setDate(n.getDate() + e);
-    return n.toLocaleDateString();
-  }
-  
-  // console.log(dtime_nums(-1));
+  const timeZone = date.getTimezoneOffset()/60 < 0 ? `i-GMT+${-date.getTimezoneOffset()/60}` : `i-GMT-${-date.getTimezoneOffset()/60}`;
+  const dateTime = `${showMessageDateTime(date)}, ${date.getHours()}:${date.getMinutes()} ${timeZone}`;
 
 
 
@@ -69,7 +46,7 @@ function CardOrder({ card }) {
           #{number}
         </p>
         <span className='text text_type_main-default text_color_inactive'>
-          Сегодня, 16:20 i-GMT+3
+          {dateTime}
         </span>
       </div>
       <h2 className='mb-6 mt-6 text text_type_main-medium'>{name}</h2>
