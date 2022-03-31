@@ -1,0 +1,73 @@
+.container {
+  /* composes: container from '../ingredient-details/ingredient-details.module.css'; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-start; */
+  width: 100%;
+}
+
+.text {
+  color: #00CCCC;
+}
+
+.ingredients {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+
+  max-height: 312px;
+  overflow-y: auto;
+  scrollbar-color: #8585ad #2f2f37;
+  scrollbar-width: auto;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: #2f2f37;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+}
+
+.ingredient {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+}
+
+.box__image {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(to right, #801AB2,#4C4CFF);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.image {
+  object-fit: cover;
+  width: 60px;
+  height: 60px;
+  background: #131316;
+  border-radius: 50%;
+}
+
+.price {
+  display: flex;
+}
+
+.total {
+  composes: ingredient;
+}

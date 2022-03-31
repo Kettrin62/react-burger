@@ -1,6 +1,7 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
 import { showMessageDateTime } from '../../utils/functions';
+import cardorderdetailsStyles from './card-order-details.module.css';
 
 function CardOrderDetails() {
   const { ingredients } = useSelector(state => state.ingredients);
@@ -42,11 +43,19 @@ function CardOrderDetails() {
     const { id, image, name, count, price } = item;
     total += count * price;
     console.log(item);
+    const countPrice = `${count} x ${price}`
     return (
-      <li key={id}>
-        <img src={image}/>
-        <p>{name}</p>
-        <p>{count}x{price}</p>
+      <li key={id} className={'mt-2 mb-2 mr-6 ' + cardorderdetailsStyles.ingredient}>
+        <div className={cardorderdetailsStyles.box}>
+          <div className={'mr-4 ' + cardorderdetailsStyles.box__image}>
+            <img src={image} className={cardorderdetailsStyles.image} />
+          </div>
+          <p className='mr-4 text text_type_main-default'>{name}</p>
+        </div>
+        <div className={cardorderdetailsStyles.price}>
+          <p className='text text_type_digits-default pr-2'>{countPrice}</p>
+          <CurrencyIcon type='primary' />
+        </div>
       </li>
     )
   });
@@ -58,25 +67,25 @@ function CardOrderDetails() {
   const status = modalCard.status === 'done' ? 'Выполнен' : 'Готовится';
 
   return (
-    <div>
-      <h3>
+    <div className={cardorderdetailsStyles.container}>
+      <h3 className='mt-10 mb-3 text text_type_main-medium'>
         {name}
       </h3>
-      <p>
+      <p className={'text text_type_main-default ' + cardorderdetailsStyles.text}>
         {status}
       </p>
-      <h4>
+      <h4 className='mt-15 mb-4 text text_type_main-medium'>
         Состав:
       </h4>
-      <ul>
+      <ul className={cardorderdetailsStyles.ingredients}>
         {ingredientsCard}
       </ul>
-      <div>
+      <div className={'mt-10 ' + cardorderdetailsStyles.total}>
         <span className='text text_type_main-default text_color_inactive'>
           {dateTime}
         </span>
-        <div>
-          <p className='text text_type_digits-default'>{total}</p>
+        <div className={cardorderdetailsStyles.price}>
+          <p className='text text_type_digits-default pr-2'>{total}</p>
           <CurrencyIcon type="primary" />
         </div>
       </div>

@@ -89,7 +89,7 @@ function CardOrder({ card }) {
     window.history.pushState({ path: '/feed' }, '', '/feed');
   };
   const modal = (
-    <Modal header={`#${number}`} onClose={handleCloseModal}>
+    <Modal header={`#${number}`} onClose={handleCloseModal} type='digits'>
       <CardOrderDetails />
     </Modal>
   )
