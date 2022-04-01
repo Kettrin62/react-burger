@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 122px;
+}
+
+.content {
+  width: 640px;
+}
+
+.text {
+  color: #00CCCC;
+}
+
+.ingredients {
+  composes: ingredients from '../components/card-order-details/card-order-details.module.css';
+}
+
+.price {
+  display: flex;
+}
+
+.total {
+  composes: total from '../components/card-order-details/card-order-details.module.css';
+}

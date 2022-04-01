@@ -1,6 +1,7 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
 import { showMessageDateTime } from '../../utils/functions';
+import IngredientsCardItem from '../ingredients-card-item/ingredients-card-item';
 import cardorderdetailsStyles from './card-order-details.module.css';
 
 function CardOrderDetails() {
@@ -39,24 +40,30 @@ function CardOrderDetails() {
   
   let total = 0;
 
-  const ingredientsCard = ingredientsCardArr.map(item => {
+  const ingredientsCardOrder = ingredientsCardArr.map(item => {
     const { id, image, name, count, price } = item;
     total += count * price;
     console.log(item);
     const countPrice = `${count} x ${price}`
     return (
-      <li key={id} className={'mt-2 mb-2 mr-6 ' + cardorderdetailsStyles.ingredient}>
-        <div className={cardorderdetailsStyles.box}>
-          <div className={'mr-4 ' + cardorderdetailsStyles.box__image}>
-            <img src={image} className={cardorderdetailsStyles.image} />
-          </div>
-          <p className='mr-4 text text_type_main-default'>{name}</p>
-        </div>
-        <div className={cardorderdetailsStyles.price}>
-          <p className='text text_type_digits-default pr-2'>{countPrice}</p>
-          <CurrencyIcon type='primary' />
-        </div>
-      </li>
+      // <li key={id} className={'mt-2 mb-2 mr-6 ' + cardorderdetailsStyles.ingredient}>
+      //   <div className={cardorderdetailsStyles.box}>
+      //     <div className={'mr-4 ' + cardorderdetailsStyles.box__image}>
+      //       <img src={image} className={cardorderdetailsStyles.image} />
+      //     </div>
+      //     <p className='mr-4 text text_type_main-default'>{name}</p>
+      //   </div>
+      //   <div className={cardorderdetailsStyles.price}>
+      //     <p className='text text_type_digits-default pr-2'>{countPrice}</p>
+      //     <CurrencyIcon type='primary' />
+      //   </div>
+      // </li>
+      <IngredientsCardItem 
+        key={id}
+        image={image}
+        name={name}
+        countPrice={countPrice}
+      />
     )
   });
 
@@ -78,7 +85,7 @@ function CardOrderDetails() {
         Состав:
       </h4>
       <ul className={cardorderdetailsStyles.ingredients}>
-        {ingredientsCard}
+        {ingredientsCardOrder}
       </ul>
       <div className={'mt-10 ' + cardorderdetailsStyles.total}>
         <span className='text text_type_main-default text_color_inactive'>

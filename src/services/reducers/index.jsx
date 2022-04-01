@@ -13,6 +13,7 @@ import { loginReducer } from './login';
 import { userReducer } from './user';
 import { wsReducer } from './ws';
 
+
 // Корневой редьюсер
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
@@ -25,5 +26,6 @@ export const rootReducer = combineReducers({
   register: registerReducer,
   login: loginReducer,
   user: userReducer,
-  ws: wsReducer
+  ws: wsReducer,
+
 })

@@ -15,17 +15,6 @@ function Orders() {
         {orders?.map(item => (
           <CardOrder key={item._id} card={item} />
         ))}
-        
-          {/* <CardOrder />
-          <CardOrder />
-          <CardOrder />
-          <CardOrder />
-          <CardOrder />
-          <CardOrder />
-          <CardOrder />
-          <CardOrder /> */}
-
-  
       </ul>
     </section>
   );

@@ -1,8 +1,6 @@
 .container {
-  /* composes: container from '../ingredient-details/ingredient-details.module.css'; */
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
   width: 100%;
 }
 
@@ -33,7 +31,7 @@
   background-color: #8585ad;
 }
 
-.ingredient {
+/* .ingredient {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -62,12 +60,14 @@
   height: 60px;
   background: #131316;
   border-radius: 50%;
-}
+} */
 
 .price {
   display: flex;
 }
 
 .total {
-  composes: ingredient;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

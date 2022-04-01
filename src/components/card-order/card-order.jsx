@@ -7,7 +7,7 @@ import cardorderStyles from './card-order.module.css';
 import { showMessageDateTime } from '../../utils/functions';
 import { closeModal, getCard } from '../../services/actions/modal';
 import Modal from '../modal/modal';
-import CardOrderDetails from '../card-order-details/card-order.details';
+import CardOrderDetails from '../card-order-details/card-order-details';
 
 
 
@@ -15,18 +15,8 @@ function CardOrder({ card }) {
   const { ingredients } = useSelector(state => state.ingredients);
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
-
-
-  // console.log(card)
   const { number, name, ingredients: ingredientsId, createdAt } = card;
   const date = new Date(createdAt);
-
-
-
-  // const dateMins = ('0'+ date.getMinutes()).slice(-2);
-  // const timeZone = date.getTimezoneOffset()/60 < 0 ? `i-GMT+${-date.getTimezoneOffset()/60}` : `i-GMT-${-date.getTimezoneOffset()/60}`;
-  // const dateTime = `${showMessageDateTime(date)}, ${date.getHours()}:${dateMins} ${timeZone}`;
-
   const dateTime = showMessageDateTime(date);
 
   // let total = 0;
@@ -90,6 +80,7 @@ function CardOrder({ card }) {
   };
   const modal = (
     <Modal header={`#${number}`} onClose={handleCloseModal} type='digits'>
+      {/* <CardOrderDetails /> */}
       <CardOrderDetails />
     </Modal>
   )
