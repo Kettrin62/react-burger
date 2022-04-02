@@ -16,7 +16,7 @@ function Stats() {
   });
 
   const ordersNotDone = orders?.map(item => {
-    if (item.status === 'done') {
+    if (item.status !== 'done') {
       return (
         <li className={'mb-2 ' + statsStyles.item} key={item._id}>
           <p className='text text_type_digits-default'>{item.number}</p>
@@ -34,27 +34,6 @@ function Stats() {
           </h4>
           <ul className={statsStyles.list}>
             {ordersDone}
-            {/* {orders?.map(item => (
-              <li className={'mb-2 ' + statsStyles.item} key={item._id}>
-                <p className={'text text_type_digits-default ' + statsStyles.text}>{item.number}</p>
-              </li>
-            ))} */}
-
-            {/* <li className={'mb-2 ' + statsStyles.item}>
-              <p className={'text text_type_digits-default ' + statsStyles.text}>034533</p>
-            </li>
-            <li className={'mb-2 ' + statsStyles.item}>
-              <p className={'text text_type_digits-default ' + statsStyles.text}>034533</p>
-            </li>
-            <li className={'mb-2 ' + statsStyles.item}>
-              <p className={'text text_type_digits-default ' + statsStyles.text}>034533</p>
-            </li>
-            <li className={'mb-2 ' + statsStyles.item}>
-              <p className={'text text_type_digits-default ' + statsStyles.text}>034533</p>
-            </li>
-            <li className={'mb-2 ' + statsStyles.item}>
-              <p className={'text text_type_digits-default ' + statsStyles.text}>034533</p>
-            </li> */}
           </ul>
         </div>
         <div>
@@ -63,16 +42,6 @@ function Stats() {
           </h4>
           <ul className={statsStyles.list}>
             {ordersNotDone}
-
-            <li className={'mb-2 ' + statsStyles.item}>
-              <p className='text text_type_digits-default'>034533</p>
-            </li>
-            <li className={'mb-2 ' + statsStyles.item}>
-              <p className='text text_type_digits-default'>034533</p>
-            </li>
-            <li className={'mb-2 ' + statsStyles.item}>
-              <p className='text text_type_digits-default'>034533</p>
-            </li>
           </ul>
         </div>
       </div>

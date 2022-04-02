@@ -53,7 +53,7 @@ function App() {
     return () => {
       dispatch({ type: WS_CONNECTION_FINISH });
     }
-  }, [dispatch])
+  }, [dispatch]);
 
 
   return (
@@ -64,6 +64,9 @@ function App() {
           <Switch>
             <Route path='/' exact={true}>
               <HomePage />
+            </Route>
+            <Route path='/ingredients/:id' exact={true}>
+              <IngredientPage />
             </Route>
             <Route path='/feed' exact={true}>
               <OrderFeedPage />
@@ -86,9 +89,9 @@ function App() {
             <ProtectedRoute path='/profile' exact={true}>
               <ProfilePage />
             </ProtectedRoute>
-            <Route path='/ingredients/:id' exact={true}>
-              <IngredientPage />
-            </Route>
+            <ProtectedRoute path='/profile/orders/:id' exact={true}>
+              {/* <ProfilePage /> */}
+            </ProtectedRoute>
             <Route>
               <NotFound404 />
             </Route>

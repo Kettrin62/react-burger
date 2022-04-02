@@ -14,17 +14,17 @@ import {
 
 export function OrderFeedPage() {
   const { orders, total, totalToday } = useSelector(state => state.ws);
-  console.log(orders);
+  // console.log(orders);
   // console.log(total, totalToday);
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch({ type: WS_CONNECTION_START });
-  //   return () => {
-  //     dispatch({ type: WS_CONNECTION_FINISH });
-  //   }
-  // }, [])
+  useEffect(() => {
+    dispatch({ type: WS_CONNECTION_START });
+    return () => {
+      dispatch({ type: WS_CONNECTION_FINISH });
+    }
+  }, [])
 
   return (
     <main className={orderfeedStyles.content}>

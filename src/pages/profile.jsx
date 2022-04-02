@@ -12,10 +12,10 @@ export function ProfilePage() {
       <Router>
         <ProfileNav />
         <Switch>
-          <Route path="/profile" exact={true}>
+          <Route path='/profile' exact={true}>
             <ProfileProfilePage />
           </Route>
-          <Route path="/profile/orders" exact={true}>
+          <Route path='/profile/orders' exact={true}>
             <ProfileOrdersPage />
           </Route>
         </Switch>

@@ -6,12 +6,12 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
       const { ws, wsInit, wsSendMessage, onOpen, onClose, onError, onMessage, wsClose } = wsActions;
-      const { user } = getState().user;
+      const { token } = getState().user;
       if (type === ws) {
         socket = new WebSocket(`${wsUrl}/all`);
       }
-      if (type === wsInit && user) {
-        socket = new WebSocket(`${wsUrl}?token=${user.token.split('Bearer ')[1]}`);
+      if (type === wsInit && token) {
+        socket = new WebSocket(`${wsUrl}?token=${token.split('Bearer ')[1]}`);
       }
       if (socket) {
         socket.onopen = event => {
@@ -34,7 +34,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         };
 
         if (type === wsSendMessage) {
-          const message = { ...payload, token: user.token };
+          const message = { ...payload, token: token };
                     // функция для отправки сообщения на сервер
           socket.send(JSON.stringify(message));
         }
