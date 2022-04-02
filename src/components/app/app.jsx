@@ -68,6 +68,9 @@ function App() {
             <Route path='/feed' exact={true}>
               <OrderFeedPage />
             </Route>
+            <Route path='/feed/:id' exact={true}>
+              <OrderInfoPage />
+            </Route>
             <Route path='/login' exact={true}>
               <LoginPage />
             </Route>
@@ -85,9 +88,6 @@ function App() {
             </ProtectedRoute>
             <Route path='/ingredients/:id' exact={true}>
               <IngredientPage />
-            </Route>
-            <Route path='/feed/:id' exact={true}>
-              <OrderInfoPage />
             </Route>
             <Route>
               <NotFound404 />

@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { getCookie } from '../../utils/functions';
 import { logout } from '../../services/actions/logout';
@@ -7,6 +8,7 @@ import profilenavStyles from './profile-nav.module.css';
 
 function ProfileNav() {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
   const onClickLogout = () => {
     const refreshToken = getCookie('refreshToken');
@@ -44,9 +46,14 @@ function ProfileNav() {
           </p>
         </li>
       </ul>
-      <p className='mt-20 text text_type_main-default text_color_inactive '>
-        В&nbsp;этом разделе вы&nbsp;можете изменить&nbsp;свои персональные данные
-      </p>
+      {(pathname === '/profile') ? (
+        <p className='mt-20 text text_type_main-default text_color_inactive '>
+          В&nbsp;этом разделе вы&nbsp;можете изменить&nbsp;свои персональные данные
+        </p>) : (
+        <p className='mt-20 text text_type_main-default text_color_inactive '>
+          В&nbsp;этом разделе вы&nbsp;можете просмотреть&nbsp;свою историю заказов
+        </p>
+      )}
     </div>
   )
 };
