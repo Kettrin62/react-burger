@@ -15,6 +15,7 @@ import {
   WS_CONNECTION_START_INIT, 
   WS_CONNECTION_SUCCESS, 
   WS_GET_MESSAGE, 
+  WS_GET_MESSAGE_INIT, 
   WS_SEND_MESSAGE 
 } from './services/actions/ws';
 
@@ -30,6 +31,7 @@ const wsActions = {
   onClose: WS_CONNECTION_CLOSED,
   onError: WS_CONNECTION_ERROR,
   onMessage: WS_GET_MESSAGE,
+  onMessageInit: WS_GET_MESSAGE_INIT,
   wsClose: WS_CONNECTION_FINISH
 };
 

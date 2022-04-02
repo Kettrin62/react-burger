@@ -6,7 +6,7 @@ import ordersStyles from './orders.module.css';
 
 function Orders() {
   const { orders, total, totalToday } = useSelector(state => state.ws);
-  // console.log(orders);
+  console.log(orders);
 
   return (
     <section className={'pr-8 ' + ordersStyles.section}>

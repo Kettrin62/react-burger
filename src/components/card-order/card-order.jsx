@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { useLocation} from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import cardorderStyles from './card-order.module.css';
@@ -18,26 +18,10 @@ function CardOrder({ card }) {
   const { number, name, ingredients: ingredientsId, createdAt } = card;
   const date = new Date(createdAt);
   const dateTime = showMessageDateTime(date);
+  const { pathname } = useLocation();
 
-  // let total = 0;
 
-  // const ingredientsCard = ingredientsId.map((item, index) => {
-  //   const ingredient = ingredients.find(
-  //     (el) => el._id === item
-  //   );
-  //   const { image_mobile, price } = ingredient;
-  //   total += price;
-  //   return (
-  //     ingredient &&
-  //     <li key={index} className={cardorderStyles.component}>
-  //       <img src={image_mobile} className={cardorderStyles.image}/>
-  //       <span className={'text text_type_main-default ' + cardorderStyles.span}>{`+${ingredientsId.length - 5}`}</span>
-  //     </li>
-  //   )
-  // });
-  
-  
-
+console.log(card);
 
 
   const ingredientsAllCard = ingredientsId.map(item => {
@@ -46,6 +30,7 @@ function CardOrder({ card }) {
       );
     });
 
+
   const total = useMemo(() => {
     return ingredientsAllCard.reduce((acc, item) => acc + item.price, 0)
   }, [ingredientsId]);
@@ -53,9 +38,8 @@ function CardOrder({ card }) {
   const ingredientsCardResult = ingredientsAllCard.filter(function (item, position, array) {
     return array.lastIndexOf(item) === position;
   });
-  // console.log(ingredientsCardResult);
+  
   const ingredientsCard = ingredientsCardResult.map(item => {
-    // console.log(item);
     return (
       <li key={item._id} className={cardorderStyles.component}>
         <img src={item.image_mobile} className={cardorderStyles.image}/>
@@ -64,6 +48,33 @@ function CardOrder({ card }) {
     )
   })
 
+  // const status = () => {
+  //   if (card.status === 'done') {
+  //     return (
+  //       <p>Выполнен</p>
+  //     )
+  //   } else if (card.status === 'pending') {
+  //     return (
+  //       <p>Готовится</p>
+  //     )
+  //   } else if (card.status === 'created') {
+  //     return (
+  //       <p>Создан</p>
+  //     )
+  //   }
+  // };
+  let status;
+  let color;
+  if (card.status === 'done') {
+    status = 'Выполнен';
+    color = '#00CCCC';
+  } else if (card.status === 'pending') {
+    status = 'Готовится'
+  } else if (card.status === 'created') {
+    status = 'Создан'
+  };
+  console.log(status);
+  
 
 
 
@@ -85,10 +96,11 @@ function CardOrder({ card }) {
     </Modal>
   )
 
+    const width = pathname === '/profile/orders' ? '788px' : '584px';
 
   return (
     <>
-      <li className={'mb-4 mr-2 p-6 ' + cardorderStyles.card} onClick={handleOpenModal}>
+      <li className={'mb-4 mr-2 p-6 ' + cardorderStyles.card} style={{width}} onClick={handleOpenModal}>
         <div className={cardorderStyles.header}>
           <p className='text text_type_digits-default'>
             #{number}
@@ -97,8 +109,9 @@ function CardOrder({ card }) {
             {dateTime}
           </span>
         </div>
-        <h2 className='mb-6 mt-6 text text_type_main-medium'>{name}</h2>
-        <div className={cardorderStyles.main}>
+        <h2 className='mt-6 text text_type_main-medium'>{name}</h2>
+        {(pathname === '/profile/orders') && (<p className='mt-2 text text_type_main-default' style={{color}}>{status}</p>)}
+        <div className={'mt-6 ' + cardorderStyles.main}>
           <ul className={cardorderStyles.components}>
             {ingredientsCard}
             {/* {ingredients.map(item => (

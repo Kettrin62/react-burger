@@ -42,6 +42,20 @@ export function deleteCookie(name) {
   setCookie(name, null, { expires: -1 });
 };
 
+const months = [
+  'января',
+  'февраля',
+  'марта',
+  'апреля',
+  'мая',
+  'июня',
+  'июля',
+  'августа',
+  'сентября',
+  'октября',
+  'ноября',
+  'декабря'
+];
 
 // функция для создания адекватной даты в ленте заказов
 function dropHMS(date) {
@@ -62,10 +76,11 @@ export function showMessageDateTime(dateTime) {
   dropHMS(today);
   dropHMS(yesterday);
   dropHMS(twoDaysAgo);
-  dropHMS(roomLastMessageDate );
+  dropHMS(roomLastMessageDate);
 
   const dateMins = ('0'+ dateTime.getMinutes()).slice(-2);
   const timeZone = dateTime.getTimezoneOffset()/60 < 0 ? `i-GMT+${-dateTime.getTimezoneOffset()/60}` : `i-GMT-${-dateTime.getTimezoneOffset()/60}`;
+  const monthName = months[dateTime.getMonth()];
 
   if (dateTime) {
     if (today.getTime() === roomLastMessageDate.getTime()) {
@@ -75,7 +90,7 @@ export function showMessageDateTime(dateTime) {
     } else if (twoDaysAgo.getTime() === roomLastMessageDate.getTime()) {
       return `2 дня назад, ${dateTime.getHours()}:${dateMins} ${timeZone}`
   } else {
-      return `${roomLastMessageDate}, ${dateTime.getHours()}:${dateMins} ${timeZone}`;
+      return `${dateTime.getDate()} ${monthName} ${dateTime.getFullYear()}, ${dateTime.getHours()}:${dateMins} ${timeZone}`;
     }
   };
 };

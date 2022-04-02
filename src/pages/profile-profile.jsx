@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 import Form from '../components/form/form';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCookie } from '../utils/functions';
-import profileStyles from './profile.module.css';
+import profileprofileStyles from './profile-profile.module.css';
 import { 
   updateUserDataToken,
   updateUserData
@@ -71,51 +71,53 @@ export function ProfileProfilePage() {
   };
 
   return (
-    <Form name='profile' onSubmit={updateUserSubmit}>
-      <Input
-        type={'text'}
-        placeholder={'Имя'}
-        onChange={onChangeName}
-        icon={'EditIcon'}
-        value={nameValue}
-        name={'name'}
-        error={false}
-        ref={inputRef}
-        errorText={'Ошибка'}
-      />
-      <Input
-        type={'email'}
-        placeholder={'Логин'}
-        onChange={onChangeEmail}
-        icon={'EditIcon'}
-        value={emailValue}
-        name={'email'}
-        error={false}
-        ref={inputRef}
-        errorText={'Ошибка'}
-      />
-      <Input
-        type={'password'}
-        placeholder={'Пароль'}
-        onChange={onChangePassword}
-        icon={'EditIcon'}
-        value={passwordValue}
-        name={'password'}
-        error={false}
-        ref={inputRef}
-        errorText={'Ошибка'}
-      />
-      {
-        changValue && 
-        <div className={profileStyles.buttons}>
-          <Button type="primary" size='medium'>
-            Сохранить
-          </Button>
-          <Button type="primary" size='medium' onClick={onClickCancel}>
-            Отмена
-          </Button>
-        </div>
-      }
-    </Form>
+    <div className={profileprofileStyles.container}>
+      <Form name='profile' onSubmit={updateUserSubmit}>
+        <Input
+          type={'text'}
+          placeholder={'Имя'}
+          onChange={onChangeName}
+          icon={'EditIcon'}
+          value={nameValue}
+          name={'name'}
+          error={false}
+          ref={inputRef}
+          errorText={'Ошибка'}
+        />
+        <Input
+          type={'email'}
+          placeholder={'Логин'}
+          onChange={onChangeEmail}
+          icon={'EditIcon'}
+          value={emailValue}
+          name={'email'}
+          error={false}
+          ref={inputRef}
+          errorText={'Ошибка'}
+        />
+        <Input
+          type={'password'}
+          placeholder={'Пароль'}
+          onChange={onChangePassword}
+          icon={'EditIcon'}
+          value={passwordValue}
+          name={'password'}
+          error={false}
+          ref={inputRef}
+          errorText={'Ошибка'}
+        />
+        {
+          changValue && 
+          <div className={profileprofileStyles.buttons}>
+            <Button type="primary" size='medium'>
+              Сохранить
+            </Button>
+            <Button type="primary" size='medium' onClick={onClickCancel}>
+              Отмена
+            </Button>
+          </div>
+        }
+      </Form>
+    </div>
   );
 }

@@ -3,13 +3,17 @@ import {
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
-  WS_CONNECTION_FINISH
+  WS_CONNECTION_FINISH,
+  WS_GET_MESSAGE_INIT
 } from '../actions/ws';
 
 const initialState = {
   wsConnected: false,
   orders: [],
   total: 0,
+  totalToday: 0,
+  ordersUser: [],
+  totalUser: 0,
   totalToday: 0,
   error: undefined,
 };
@@ -59,6 +63,15 @@ export const wsReducer = (state = initialState, action) => {
         orders: action.payload.orders,
         total: action.payload.total,
         totalToday: action.payload.totalToday,
+        error: undefined,
+      };
+    }
+    case WS_GET_MESSAGE_INIT: {
+      return {
+        ...state,
+        ordersUser: action.payload.orders,
+        totalUser: action.payload.total,
+        totalTodayUser: action.payload.totalToday,
         error: undefined,
       };
     }
