@@ -7,20 +7,9 @@ import cardorderdetailsStyles from './card-order-details.module.css';
 function CardOrderDetails() {
   const { ingredients } = useSelector(state => state.ingredients);
   const { modalCard } = useSelector(state => state.modal);
-  // console.log(modalCard);
   const { name, ingredients: ingredientsId, createdAt } = modalCard;
   const date = new Date(createdAt);
   const dateTime = showMessageDateTime(date);
-
-  // const ingredientsAllCard = ingredientsId.map(item => {
-  //   return ingredients.find(
-  //     (el) => el._id === item
-  //     );
-  //   });
-  // const total = ingredientsAllCard.reduce((acc, item) => acc + item.price, 0);
-  // console.log(ingredientsAllCard);
-
-
 
   const ingredientsCardObj = {}
   ingredientsId.forEach(item => {
@@ -28,7 +17,9 @@ function CardOrderDetails() {
       (el) => el._id === item
     );
     if (ingredient !== undefined) {
-      item in ingredientsCardObj ? ingredientsCardObj[item].count += 1 : ingredientsCardObj[item] = {
+      item in ingredientsCardObj ? 
+      ingredientsCardObj[item].count += 1 : 
+      ingredientsCardObj[item] = {
         id: ingredient._id,
         name: ingredient.name,
         image: ingredient.image_mobile,
@@ -47,18 +38,6 @@ function CardOrderDetails() {
     total += count * price;
     const countPrice = `${count} x ${price}`
     return (
-      // <li key={id} className={'mt-2 mb-2 mr-6 ' + cardorderdetailsStyles.ingredient}>
-      //   <div className={cardorderdetailsStyles.box}>
-      //     <div className={'mr-4 ' + cardorderdetailsStyles.box__image}>
-      //       <img src={image} className={cardorderdetailsStyles.image} />
-      //     </div>
-      //     <p className='mr-4 text text_type_main-default'>{name}</p>
-      //   </div>
-      //   <div className={cardorderdetailsStyles.price}>
-      //     <p className='text text_type_digits-default pr-2'>{countPrice}</p>
-      //     <CurrencyIcon type='primary' />
-      //   </div>
-      // </li>
       <IngredientsCardItem 
         key={id}
         image={image}
@@ -67,9 +46,6 @@ function CardOrderDetails() {
       />
     )
   });
-
-
-
 
   const status = modalCard.status === 'done' ? 'Выполнен' : 'Готовится';
 

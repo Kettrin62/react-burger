@@ -1,7 +1,6 @@
 import { BASEURL } from '../../utils/data';
 import { checkResponse } from '../../utils/functions';
 import { setCookie } from '../../utils/functions';
-
 import {
   setUserData,
   resetToken

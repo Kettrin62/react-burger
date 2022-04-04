@@ -2,13 +2,12 @@ import { useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation} from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-
 import cardorderStyles from './card-order.module.css';
 import { showMessageDateTime } from '../../utils/functions';
 import { closeModal, getCard } from '../../services/actions/modal';
 import Modal from '../modal/modal';
 import CardOrderDetails from '../card-order-details/card-order-details';
-
+import { cardOrderPropTypes } from '../../utils/data';
 
 
 function CardOrder({ card }) {
@@ -20,23 +19,11 @@ function CardOrder({ card }) {
   const dateTime = showMessageDateTime(date);
   const { pathname } = useLocation();
 
-
-  // console.log(card);
-  // console.log(ingredientsId);
-
-
   const ingredientsAllCard = ingredientsId.map(item => {
     return ingredients.find(
       (el) => el._id === item
     );
   });
-
-  const ingredientsAllCardClear = ingredientsAllCard.filter(item => {
-    return item !== undefined
-  });
-
-
-
 
   const total = useMemo(() => {
     return ingredientsAllCard.reduce((acc, item) => acc + item.price, 0)
@@ -46,53 +33,42 @@ function CardOrder({ card }) {
     return array.lastIndexOf(item) === position;
   });
 
-  // console.log(ingredientsCardResult);
-  
   const ingredientsCard = ingredientsCardResult.map(item => {
     return (
       <li key={item._id} className={cardorderStyles.component}>
         <img src={item.image_mobile} className={cardorderStyles.image}/>
-        <span className={'text text_type_main-default ' + cardorderStyles.span}>{`+${ingredientsId.length - 5}`}</span>
+        <span className={'text text_type_main-default ' + cardorderStyles.span}>
+          {`+${ingredientsId.length - 5}`}
+        </span>
       </li>
     )
   })
 
-  // const status = () => {
-  //   if (card.status === 'done') {
-  //     return (
-  //       <p>Выполнен</p>
-  //     )
-  //   } else if (card.status === 'pending') {
-  //     return (
-  //       <p>Готовится</p>
-  //     )
-  //   } else if (card.status === 'created') {
-  //     return (
-  //       <p>Создан</p>
-  //     )
-  //   }
-  // };
   let status;
   let color;
-  if (card.status === 'done') {
-    status = 'Выполнен';
-    color = '#00CCCC';
-  } else if (card.status === 'pending') {
-    status = 'Готовится'
-  } else if (card.status === 'created') {
-    status = 'Создан'
-  };
-
-
-
-
+  switch (card.status) {
+    case 'done':
+      status = 'Выполнен';
+      color = '#00CCCC';
+      break;
+    case 'pending':
+      status = 'Готовится';
+      break;
+    case 'created':
+      status = 'Создан';
+      break;
+  }
 
   const handleOpenModal = () => {
     setVisible(true);
     dispatch(getCard(card));
     pathname === '/feed' ? 
     window.history.pushState({ path: `/feed/:${card._id}` }, '', `/feed/:${card._id}`) :
-    window.history.pushState({ path: `/profile/orders/:${card._id}` }, '', `/profile/orders/:${card._id}`);
+    window.history.pushState(
+      { path: `/profile/orders/:${card._id}` }, 
+      '', 
+      `/profile/orders/:${card._id}`
+    );
   };
   const handleCloseModal = () => {
     setVisible(false);
@@ -103,7 +79,6 @@ function CardOrder({ card }) {
   };
   const modal = (
     <Modal header={`#${number}`} onClose={handleCloseModal} type='digits'>
-      {/* <CardOrderDetails /> */}
       <CardOrderDetails />
     </Modal>
   )
@@ -112,26 +87,25 @@ function CardOrder({ card }) {
 
   return (
     <>
-      <li className={'mb-4 p-6 ' + cardorderStyles.card} style={{width}} onClick={handleOpenModal}>
+      <li
+        className={'mb-4 p-6 ' + cardorderStyles.card}
+        style={{width}}
+        onClick={handleOpenModal}
+      >
         <div className={cardorderStyles.header}>
           <p className='text text_type_digits-default'>
-            #{number}
+            {`#${number}`}
           </p>
           <span className='text text_type_main-default text_color_inactive'>
             {dateTime}
           </span>
         </div>
         <h2 className='mt-6 text text_type_main-medium'>{name}</h2>
-        {(pathname === '/profile/orders') && (<p className='mt-2 text text_type_main-default' style={{color}}>{status}</p>)}
+        {(pathname === '/profile/orders') && 
+        (<p className='mt-2 text text_type_main-default' style={{color}}>{status}</p>)}
         <div className={'mt-6 ' + cardorderStyles.main}>
           <ul className={cardorderStyles.components}>
             {ingredientsCard}
-            {/* {ingredients.map(item => (
-              <li key={item.id} className={cardorderStyles.component}>
-                <img src={item.image_mobile} className={cardorderStyles.image}/>
-                <span className={'text text_type_main-default ' + cardorderStyles.span}>{`+${ingredients.length - 5}`}</span>
-              </li>
-            ))} */}
           </ul>
           <div className={'ml-6 ' + cardorderStyles.price}>
             <p className='text text_type_digits-default'>{total}</p>
@@ -142,6 +116,10 @@ function CardOrder({ card }) {
       {visible && modal}
     </>
   );
+}
+
+CardOrder.propTypes = {
+  card: cardOrderPropTypes.isRequired,
 }
 
 export default CardOrder;

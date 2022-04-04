@@ -63,7 +63,11 @@ const ConstructorList = () => {
     });
 
   return (
-    <ul className={'pl-4 pr-4 ' + constructorlistStyles.constructorlist} ref={dropTarget} style={{border}}>
+    <ul 
+      className={'pl-4 pr-4 ' + constructorlistStyles.constructorlist} 
+      ref={dropTarget} 
+      style={{border}}
+    >
       <li className='mb-4 mr-2'>
         {ingredientsBun.map((item) => (
           <ConstructorElement

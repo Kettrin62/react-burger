@@ -10,7 +10,7 @@ import { ResetPasswordPage } from '../../pages/reset-password';
 import { ProfilePage } from '../../pages/profile';
 import { NotFound404 } from '../../pages/not-found';
 import ErrorBoundary from '../error-boundary/error-boundary';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { getCookie } from '../../utils/functions';
@@ -19,14 +19,9 @@ import { getUserData } from '../../services/actions/user';
 import { OrderFeedPage } from '../../pages/order-feed';
 import { OrderInfoPage } from '../../pages/order-info';
 import { WS_CONNECTION_FINISH, WS_CONNECTION_START } from '../../services/actions/ws';
-import { ProfileOrdersPage } from '../../pages/profile-orders';
 
 
 function App() {
-  const { orders, total, totalToday } = useSelector(state => state.ws);
-  // console.log(orders);
-
-
   const dispatch = useDispatch();
 
   useEffect(
@@ -35,8 +30,6 @@ function App() {
     },
     [dispatch]
   );
-
-
 
   const initUser = () => {
     const refreshToken = getCookie('refreshToken');
@@ -55,7 +48,6 @@ function App() {
       dispatch({ type: WS_CONNECTION_FINISH });
     }
   }, [dispatch]);
-
 
   return (
     <ErrorBoundary>

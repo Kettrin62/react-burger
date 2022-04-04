@@ -11,7 +11,7 @@ import ingredientsitemStyles from './ingredients-item.module.css';
 
 
 const IngredientsItem = ({ card }) => {
-  const { image, price, name, __v, _id: id, type } = card;
+  const { image, price, name, _id: id, type } = card;
   const { cards, cardBun } = useSelector(state => state.cards);
   const { ingredients } = useSelector(state => state.ingredients);
   const [visible, setVisible] = useState(false);
@@ -66,7 +66,9 @@ const IngredientsItem = ({ card }) => {
           <p className='text text_type_digits-default pr-2'>{price}</p>
           <CurrencyIcon type='primary' />
         </div>
-        <p style={{ textAlign: 'center' }} className='text text_type_main-default'>{name}</p>
+        <p style={{ textAlign: 'center' }} className='text text_type_main-default'>
+          {name}
+        </p>
         {(counter > 0) && (
           <Counter count={counter} size="default" />
         )}

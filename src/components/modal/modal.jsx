@@ -31,7 +31,11 @@ function Modal(props) {
         <ModalOverlay onClose={props.onClose} />
         <div className={'p-10 ' + modalStyles.container} onClick={(e) => e.stopPropagation()}>
           <div className={modalStyles.header}>
-            <h2 className={props.type==='digits' ? 'text text_type_digits-default' : 'text text_type_main-large'}>
+            <h2 
+              className={props.type==='digits' ? 
+              'text text_type_digits-default' : 
+              'text text_type_main-large'}
+            >
               {props.header}
             </h2>
             <CloseIcon type="primary" onClick={props.onClose}/>

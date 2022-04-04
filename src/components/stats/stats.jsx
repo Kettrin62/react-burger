@@ -1,15 +1,16 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import statsStyles from './stats.module.css';
 
 function Stats() {
   const { orders, total, totalToday } = useSelector(state => state.ws);
 
-
   const ordersDone = orders?.map(item => {
     if (item.status === 'done') {
       return (
         <li className={'mb-2 ' + statsStyles.item} key={item._id}>
-          <p className={'text text_type_digits-default ' + statsStyles.text}>{item.number}</p>
+          <p className={'text text_type_digits-default ' + statsStyles.text}>
+            {item.number}
+          </p>
         </li>
       )
     }
@@ -19,7 +20,9 @@ function Stats() {
     if (item.status !== 'done') {
       return (
         <li className={'mb-2 ' + statsStyles.item} key={item._id}>
-          <p className='text text_type_digits-default'>{item.number}</p>
+          <p className='text text_type_digits-default'>
+            {item.number}
+          </p>
         </li>
       )
     }
