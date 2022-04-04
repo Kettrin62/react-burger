@@ -10,7 +10,7 @@ import orderinfoStyles from './order-info.module.css';
 
 export function OrderInfoPage() {
   const { ingredients } = useSelector(state => state.ingredients);
-  const { orders } = useSelector(state => state.ws);
+  const { orders, ordersUser } = useSelector(state => state.ws);
   const wsData = useSelector(state => state.ws)
   const match = useRouteMatch();
   const dispatch = useDispatch();
@@ -26,19 +26,25 @@ export function OrderInfoPage() {
   //   }
   // }, []);
 
+  console.log(match.path);
+  console.log(orders);
+
   useEffect(() => {
-    if (match.path === 'profile/orders/:id') {
+    if (match.path === '/profile/orders/:id') {
       dispatch({ type: WS_CONNECTION_START_INIT });
       return () => {
         dispatch({ type: WS_CONNECTION_FINISH });
       };
     }
-  }, [match]);
+  }, []);
 
-  const order = orders?.find(({ _id }) => _id === id);
-  // console.log(orders);
+  const order = 
+    match.path === '/profile/orders/:id' ? 
+    ordersUser?.find(({ _id }) => _id === id) : 
+    orders?.find(({ _id }) => _id === id);
+
+
   // console.log(order);
-
 
   const date = new Date(order?.createdAt);
   const dateTime = showMessageDateTime(date);
@@ -50,13 +56,15 @@ export function OrderInfoPage() {
     const ingredient = ingredients.find(
       (el) => el._id === item
     );
-    item in ingredientsCardObj ? ingredientsCardObj[item].count += 1 : ingredientsCardObj[item] = {
-      id: ingredient._id,
-      name: ingredient.name,
-      image: ingredient.image_mobile,
-      count: 1,
-      price: ingredient.price
-    };
+    if (ingredient !== undefined) {
+      item in ingredientsCardObj ? ingredientsCardObj[item].count += 1 : ingredientsCardObj[item] = {
+        id: ingredient._id,
+        name: ingredient.name,
+        image: ingredient.image_mobile,
+        count: 1,
+        price: ingredient.price
+      };
+    }
   });
 
 

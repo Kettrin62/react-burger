@@ -7,7 +7,7 @@ import cardorderdetailsStyles from './card-order-details.module.css';
 function CardOrderDetails() {
   const { ingredients } = useSelector(state => state.ingredients);
   const { modalCard } = useSelector(state => state.modal);
-  console.log(modalCard);
+  // console.log(modalCard);
   const { name, ingredients: ingredientsId, createdAt } = modalCard;
   const date = new Date(createdAt);
   const dateTime = showMessageDateTime(date);
@@ -27,13 +27,15 @@ function CardOrderDetails() {
     const ingredient = ingredients.find(
       (el) => el._id === item
     );
-    item in ingredientsCardObj ? ingredientsCardObj[item].count += 1 : ingredientsCardObj[item] = {
-      id: ingredient._id,
-      name: ingredient.name,
-      image: ingredient.image_mobile,
-      count: 1,
-      price: ingredient.price
-    };
+    if (ingredient !== undefined) {
+      item in ingredientsCardObj ? ingredientsCardObj[item].count += 1 : ingredientsCardObj[item] = {
+        id: ingredient._id,
+        name: ingredient.name,
+        image: ingredient.image_mobile,
+        count: 1,
+        price: ingredient.price
+      };
+    }
   });
 
   const ingredientsCardArr = Object.values(ingredientsCardObj);
@@ -43,7 +45,6 @@ function CardOrderDetails() {
   const ingredientsCardOrder = ingredientsCardArr.map(item => {
     const { id, image, name, count, price } = item;
     total += count * price;
-    console.log(item);
     const countPrice = `${count} x ${price}`
     return (
       // <li key={id} className={'mt-2 mb-2 mr-6 ' + cardorderdetailsStyles.ingredient}>
@@ -68,7 +69,6 @@ function CardOrderDetails() {
   });
 
 
-  console.log(total);
 
 
   const status = modalCard.status === 'done' ? 'Выполнен' : 'Готовится';

@@ -19,6 +19,7 @@ import { getUserData } from '../../services/actions/user';
 import { OrderFeedPage } from '../../pages/order-feed';
 import { OrderInfoPage } from '../../pages/order-info';
 import { WS_CONNECTION_FINISH, WS_CONNECTION_START } from '../../services/actions/ws';
+import { ProfileOrdersPage } from '../../pages/profile-orders';
 
 
 function App() {
@@ -89,8 +90,11 @@ function App() {
             <ProtectedRoute path='/profile' exact={true}>
               <ProfilePage />
             </ProtectedRoute>
+            <ProtectedRoute path='/profile/orders' exact={true}>
+              <ProfilePage />
+            </ProtectedRoute>
             <ProtectedRoute path='/profile/orders/:id' exact={true}>
-              {/* <ProfilePage /> */}
+              <OrderInfoPage />
             </ProtectedRoute>
             <Route>
               <NotFound404 />

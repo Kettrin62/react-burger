@@ -21,14 +21,21 @@ function CardOrder({ card }) {
   const { pathname } = useLocation();
 
 
-console.log(card);
+  // console.log(card);
+  // console.log(ingredientsId);
 
 
   const ingredientsAllCard = ingredientsId.map(item => {
     return ingredients.find(
       (el) => el._id === item
-      );
-    });
+    );
+  });
+
+  const ingredientsAllCardClear = ingredientsAllCard.filter(item => {
+    return item !== undefined
+  });
+
+
 
 
   const total = useMemo(() => {
@@ -38,6 +45,8 @@ console.log(card);
   const ingredientsCardResult = ingredientsAllCard.filter(function (item, position, array) {
     return array.lastIndexOf(item) === position;
   });
+
+  // console.log(ingredientsCardResult);
   
   const ingredientsCard = ingredientsCardResult.map(item => {
     return (
@@ -73,8 +82,7 @@ console.log(card);
   } else if (card.status === 'created') {
     status = 'Создан'
   };
-  console.log(status);
-  
+
 
 
 
@@ -82,12 +90,16 @@ console.log(card);
   const handleOpenModal = () => {
     setVisible(true);
     dispatch(getCard(card));
-    window.history.pushState({ path: `/feed/:${card._id}` }, '', `/feed/:${card._id}`);
+    pathname === '/feed' ? 
+    window.history.pushState({ path: `/feed/:${card._id}` }, '', `/feed/:${card._id}`) :
+    window.history.pushState({ path: `/profile/orders/:${card._id}` }, '', `/profile/orders/:${card._id}`);
   };
   const handleCloseModal = () => {
     setVisible(false);
     dispatch(closeModal());
-    window.history.pushState({ path: '/feed' }, '', '/feed');
+    pathname === '/feed' ? 
+    window.history.pushState({ path: '/feed' }, '', '/feed') :
+    window.history.pushState({ path: `/profile/orders` }, '', `/profile/orders`);
   };
   const modal = (
     <Modal header={`#${number}`} onClose={handleCloseModal} type='digits'>
@@ -96,11 +108,11 @@ console.log(card);
     </Modal>
   )
 
-    const width = pathname === '/profile/orders' ? '788px' : '584px';
+    const width = pathname === '/profile/orders' ? '796px' : '536px';
 
   return (
     <>
-      <li className={'mb-4 mr-2 p-6 ' + cardorderStyles.card} style={{width}} onClick={handleOpenModal}>
+      <li className={'mb-4 p-6 ' + cardorderStyles.card} style={{width}} onClick={handleOpenModal}>
         <div className={cardorderStyles.header}>
           <p className='text text_type_digits-default'>
             #{number}

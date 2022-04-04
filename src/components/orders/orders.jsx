@@ -9,7 +9,7 @@ function Orders() {
   console.log(orders);
 
   return (
-    <section className={'pr-8 ' + ordersStyles.section}>
+    <section className={ordersStyles.section}>
       <Title text='Лента заказов' />
       <ul className={ordersStyles.list}>
         {orders?.map(item => (

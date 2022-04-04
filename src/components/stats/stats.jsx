@@ -26,7 +26,7 @@ function Stats() {
   });
 
   return (
-    <section className={'mt-25 pl-8 ' + statsStyles.section}>
+    <section className={'mt-25 pl-15 ' + statsStyles.section}>
       <div className={statsStyles.orders}>
         <div>
           <h4 className='mb-6 text text_type_main-medium'>

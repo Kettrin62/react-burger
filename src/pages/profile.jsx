@@ -7,6 +7,8 @@ import { ProfileOrdersPage } from './profile-orders';
 
 export function ProfilePage() {
 
+  
+
   return (
     <section className={profileStyles.container}>
       <Router>
