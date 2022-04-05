@@ -42,13 +42,6 @@ function App() {
     initUser();
   }, []);
 
-  useEffect(() => {
-    dispatch({ type: WS_CONNECTION_START });
-    return () => {
-      dispatch({ type: WS_CONNECTION_FINISH });
-    }
-  }, [dispatch]);
-
   return (
     <ErrorBoundary>
       <div className={appStyles.app}>
