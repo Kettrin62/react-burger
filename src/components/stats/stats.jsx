@@ -4,7 +4,7 @@ import statsStyles from './stats.module.css';
 function Stats() {
   const { orders, total, totalToday } = useSelector(state => state.ws);
 
-  const ordersDone = orders?.map(item => {
+  const ordersDone = orders.map(item => {
     if (item.status === 'done') {
       return (
         <li className={'mb-2 ' + statsStyles.item} key={item._id}>
@@ -16,7 +16,7 @@ function Stats() {
     }
   });
 
-  const ordersNotDone = orders?.map(item => {
+  const ordersNotDone = orders.map(item => {
     if (item.status !== 'done') {
       return (
         <li className={'mb-2 ' + statsStyles.item} key={item._id}>

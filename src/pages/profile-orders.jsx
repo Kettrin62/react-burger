@@ -7,7 +7,6 @@ import profileordersStyles from './profile-orders.module.css';
 
 export function ProfileOrdersPage() {
   const { ordersUser } = useSelector(state => state.ws);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,7 +18,7 @@ export function ProfileOrdersPage() {
 
   return (
     <ul className={profileordersStyles.list}>
-      {ordersUser?.map(item => (
+      {[...ordersUser].reverse().map(item => (
         <CardOrder key={item._id} card={item} />
       ))}
     </ul>

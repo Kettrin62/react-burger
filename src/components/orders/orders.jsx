@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Title from '../title/title';
 import CardOrder from '../card-order/card-order';
 import ordersStyles from './orders.module.css';
@@ -11,7 +11,7 @@ function Orders() {
     <section className={ordersStyles.section}>
       <Title text='Лента заказов' />
       <ul className={ordersStyles.list}>
-        {orders?.map(item => (
+        {orders.map(item => (
           <CardOrder key={item._id} card={item} />
         ))}
       </ul>

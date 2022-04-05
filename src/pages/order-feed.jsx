@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import orderfeedStyles from './order-feed.module.css';
 import Orders from '../components/orders/orders';
 import Stats from '../components/stats/stats';
