@@ -32,7 +32,6 @@ export function OrderInfoPage() {
         dispatch({ type: WS_CONNECTION_FINISH });
       };
     }
-
   }, []);
 
   const order = 
