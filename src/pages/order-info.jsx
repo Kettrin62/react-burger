@@ -4,6 +4,7 @@ import { useParams, useRouteMatch } from 'react-router-dom';
 import IngredientsCardItem from '../components/ingredients-card-item/ingredients-card-item';
 import { 
   WS_CONNECTION_FINISH, 
+  WS_CONNECTION_START, 
   WS_CONNECTION_START_INIT 
 } from '../services/actions/ws';
 import { showMessageDateTime } from '../utils/functions';
@@ -14,7 +15,7 @@ import orderinfoStyles from './order-info.module.css';
 export function OrderInfoPage() {
   const { ingredients } = useSelector(state => state.ingredients);
   const { orders, ordersUser } = useSelector(state => state.ws);
- const match = useRouteMatch();
+  const match = useRouteMatch();
   const dispatch = useDispatch();
 
   const id = useParams().id.slice(1);
@@ -25,7 +26,13 @@ export function OrderInfoPage() {
       return () => {
         dispatch({ type: WS_CONNECTION_FINISH });
       };
+    } else {
+      dispatch({ type: WS_CONNECTION_START });
+      return () => {
+        dispatch({ type: WS_CONNECTION_FINISH });
+      };
     }
+
   }, []);
 
   const order = 
