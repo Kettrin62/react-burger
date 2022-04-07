@@ -34,7 +34,6 @@ export function setCookie(name, value, props) {
     }
   }
   updatedCookie += ';samesite=lax';
-  updatedCookie += ';max-age=31556926';
   document.cookie = updatedCookie;
 };
 

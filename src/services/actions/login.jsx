@@ -43,7 +43,7 @@ export function getLogin({ email, password }) {
         });
         dispatch(setUserData(res.user.name, res.user.email, res.accessToken));
         const refreshToken = res.refreshToken;
-        setCookie('refreshToken', refreshToken);
+        setCookie('refreshToken', refreshToken, { path: '/', 'max-age': 31556926 });
         setTimeout(() => dispatch(resetToken), 1200000);
       } else {
                 // Если произошла ошибка, отправляем соотвтествующий экшен

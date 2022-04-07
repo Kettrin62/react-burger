@@ -18,7 +18,6 @@ import { IngredientPage } from '../../pages/ingredient';
 import { getUserData } from '../../services/actions/user';
 import { OrderFeedPage } from '../../pages/order-feed';
 import { OrderInfoPage } from '../../pages/order-info';
-import { WS_CONNECTION_FINISH, WS_CONNECTION_START } from '../../services/actions/ws';
 
 
 function App() {

@@ -93,7 +93,7 @@ export function updateToken(token) {
                 // для записи полученных данных в хранилище
         dispatch(updateTokenSuccess(res.accessToken));
         const refreshToken = res.refreshToken;
-        setCookie('refreshToken', refreshToken);
+        setCookie('refreshToken', refreshToken, { path: '/', 'max-age': 31556926 });
         setTimeout(() => dispatch(resetToken), 1200000);
                 // Если произошла ошибка, отправляем соотвтествующий экшен
         dispatch(updateTokenFailed())
@@ -125,7 +125,7 @@ export function getUserData(token) {
       if (res && res.success) {
         dispatch(updateTokenSuccess(res.accessToken));
         const refreshToken = res.refreshToken;
-        setCookie('refreshToken', refreshToken);
+        setCookie('refreshToken', refreshToken, { path: '/', 'max-age': 31556926 });
         setTimeout(() => dispatch(resetToken), 1200000);
         return res;
       }
@@ -175,7 +175,7 @@ export function updateUserDataToken(token, data) {
       if (res && res.success) {
         dispatch(updateTokenSuccess(res.accessToken));
         const refreshToken = res.refreshToken;
-        setCookie('refreshToken', refreshToken);
+        setCookie('refreshToken', refreshToken, { path: '/', 'max-age': 31556926 });
         setTimeout(() => dispatch(resetToken), 1200000);
         return res;
       }
