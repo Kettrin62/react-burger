@@ -80,7 +80,7 @@ export function getOrderToken(token, cards) {
       if (res && res.success) {
         dispatch(updateTokenSuccess(res.accessToken));
         const refreshToken = res.refreshToken;
-        setCookie('refreshToken', refreshToken);
+        setCookie('refreshToken', refreshToken, { path: '/', 'max-age': 31556926 });
         setTimeout(() => dispatch(resetToken), 1200000);
         return res;
       }

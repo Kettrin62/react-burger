@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Form from '../components/form/form';
 import { forgotPassword } from '../services/actions/forgot-password';
 import loginStyles from './login.module.css';
-import { getCookie } from '../utils/functions';
 
 
 export function ForgotPasswordPage() {
@@ -16,7 +15,6 @@ export function ForgotPasswordPage() {
   const { isAuthenticated } = useSelector(state => state.user);
   const { state } = useLocation();
 
-  console.log(isAuthenticated)
   const dispatch = useDispatch();
 
   const [emailValue, setEmailValue] = useState('');

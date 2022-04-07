@@ -1,0 +1,38 @@
+.ingredient {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+}
+
+.box__image {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(to right, #801AB2,#4C4CFF);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.image {
+  object-fit: cover;
+  width: 60px;
+  height: 60px;
+  background: #131316;
+  border-radius: 50%;
+}
+
+.price {
+  display: flex;
+}
+
+.total {
+  composes: ingredient;
+}

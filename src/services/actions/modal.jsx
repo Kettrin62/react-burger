@@ -9,4 +9,10 @@ export function getCard(card) {
       card: card
     })
   }
-}
+};
+
+export function closeModal() {
+  return {
+    type: CLOSE_MODAL,
+  }
+};

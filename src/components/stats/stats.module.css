@@ -1,0 +1,37 @@
+.section {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.orders {
+  display: grid;
+  grid-template-columns: repeat(2, 272px);
+  gap: 36px;
+}
+
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  max-height: 330px;
+  flex-wrap: wrap;
+  column-gap: 30px;
+  max-width: 200px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.text {
+  color: #00CCCC;
+}
+
+.item:last-of-type {
+  margin-bottom: 0;
+}
+
+.component:nth-child(6)>.span {
+  display: block;
+}
