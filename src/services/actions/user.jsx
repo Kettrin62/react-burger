@@ -95,8 +95,9 @@ export function updateToken(token) {
         const refreshToken = res.refreshToken;
         setCookie('refreshToken', refreshToken, { path: '/', 'max-age': 31556926 });
         setTimeout(() => dispatch(resetToken), 1200000);
+      } else {
                 // Если произошла ошибка, отправляем соотвтествующий экшен
-        dispatch(updateTokenFailed())
+                dispatch(updateTokenFailed())
       }
     })
     .catch( err => {
