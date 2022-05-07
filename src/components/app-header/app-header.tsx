@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, FC } from 'react';
 import Navigation from '../navigation/navigation';
 import Link from '../link/link';
 import { 
