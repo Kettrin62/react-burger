@@ -1,11 +1,12 @@
 import ingredientdetailsStyles from './ingredient-details.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 import CaloricContent from '../caloric-content/caloric-content';
 
 
 function IngredientDetails() {
   const { modalCard } = useSelector(state => state.modal);
-  const { image_large, name } = modalCard;
+  const image_large = modalCard?.image_large;
+  const name = modalCard?.name;
   return (
     <div className={ingredientdetailsStyles.container}>
       <figure className={ingredientdetailsStyles.card}>
