@@ -2,11 +2,30 @@ import { BASEURL } from '../../utils/data';
 import { checkResponse } from '../../utils/functions';
 import { DELETE_USER_DATA } from './user';
 import { deleteCookie } from '../../utils/functions';
+import {
+  AppThunk,
+  AppDispatch
+} from '../types';
 
 
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
-export const LOGOUT_FAILED = 'LOGOUT_FAILED';
+export const LOGOUT_REQUEST: 'LOGOUT_REQUEST' = 'LOGOUT_REQUEST';
+export const LOGOUT_SUCCESS: 'LOGOUT_SUCCESS' = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILED: 'LOGOUT_FAILED' = 'LOGOUT_FAILED';
+
+export interface ILogoutRequestAction {
+  readonly type: typeof LOGOUT_REQUEST;
+}
+export interface ILogoutSuccessAction {
+  readonly type: typeof LOGOUT_SUCCESS;
+}
+export interface ILogoutFailedAction {
+  readonly type: typeof LOGOUT_FAILED;
+}
+
+export type TLogoutActions =
+  | ILogoutRequestAction
+  | ILogoutSuccessAction
+  | ILogoutFailedAction;
 
 function logoutFailed() {
   return {
@@ -15,12 +34,11 @@ function logoutFailed() {
 };
 
 
-export function logout(token) {
-  return function(dispatch) {
+export const logout: AppThunk = (token: string) => {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: LOGOUT_REQUEST
     })
-    // Запрашиваем данные у сервера
     fetch(`${BASEURL}/auth/logout`, {
       method: 'POST',
       headers: {
@@ -41,12 +59,10 @@ export function logout(token) {
         });
         deleteCookie('refreshToken');
       } else {
-                // Если произошла ошибка, отправляем соотвтествующий экшен
         dispatch(logoutFailed())
       }
     })
     .catch( err => {
-            // Если сервер не вернул данных, также отправляем экшен об ошибке
       dispatch(logoutFailed())
     })
   }

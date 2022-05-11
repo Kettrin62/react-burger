@@ -5,10 +5,30 @@ import {
   setUserData,
   resetToken
 } from './user';
+import {
+  AppThunk,
+  AppDispatch
+} from '../types';
+import { TUser } from '../types/data';
 
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const LOGIN_REQUEST: 'LOGIN_REQUEST' = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS: 'LOGIN_SUCCESS' = 'LOGIN_SUCCESS';
+export const LOGIN_FAILED: 'LOGIN_FAILED' = 'LOGIN_FAILED';
+
+export interface ILoginRequestAction {
+  readonly type: typeof LOGIN_REQUEST;
+}
+export interface ILoginSuccessAction {
+  readonly type: typeof LOGIN_SUCCESS;
+}
+export interface ILoginFailedAction {
+  readonly type: typeof LOGIN_FAILED;
+}
+
+export type TLoginActions =
+  | ILoginRequestAction
+  | ILoginSuccessAction
+  | ILoginFailedAction;
 
 function loginFailed() {
   return {
@@ -17,27 +37,24 @@ function loginFailed() {
 };
 
 
-export function getLogin({ email, password }) {
-  return function(dispatch) {
+export const getLogin: AppThunk = (data: TUser) => {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: LOGIN_REQUEST
     })
-    // Запрашиваем данные у сервера
     fetch(`${BASEURL}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: email,
-        password: password
+        email: data.email,
+        password: data.password
       })
     })
     .then(checkResponse)
     .then( res  => {
       if (res && res.success) {
-                // В случае успешного получения данных вызываем экшен
-                // для записи полученных данных в хранилище
         dispatch({
           type: LOGIN_SUCCESS,
         });
@@ -46,12 +63,10 @@ export function getLogin({ email, password }) {
         setCookie('refreshToken', refreshToken, { path: '/', 'max-age': 31556926 });
         setTimeout(() => dispatch(resetToken), 1200000);
       } else {
-                // Если произошла ошибка, отправляем соотвтествующий экшен
         dispatch(loginFailed())
       }
     })
     .catch( err => {
-            // Если сервер не вернул данных, также отправляем экшен об ошибке
       dispatch(loginFailed())
     })
   }

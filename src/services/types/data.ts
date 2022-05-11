@@ -21,3 +21,9 @@ export type TCards = {
   readonly id: string,
   readonly key: string,
 }
+
+export type TUser = {
+  email?: string | undefined;
+  password?: string | undefined;
+  name?: string | undefined;
+}
