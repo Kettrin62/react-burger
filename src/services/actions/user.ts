@@ -152,7 +152,7 @@ export const updateToken: AppThunk = (token: string) => {
         dispatch(updateTokenSuccess(res.accessToken));
         const refreshToken = res.refreshToken;
         setCookie('refreshToken', refreshToken, { path: '/', 'max-age': 31556926 });
-        setTimeout(() => dispatch(resetToken), 1200000);
+        setTimeout(() => dispatch(resetToken()), 1200000);
       } else {
         dispatch(updateTokenFailed())
       }
@@ -183,7 +183,7 @@ export const getUserData: AppThunk = (token: string) => {
         dispatch(updateTokenSuccess(res.accessToken));
         const refreshToken = res.refreshToken;
         setCookie('refreshToken', refreshToken, { path: '/', 'max-age': 31556926 });
-        setTimeout(() => dispatch(resetToken), 1200000);
+        setTimeout(() => dispatch(resetToken()), 1200000);
         return res;
       }
     })
@@ -233,7 +233,7 @@ export const updateUserDataToken: AppThunk = (token: string, data: TUser) => {
         dispatch(updateTokenSuccess(res.accessToken));
         const refreshToken = res.refreshToken;
         setCookie('refreshToken', refreshToken, { path: '/', 'max-age': 31556926 });
-        setTimeout(() => dispatch(resetToken), 1200000);
+        setTimeout(() => dispatch(resetToken()), 1200000);
         return res;
       }
     })
