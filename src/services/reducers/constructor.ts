@@ -18,10 +18,10 @@ const cardsInitialState: TCardsState = {
   cardBun: '',
 };
 
-export const cardsReducer = 
-  (state = cardsInitialState, 
-  action: TCardsActions):
-  TCardsState => {
+export const cardsReducer = (
+  state = cardsInitialState, 
+  action: TCardsActions
+): TCardsState => {
   switch (action.type) {
     case ADD_CARD: {
       return {
@@ -32,35 +32,30 @@ export const cardsReducer =
         }),
       };
     }
-
     case CHANGE_CARD_BUN: {
       return {
         ...state,
         cardBun: action.id
       };
     }
-
     case DELETE_CARD: {
       return {
         ...state,
         cards: state.cards.filter(item => item.key !== action.key)
       };
     }
-
     case SORT_CARD: {
       return {
         ...state,
         cards: action.cards
       };
     }
-
     case CLEAR_CARDS: {
       return {
         cards: [],
         cardBun: ''
       };
     }
-    
     default:
       return state;
   }

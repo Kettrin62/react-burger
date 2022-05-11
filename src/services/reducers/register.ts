@@ -15,10 +15,10 @@ const registerInitialState: TRegisterState = {
   registerFailed: false,
 };
 
-export const registerReducer = 
-  (state = registerInitialState, 
-  action: TRegisterActions):
-  TRegisterState => {
+export const registerReducer = (
+  state = registerInitialState, 
+  action: TRegisterActions
+): TRegisterState => {
   switch (action.type) {
     case REGISTER_REQUEST: {
       return {

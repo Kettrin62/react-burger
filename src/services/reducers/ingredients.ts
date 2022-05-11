@@ -35,49 +35,49 @@ const ingredientsInitialState: TIngredientsState = {
 //   tabCurrent: 'one',
 // };
 
-export const ingredientsReducer = 
-  (state = ingredientsInitialState, 
-  action: TIngredientsActions): 
-  TIngredientsState => {
-    switch (action.type) {
-      case GET_INGREDIENTS_REQUEST: {
-        return {
-          ...state,
-          ingredientsRequest: true,
-        }
+export const ingredientsReducer = (
+  state = ingredientsInitialState, 
+  action: TIngredientsActions
+): TIngredientsState => {
+  switch (action.type) {
+    case GET_INGREDIENTS_REQUEST: {
+      return {
+        ...state,
+        ingredientsRequest: true,
       }
-      case GET_INGREDIENTS_SUCCESS: {
-        return {
-          ...state,
-          ingredientsRequest: false,
-          ingredientsFailed: false,
-          ingredients: action.ingredients,
-        }
-      }
-      case GET_INGREDIENTS_FAILED: {
-        return {
-          ...state,
-          ingredientsFailed: true,
-          ingredientsRequest: false,
-        }
-      }
-      default:
-        return state;
     }
+    case GET_INGREDIENTS_SUCCESS: {
+      return {
+        ...state,
+        ingredientsRequest: false,
+        ingredientsFailed: false,
+        ingredients: action.ingredients,
+      }
+    }
+    case GET_INGREDIENTS_FAILED: {
+      return {
+        ...state,
+        ingredientsFailed: true,
+        ingredientsRequest: false,
+      }
+    }
+    default:
+      return state;
+  }
 }
 
-export const scrollReducer = 
-  (state = ingredientsInitialState, 
-  action: IChangeTub):
-  TIngredientsState => {
-    switch (action.type) {
-      case CHANGE_TUB: {
-        return {
-          ...state,
-          tabCurrent: action.current,
-        }
+export const scrollReducer = (
+  state = ingredientsInitialState, 
+  action: IChangeTub
+): TIngredientsState => {
+  switch (action.type) {
+    case CHANGE_TUB: {
+      return {
+        ...state,
+        tabCurrent: action.current,
       }
-      default:
-        return state;
     }
+    default:
+      return state;
+  }
 }

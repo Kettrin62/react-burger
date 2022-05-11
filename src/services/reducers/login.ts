@@ -15,32 +15,32 @@ const loginInitialState: TLoginState = {
   loginFailed: false,
 };
 
-export const loginReducer = 
-  (state = loginInitialState, 
-  action: TLoginActions):
-  TLoginState => {
-    switch (action.type) {
-      case LOGIN_REQUEST: {
-        return {
-          ...state,
-          loginRequest: true,
-        }
+export const loginReducer = (
+  state = loginInitialState, 
+  action: TLoginActions
+): TLoginState => {
+  switch (action.type) {
+    case LOGIN_REQUEST: {
+      return {
+        ...state,
+        loginRequest: true,
       }
-      case LOGIN_SUCCESS: {
-        return {
-          ...state,
-          loginRequest: false,
-          loginFailed: false,
-        }
-      }
-      case LOGIN_FAILED: {
-        return {
-          ...state,
-          loginFailed: true,
-          loginRequest: false,
-        }
-      }
-      default:
-        return state;
     }
+    case LOGIN_SUCCESS: {
+      return {
+        ...state,
+        loginRequest: false,
+        loginFailed: false,
+      }
+    }
+    case LOGIN_FAILED: {
+      return {
+        ...state,
+        loginFailed: true,
+        loginRequest: false,
+      }
+    }
+    default:
+      return state;
+  }
 }

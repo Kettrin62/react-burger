@@ -17,32 +17,32 @@ const ResetPasswordInitialState: TResetPasswordState = {
   resetPasswordSuccess: false,
 };
 
-export const resetPasswordReducer = 
-  (state = ResetPasswordInitialState, 
-  action: TResetPasswordActions):
-  TResetPasswordState => {
-    switch (action.type) {
-      case RESET_PASSWORD_REQUEST: {
-        return {
-          ...state,
-          resetPasswordRequest: true,
-        }
+export const resetPasswordReducer = (
+  state = ResetPasswordInitialState, 
+  action: TResetPasswordActions
+): TResetPasswordState => {
+  switch (action.type) {
+    case RESET_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        resetPasswordRequest: true,
       }
-      case RESET_PASSWORD_SUCCESS: {
-        return {
-          resetPasswordRequest: false,
-          resetPasswordFailed: false,
-          resetPasswordSuccess: true,
-        }
-      }
-      case RESET_PASSWORD_FAILED: {
-        return {
-          resetPasswordFailed: true,
-          resetPasswordRequest: false,
-          resetPasswordSuccess: false,
-        }
-      }
-      default:
-        return state;
     }
+    case RESET_PASSWORD_SUCCESS: {
+      return {
+        resetPasswordRequest: false,
+        resetPasswordFailed: false,
+        resetPasswordSuccess: true,
+      }
+    }
+    case RESET_PASSWORD_FAILED: {
+      return {
+        resetPasswordFailed: true,
+        resetPasswordRequest: false,
+        resetPasswordSuccess: false,
+      }
+    }
+    default:
+      return state;
+  }
 }
