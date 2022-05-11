@@ -6,9 +6,9 @@ import {
 } from '../actions/forgot-password';
 
 type TForgotPasswordState = {
-  forgotPasswordRequest: boolean,
-  forgotPasswordFailed: boolean,
-  forgotPasswordSuccess: boolean,
+  readonly forgotPasswordRequest: boolean,
+  readonly forgotPasswordFailed: boolean,
+  readonly forgotPasswordSuccess: boolean,
 }
 
 const forgotPasswordInitialState: TForgotPasswordState = {

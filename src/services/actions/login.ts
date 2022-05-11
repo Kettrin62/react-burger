@@ -30,7 +30,7 @@ export type TLoginActions =
   | ILoginSuccessAction
   | ILoginFailedAction;
 
-function loginFailed() {
+function loginFailed(): ILoginFailedAction {
   return {
     type: LOGIN_FAILED
   }

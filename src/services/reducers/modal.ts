@@ -7,7 +7,7 @@ import { TCard } from '../types/data';
 
 
 type TModalState = {
-  modalCard: TCard | null;
+  readonly modalCard: TCard | null;
 }
 
 const modalInitialState: TModalState = {

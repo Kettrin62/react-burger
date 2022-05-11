@@ -6,8 +6,8 @@ import {
 } from '../actions/login';
 
 type TLoginState = {
-  loginRequest: boolean,
-  loginFailed: boolean,
+  readonly loginRequest: boolean,
+  readonly loginFailed: boolean,
 }
 
 const loginInitialState: TLoginState = {

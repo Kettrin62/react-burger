@@ -5,11 +5,32 @@ import {
   resetToken
 } from './user';
 import { setCookie } from '../../utils/functions';
+import {
+  AppThunk,
+  AppDispatch
+} from '../types';
+import { TCards } from '../types/data';
 
 
-export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
-export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
-export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
+export const GET_ORDER_REQUEST: 'GET_ORDER_REQUEST' = 'GET_ORDER_REQUEST';
+export const GET_ORDER_FAILED: 'GET_ORDER_FAILED' = 'GET_ORDER_FAILED';
+export const GET_ORDER_SUCCESS: 'GET_ORDER_SUCCESS' = 'GET_ORDER_SUCCESS';
+
+export interface IGetOrderRequestAction {
+  readonly type: typeof GET_ORDER_REQUEST;
+}
+export interface IGetOrderSuccessAction {
+  readonly type: typeof GET_ORDER_SUCCESS;
+  readonly order: number;
+}
+export interface IGetOrderFailedAction {
+  readonly type: typeof GET_ORDER_FAILED;
+}
+
+export type TGetOrderActions =
+  | IGetOrderRequestAction
+  | IGetOrderSuccessAction
+  | IGetOrderFailedAction;
 
 function getOrderRequest() {
   return {
@@ -17,24 +38,23 @@ function getOrderRequest() {
   }
 };
 
-function getOrderSuccess(order) {
+function getOrderSuccess(order: number): IGetOrderSuccessAction {
   return {
     type: GET_ORDER_SUCCESS,
     order: order
   }
 };
 
-function getOrderFailed() {
+function getOrderFailed(): IGetOrderFailedAction {
   return {
     type: GET_ORDER_FAILED
   }
 };
 
 
-export function getOrder(token, cards) {
-  return function(dispatch) {
+export const getOrder: AppThunk = (token: string, cards: Array<TCards>) => {
+  return function(dispatch: AppDispatch) {
     dispatch(getOrderRequest())
-    // Запрашиваем данные у сервера
     fetch(`${BASEURL}/orders`, {
       method: 'POST',
       headers: {
@@ -48,23 +68,19 @@ export function getOrder(token, cards) {
     .then(checkResponse)
     .then( res  => {
       if (res && res.success) {
-                // В случае успешного получения данных вызываем экшен
-                // для записи полученных данных в хранилище
         dispatch(getOrderSuccess(res.order.number))
       } else {
-                // Если произошла ошибка, отправляем соотвтествующий экшен
         dispatch(getOrderFailed())
       }
     })
     .catch( err => {
-            // Если сервер не вернул данных, также отправляем экшен об ошибке
       dispatch(getOrderFailed())
     })
   }
 };
 
-export function getOrderToken(token, cards) {
-  return function (dispatch) {
+export const getOrderToken: AppThunk = (token: string, cards: Array<TCards>) => {
+  return function (dispatch: AppDispatch) {
     dispatch(getOrderRequest())
     fetch(`${BASEURL}/auth/token`, {
       method: "POST",

@@ -12,11 +12,11 @@ import {
 } from '../types/data';
 
 type TIngredientsState = {
-  ingredients: ReadonlyArray<TCard>;
-  ingredientsRequest: boolean;
-  ingredientsFailed: boolean;
+  readonly ingredients: ReadonlyArray<TCard>;
+  readonly ingredientsRequest: boolean;
+  readonly ingredientsFailed: boolean;
 
-  tabCurrent: TTabCurrent;
+  readonly tabCurrent: TTabCurrent;
 }
 
 const ingredientsInitialState: TIngredientsState = {

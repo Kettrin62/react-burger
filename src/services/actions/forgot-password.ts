@@ -24,7 +24,7 @@ export type TForgotPasswordActions =
   | IForgotPasswordSuccessAction
   | IForgotPasswordFailedAction;
 
-function forgotPasswordFailed() {
+function forgotPasswordFailed(): IForgotPasswordFailedAction {
   return {
     type: FORGOT_PASSWORD_FAILED
   }

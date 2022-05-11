@@ -26,7 +26,7 @@ export const getCard: AppThunk = (card: TCard) => {
   }
 };
 
-export function closeModal() {
+export function closeModal(): ICloseModalAction {
   return {
     type: CLOSE_MODAL,
   }

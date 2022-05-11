@@ -9,8 +9,8 @@ import {
 import { TCards } from '../types/data';
 
 type TCardsState = {
-  cards: ReadonlyArray<TCards>;
-  cardBun: string;
+  readonly cards: ReadonlyArray<TCards>;
+  readonly cardBun: string;
 }
 
 const cardsInitialState: TCardsState = {

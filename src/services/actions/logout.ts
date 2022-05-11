@@ -27,7 +27,7 @@ export type TLogoutActions =
   | ILogoutSuccessAction
   | ILogoutFailedAction;
 
-function logoutFailed() {
+function logoutFailed(): ILogoutFailedAction {
   return {
     type: LOGOUT_FAILED
   }

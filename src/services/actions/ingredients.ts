@@ -34,7 +34,7 @@ export type TIngredientsActions =
   | IGetIngredientsSuccessAction
   | IGetIngredientsFailedAction;
 
-function getIngredientsFailed() {
+function getIngredientsFailed(): IGetIngredientsFailedAction {
   return {
     type: GET_INGREDIENTS_FAILED
   }

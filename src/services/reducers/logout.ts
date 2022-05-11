@@ -6,8 +6,8 @@ import {
 } from "../actions/logout";
 
 type TLogoutState = {
-  logoutRequest: boolean,
-  logoutFailed: boolean,
+  readonly logoutRequest: boolean,
+  readonly logoutFailed: boolean,
 }
 
 const logoutInitialState: TLogoutState = {
