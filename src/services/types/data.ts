@@ -16,3 +16,8 @@ export type TCard = {
 };
 
 export type TTabCurrent = 'one' | 'two' | 'three';
+
+export type TCards = {
+  readonly id: string,
+  readonly key: string,
+}

@@ -3,15 +3,25 @@ import {
   CHANGE_CARD_BUN,
   DELETE_CARD,
   SORT_CARD,
-  CLEAR_CARDS
+  CLEAR_CARDS,
+  TCardsActions
 } from '../actions/constructor';
+import { TCards } from '../types/data';
 
-const initialState = {
+type TCardsState = {
+  cards: ReadonlyArray<TCards>;
+  cardBun: string;
+}
+
+const cardsInitialState: TCardsState = {
   cards: [],
-  cardBun: [],
+  cardBun: '',
 };
 
-export const cardsReducer = (state = initialState, action) => {
+export const cardsReducer = 
+  (state = cardsInitialState, 
+  action: TCardsActions):
+  TCardsState => {
   switch (action.type) {
     case ADD_CARD: {
       return {
@@ -47,7 +57,7 @@ export const cardsReducer = (state = initialState, action) => {
     case CLEAR_CARDS: {
       return {
         cards: [],
-        cardBun: []
+        cardBun: ''
       };
     }
     
