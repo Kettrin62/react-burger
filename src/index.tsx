@@ -18,31 +18,32 @@ import {
   WS_GET_MESSAGE_INIT, 
   WS_SEND_MESSAGE 
 } from './services/actions/ws';
+import { store } from './services/store';
 
-declare const window: any;
+// declare const window: any;
 
-const wsUrl = 'wss://norma.nomoreparties.space/orders';
+// const wsUrl = 'wss://norma.nomoreparties.space/orders';
 
-const wsActions = {
-  ws: WS_CONNECTION_START,
-  wsInit: WS_CONNECTION_START_INIT,
-  wsSendMessage: WS_SEND_MESSAGE,
-  onOpen: WS_CONNECTION_SUCCESS,
-  onClose: WS_CONNECTION_CLOSED,
-  onError: WS_CONNECTION_ERROR,
-  onMessage: WS_GET_MESSAGE,
-  onMessageInit: WS_GET_MESSAGE_INIT,
-  wsClose: WS_CONNECTION_FINISH
-};
+// const wsActions = {
+//   ws: WS_CONNECTION_START,
+//   wsInit: WS_CONNECTION_START_INIT,
+//   wsSendMessage: WS_SEND_MESSAGE,
+//   onOpen: WS_CONNECTION_SUCCESS,
+//   onClose: WS_CONNECTION_CLOSED,
+//   onError: WS_CONNECTION_ERROR,
+//   onMessage: WS_GET_MESSAGE,
+//   onMessageInit: WS_GET_MESSAGE_INIT,
+//   wsClose: WS_CONNECTION_FINISH
+// };
 
-const composeEnhancers =
-  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-    : compose;
+// const composeEnhancers =
+//   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+//     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+//     : compose;
 
-const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsUrl, wsActions)));
+// const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsUrl, wsActions)));
 
-const store = createStore(rootReducer, enhancer);
+// const store = createStore(rootReducer, enhancer);
 
 ReactDOM.render(
   <React.StrictMode>

@@ -5,7 +5,7 @@ import {
   WS_GET_MESSAGE,
   WS_CONNECTION_FINISH,
   WS_GET_MESSAGE_INIT,
-  TWsActions
+  TWsConnectionsActions
 } from '../actions/ws';
 import { TCardOrder } from '../types/data';
 
@@ -33,7 +33,7 @@ const WsInitialState: TWsState = {
 
 export const wsReducer = (
   state = WsInitialState, 
-  action: TWsActions
+  action: TWsConnectionsActions
 ): TWsState => {
   switch (action.type) {
     case WS_CONNECTION_SUCCESS: {

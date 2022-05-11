@@ -1,6 +1,12 @@
-export const socketMiddleware = (wsUrl, wsActions) => {
+import { Middleware } from 'redux';
+import { IWsActions } from '../store';
+
+export const socketMiddleware = (
+  wsUrl: string,
+  wsActions: IWsActions
+): Middleware => {
   return store => {
-    let socket = null;
+    let socket: WebSocket | null = null;
 
     return next => action => {
       const { dispatch, getState } = store;
@@ -44,7 +50,6 @@ export const socketMiddleware = (wsUrl, wsActions) => {
 
         if (type === wsSendMessage) {
           const message = { ...payload, token: token };
-                    // функция для отправки сообщения на сервер
           socket.send(JSON.stringify(message));
         }
 

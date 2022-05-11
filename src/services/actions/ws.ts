@@ -47,7 +47,7 @@ export interface IWsSendMessageAction {
   readonly type: typeof WS_SEND_MESSAGE;
 }
 
-export type TWsActions = 
+export type TWsConnectionsActions = 
   | IWsConnectionStartAction
   | IWsConnectionStartInitAction
   | IWsConnectionSuccessAction

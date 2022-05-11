@@ -1,11 +1,21 @@
-export function checkResponse(res) {
+export interface IResponse extends Body {
+  readonly headers: Headers;
+  readonly ok: boolean;
+  readonly redirected: boolean;
+  readonly status: number;
+  readonly statusText: string;
+  readonly type: ResponseType;
+  readonly url: string;
+}
+
+export function checkResponse(res: IResponse): Promise<any> {
   if (res.ok) {
     return res.json();
   }
   return Promise.reject(`Ошибка: ${res.statusText}`);
 };
 
-export function getCookie(name) {
+export function getCookie(name: string) {
   const matches = document.cookie.match(
     new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
   );
@@ -13,7 +23,7 @@ export function getCookie(name) {
 };
 
 
-export function setCookie(name, value, props) {
+export function setCookie(name: string, value: string, props?: any) {
   props = props || {};
   let exp = props.expires;
   if (typeof exp == 'number' && exp) {
@@ -37,8 +47,8 @@ export function setCookie(name, value, props) {
   document.cookie = updatedCookie;
 };
 
-export function deleteCookie(name) {
-  setCookie(name, null, { expires: -1 });
+export function deleteCookie(name: string) {
+  setCookie(name, '', { expires: -1 });
 };
 
 const months = [
@@ -57,13 +67,13 @@ const months = [
 ];
 
 // функция для создания адекватной даты в ленте заказов
-function dropHMS(date) {
+function dropHMS(date: Date) {
   date.setHours(0);
   date.setMinutes(0);
   date.setSeconds(0, 0);
 };
 
-export function showMessageDateTime(dateTime) {
+export function showMessageDateTime(dateTime: Date) {
   let today = new Date(),
     yesterday = new Date(),
     twoDaysAgo = new Date(),
