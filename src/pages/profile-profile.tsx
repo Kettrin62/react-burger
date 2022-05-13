@@ -4,7 +4,6 @@ import {
   Input,
   Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useLocation } from 'react-router-dom';
 import Form from '../components/form/form';
 import { useDispatch, useSelector } from '../services/hooks';
 import { getCookie } from '../utils/functions';

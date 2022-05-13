@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useRef, useState, MutableRefObject } from 'react';
+import { useRef, MutableRefObject } from 'react';
 import Title from '../title/title';
 import Menu from '../menu/menu';
 import IngredientsList from '../ingredients-list/ingredients-list';
@@ -10,42 +10,6 @@ import { useDispatch, useSelector } from '../../services/hooks';
 import { useDrop } from "react-dnd";
 
 function BurgerIngredients() {
-  // const bunRef = useRef<HTMLElement | string>('bun');
-  // const sauceRef = useRef<HTMLElement | string>('sauce');
-  // const mainRef = useRef<HTMLElement | string>('main');
-
-  // const scroll = (item: MutableRefObject<HTMLElement>) => {
-  //   item.current.scrollIntoView({ behavior: "smooth" });
-  // }
-
-  // const { tabCurrent } = useSelector(state => state.scroll);
-
-  // const dispatch = useDispatch();
-
-  // const scrollEvent = (e: React.MouseEvent<HTMLElement>) => {
-  //   const elementHeight = e.currentTarget.scrollTop;
-  //   const bunHeight = bunRef.current.scrollHeight;
-  //   const sauceHeight = sauceRef.current.scrollHeight;
-  //   const mainHeight = mainRef.current.scrollHeight;
-
-  //   if (bunHeight - elementHeight > 0) {
-  //     dispatch({
-  //       type: CHANGE_TUB,
-  //       current: 'one',
-  //     });
-  //   } else if ((bunHeight + sauceHeight) - elementHeight > 0) {
-  //     dispatch({
-  //       type: CHANGE_TUB,
-  //       current: 'two',
-  //     });
-  //   } else if ((bunHeight + sauceHeight + mainHeight) - elementHeight > 0) {
-  //     dispatch({
-  //       type: CHANGE_TUB,
-  //       current: 'three',
-  //     });
-  //   }
-  // }
-
   const bunRef = useRef<HTMLLIElement>(null);
   const sauceRef = useRef<HTMLLIElement>(null);
   const mainRef = useRef<HTMLLIElement>(null);
