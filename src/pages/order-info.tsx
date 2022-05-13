@@ -20,6 +20,7 @@ export function OrderInfoPage() {
   const dispatch = useDispatch();
 
   const id = useParams<{ id?: string }>().id!.slice(1);
+  
 
   useEffect(() => {
     if (match.path === '/profile/orders/:id') {
@@ -35,13 +36,28 @@ export function OrderInfoPage() {
     }
   }, []);
 
+  console.log(orders);
+  console.log(ordersUser);
+  
+
+
+
+
+  
   const order = 
     match.path === '/profile/orders/:id' ? 
-    ordersUser!.find(({ _id }) => _id === id) : 
-    orders!.find(({ _id }) => _id === id);
+    ordersUser.find(({ _id }) => _id === id) : 
+    orders.find(({ _id }) => _id === id);
 
+  console.log(order);
+    
+  
   const date = new Date(order!.createdAt);
+  console.log(date);
+  
   const dateTime = showMessageDateTime(date);
+
+
 
   interface IObj {
     id: string;

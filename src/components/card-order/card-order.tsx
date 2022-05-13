@@ -1,12 +1,12 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+// import * as ReactDOM from 'react-dom';
 import { useState, useMemo } from 'react';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { useLocation} from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import cardorderStyles from './card-order.module.css';
 import { showMessageDateTime } from '../../utils/functions';
-import { closeModal, getCard } from '../../services/actions/modal';
+import { closeModal, getCard, getCardOrder } from '../../services/actions/modal';
 import Modal from '../modal/modal';
 import CardOrderDetails from '../card-order-details/card-order-details';
 import { FC } from 'react';
@@ -68,7 +68,9 @@ const CardOrder: FC<ICardOrderProps> = ({ card }) => {
 
   const handleOpenModal = () => {
     setVisible(true);
-    dispatch(getCard(card));
+    console.log(card);
+    
+    dispatch(getCardOrder(card));
     pathname === '/feed' ? 
     window.history.pushState({ path: `/feed/:${card._id}` }, '', `/feed/:${card._id}`) :
     window.history.pushState(

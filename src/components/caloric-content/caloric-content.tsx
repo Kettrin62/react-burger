@@ -4,6 +4,7 @@ import * as ReactDOM from 'react-dom';
 import caloriccontentStyles from './caloric-content.module.css';
 import { useSelector } from '../../services/hooks';
 import CaloricContentItem from '../caloric-content-item/caloric-content-item';
+import { TCard } from '../../services/types/data';
 
 
 const CaloricContent = () => {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+// import * as ReactDOM from 'react-dom';
 import { useSelector } from '../../services/hooks';
 import Title from '../title/title';
 import CardOrder from '../card-order/card-order';
