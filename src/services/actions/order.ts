@@ -97,7 +97,7 @@ export const getOrderToken: AppThunk = (token: string, cards: Array<TCards>) => 
         dispatch(updateTokenSuccess(res.accessToken));
         const refreshToken = res.refreshToken;
         setCookie('refreshToken', refreshToken, { path: '/', 'max-age': 31556926 });
-        setTimeout(() => dispatch(resetToken), 1200000);
+        setTimeout(() => dispatch(resetToken()), 1200000);
         return res;
       }
     })

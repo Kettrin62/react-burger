@@ -1,3 +1,4 @@
+import * as React from 'react';
 import ingredientdetailsStyles from './ingredient-details.module.css';
 import { useSelector } from '../../services/hooks';
 import CaloricContent from '../caloric-content/caloric-content';
@@ -5,8 +6,8 @@ import CaloricContent from '../caloric-content/caloric-content';
 
 function IngredientDetails() {
   const { modalCard } = useSelector(state => state.modal);
-  const image_large = modalCard?.image_large;
-  const name = modalCard?.name;
+  const image_large = modalCard!.image_large;
+  const name = modalCard!.name;
   return (
     <div className={ingredientdetailsStyles.container}>
       <figure className={ingredientdetailsStyles.card}>

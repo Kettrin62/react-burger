@@ -37,3 +37,14 @@ export type TCardOrder = {
   readonly updatedAt: string;
   readonly _id: string;
 }
+
+type TLocationObj = {
+  pathname: string;
+  // search: string;
+  // key: string;
+  // hash? : string
+}
+
+export type TUseLocationState = {
+  from: TLocationObj;
+}

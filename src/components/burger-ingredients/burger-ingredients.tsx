@@ -1,3 +1,5 @@
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { useRef, useState, MutableRefObject } from 'react';
 import Title from '../title/title';
 import Menu from '../menu/menu';

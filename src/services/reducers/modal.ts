@@ -3,15 +3,17 @@ import {
   CLOSE_MODAL,
   TModalActions
 } from '../actions/modal';
-import { TCard } from '../types/data';
+import { TCard, TCardOrder } from '../types/data';
 
 
 type TModalState = {
   readonly modalCard: TCard | null;
+  readonly modalCardOrder: TCardOrder | null;
 }
 
 const modalInitialState: TModalState = {
   modalCard: null,
+  modalCardOrder: null,
 };
 
 

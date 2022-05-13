@@ -1,3 +1,5 @@
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import appStyles from './app.module.css';

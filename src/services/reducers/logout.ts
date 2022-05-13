@@ -15,7 +15,7 @@ const logoutInitialState: TLogoutState = {
   logoutFailed: false,
 };
 
-export const userReducer = (
+export const logoutReducer = (
   state = logoutInitialState, 
   action: TLogoutActions
 ): TLogoutState => {

@@ -1,5 +1,5 @@
 import { AppDispatch, AppThunk } from "../types";
-import { TCard } from "../types/data";
+import { TCard, TCardOrder } from "../types/data";
 
 export const OPEN_MODAL: 'OPEN_MODAL' = 'OPEN_MODAL';
 export const CLOSE_MODAL: 'CLOSE_MODAL' = 'CLOSE_MODAL';
