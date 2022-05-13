@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { useDrop } from "react-dnd";
@@ -7,8 +6,12 @@ import { ADD_CARD, CHANGE_CARD_BUN, SORT_CARD } from '../../services/actions/con
 import { v4 as uuidv4 } from 'uuid';
 import ConstructorItem from '../constructor-item/constructor-item';
 import constructorlistStyles from './constructor-list.module.css';
-import { TCard } from '../../services/types/data';
+import { TType } from '../../services/types/data';
 
+interface IItem {
+  readonly type: TType;
+  readonly id: string;
+}
 
 const ConstructorList = () => {
   const { ingredients } = useSelector(state => state.ingredients);
@@ -19,17 +22,17 @@ const ConstructorList = () => {
 
   const [{isHover}, dropTarget] = useDrop({
     accept: 'ingredient',
-    drop(item: TCard) {
+    drop(item: IItem) {
       if (item.type !== 'bun') {
         dispatch({
           type: ADD_CARD,
-          id: item._id,
+          id: item.id,
           key: uuidv4()
         })
       } else {
         dispatch({
           type: CHANGE_CARD_BUN,
-          id: item._id,
+          id: item.id,
         })}
       },
       collect: monitor => ({
@@ -51,7 +54,7 @@ const ConstructorList = () => {
 
     const ingredientsNotBun = cards.map((item, index) => {
       const ingredient = ingredients.find(
-        (el) => el.type !== 'bun' && el._id === item.id
+        el => el.type !== 'bun' && el._id === item.id
       );
       return (
         ingredient &&
@@ -72,7 +75,7 @@ const ConstructorList = () => {
       style={{border}}
     >
       <li className='mb-4 mr-2'>
-        {ingredientsBun.map((item) => (
+        {ingredientsBun.map(item => (
           <ConstructorElement
             key={item._id}
             type='top'
@@ -89,7 +92,7 @@ const ConstructorList = () => {
         </ul>
       </li>
       <li className='mt-4 mr-2'>
-        {ingredientsBun.map((item) => (
+        {ingredientsBun.map(item => (
           <ConstructorElement
             key={item._id}
             type='bottom'

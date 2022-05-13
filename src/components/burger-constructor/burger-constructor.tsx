@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import ConstructorList from '../constructor-list/constructor-list';
 import burgerconstructorStyles from './burger-constructor.module.css';
 import Total from '../total/total';

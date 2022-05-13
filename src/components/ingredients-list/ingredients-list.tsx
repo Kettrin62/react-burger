@@ -1,13 +1,12 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import { useSelector } from '../../services/hooks';
-import PropTypes from 'prop-types';
 import IngredientsItem from '../ingredients-item/ingredients-item';
 import ingredientslistStyles from './ingredients-list.module.css';
 import { FC } from 'react';
+import { TType } from '../../services/types/data';
 
 interface IIngredientsListProps {
-  type: string;
+  type: TType;
 };
 
 
@@ -31,9 +30,5 @@ const IngredientsList: FC<IIngredientsListProps> = ({ type }) => {
     );
   }
 }
-
-IngredientsList.propTypes = {
-  type: PropTypes.oneOf(['bun', 'main', 'sauce']).isRequired,
-};
 
 export default IngredientsList;

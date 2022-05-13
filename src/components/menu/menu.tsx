@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC } from 'react';
 import { TTabCurrent } from '../../services/types/data';

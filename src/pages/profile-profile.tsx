@@ -18,8 +18,6 @@ export function ProfileProfilePage() {
   const { name, email, token } = useSelector(state => state.user);
   const [changValue, setChangeValue] = useState(false);
 
-  const { state } = useLocation();
-
   const dispatch = useDispatch();
 
   const [emailValue, setEmailValue] = useState('');

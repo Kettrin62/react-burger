@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import modaloverlayStyles from './modal-overlay.module.css';
 import { FC } from 'react';
 

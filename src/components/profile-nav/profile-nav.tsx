@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 import { useDispatch } from '../../services/hooks';
 import { getCookie } from '../../utils/functions';
 import { logout } from '../../services/actions/logout';
-
 import profilenavStyles from './profile-nav.module.css';
 
 function ProfileNav() {

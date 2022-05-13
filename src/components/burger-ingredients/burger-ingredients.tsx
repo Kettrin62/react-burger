@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import { useRef, useState, MutableRefObject } from 'react';
 import Title from '../title/title';
 import Menu from '../menu/menu';
@@ -51,8 +50,8 @@ function BurgerIngredients() {
   const sauceRef = useRef<HTMLLIElement>(null);
   const mainRef = useRef<HTMLLIElement>(null);
 
-  const scroll = (item: any) => {
-    if (item.current) item.current.scrollIntoView({ behavior: "smooth" });
+  const scroll = (item: MutableRefObject<HTMLLIElement | null>) => {
+    item.current?.scrollIntoView({ behavior: "smooth" });
   }
 
   const { tabCurrent } = useSelector(state => state.scroll);

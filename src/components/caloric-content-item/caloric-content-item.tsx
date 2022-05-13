@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import { FC } from 'react';
 import caloriccontentitemStyles from './caloric-content-item.module.css';
 

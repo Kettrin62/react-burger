@@ -16,7 +16,6 @@ interface IIngredientsItemProps {
   card: TCard;
 };
 
-
 const IngredientsItem: FC<IIngredientsItemProps> = ({ card }) => {
   const { image, price, name, _id: id, type } = card;
   const { cards, cardBun } = useSelector(state => state.cards);

@@ -1,6 +1,5 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { useCallback, FC } from 'react';
+import { useCallback } from 'react';
 import Navigation from '../navigation/navigation';
 import Link from '../link/link';
 import { 

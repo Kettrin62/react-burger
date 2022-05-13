@@ -7,7 +7,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import Form from '../components/form/form';
 import { useDispatch, useSelector } from '../services/hooks';
-import { Link,  Redirect, useLocation, useHistory } from "react-router-dom";
+import { Link,  Redirect, useLocation } from "react-router-dom";
 import loginStyles from './login.module.css';
 import { getLogin } from '../services/actions/login';
 import { TUseLocationState } from '../services/types/data';
@@ -43,7 +43,7 @@ export function LoginPage() {
 
   if (isAuthenticated) {
     return (
-      <Redirect to={ state!.from || '/' } />
+      <Redirect to={ state?.from || '/' } />
     )
   };
 

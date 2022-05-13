@@ -1,4 +1,4 @@
-type TType = 'bun' | 'main' | 'sauce';
+export type TType = 'bun' | 'main' | 'sauce';
 
 export type TCard = {
   readonly calories: number;

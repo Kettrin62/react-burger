@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import { FC } from 'react';
 
 type TType = 'primary' | 'secondary';

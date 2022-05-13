@@ -19,7 +19,7 @@ export function OrderInfoPage() {
   const match = useRouteMatch();
   const dispatch = useDispatch();
 
-  const id = useParams<{ id?: string }>().id!.slice(1);
+  const id = useParams<{ id?: string }>().id?.slice(1);
   
 
   useEffect(() => {
@@ -36,28 +36,18 @@ export function OrderInfoPage() {
     }
   }, []);
 
-  console.log(orders);
-  console.log(ordersUser);
-  
-
-
-
-
-  
-  const order = 
+  const order =
     match.path === '/profile/orders/:id' ? 
-    ordersUser.find(({ _id }) => _id === id) : 
-    orders.find(({ _id }) => _id === id);
+    ordersUser?.find(({ _id }) => _id === id) : 
+    orders?.find(({ _id }) => _id === id);
 
-  console.log(order);
-    
-  
-  const date = new Date(order!.createdAt);
-  console.log(date);
-  
-  const dateTime = showMessageDateTime(date);
+  let date;
+  let dateTime;
 
-
+  if (order !== undefined) {
+    date = new Date(order?.createdAt);
+    dateTime = showMessageDateTime(date);
+  }
 
   interface IObj {
     id: string;
@@ -73,7 +63,7 @@ export function OrderInfoPage() {
 
   const ingredientsCardObj: IIngredientsCardObj = {};
 
-  order!.ingredients.forEach(item => {
+  order?.ingredients.forEach(item => {
     const ingredient = ingredients.find(
       (el) => el._id === item
     );
@@ -106,14 +96,14 @@ export function OrderInfoPage() {
     )
   });
 
-  const status = order!.status === 'done' ? 'Выполнен' : 'Готовится';
+  const status = order?.status === 'done' ? 'Выполнен' : 'Готовится';
 
   return (
     <div className={orderinfoStyles.container}>
-      <h2>#{order!.number}</h2>
+      <h2>#{order?.number}</h2>
       <div className={orderinfoStyles.content}>
         <h3 className='mt-10 mb-3 text text_type_main-medium'>
-          {order!.name}
+          {order?.name}
         </h3>
         <p className={'text text_type_main-default ' + orderinfoStyles.text}>
           {status}

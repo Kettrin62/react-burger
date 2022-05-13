@@ -1,16 +1,15 @@
 import * as React from 'react';
-// import * as ReactDOM from 'react-dom';
 import { useState, useMemo } from 'react';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { useLocation} from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import cardorderStyles from './card-order.module.css';
 import { showMessageDateTime } from '../../utils/functions';
-import { closeModal, getCard, getCardOrder } from '../../services/actions/modal';
+import { closeModal, getCardOrder } from '../../services/actions/modal';
 import Modal from '../modal/modal';
 import CardOrderDetails from '../card-order-details/card-order-details';
 import { FC } from 'react';
-import { TCard, TCardOrder } from '../../services/types/data';
+import { TCardOrder } from '../../services/types/data';
 
 
 interface ICardOrderProps {

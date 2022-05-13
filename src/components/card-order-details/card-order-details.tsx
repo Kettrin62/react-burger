@@ -1,8 +1,6 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from '../../services/hooks';
-import { TCardOrder } from '../../services/types/data';
 import { showMessageDateTime } from '../../utils/functions';
 import IngredientsCardItem from '../ingredients-card-item/ingredients-card-item';
 import cardorderdetailsStyles from './card-order-details.module.css';
@@ -90,7 +88,6 @@ function CardOrderDetails() {
       </div>
     </div>
   )
-
 }
 
 export default CardOrderDetails;

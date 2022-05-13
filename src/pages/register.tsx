@@ -49,7 +49,7 @@ export function RegisterPage() {
 
   if (isAuthenticated) {
     return (
-      <Redirect to={ state!.from || '/' } />
+      <Redirect to={ state?.from || '/' } />
     )
   };
 

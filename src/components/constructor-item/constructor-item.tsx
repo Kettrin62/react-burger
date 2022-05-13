@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
@@ -92,14 +91,14 @@ const ConstructorItem: FC<IConstructorItemProps> = ({ card, cardKey, index, move
       ref={ref}
     >
       <DragIcon type="primary" />
-      <div style={{ opacity }}>
+      {/* <div style={{ opacity }}> */}
         <ConstructorElement
           text={name}
           price={price}
           thumbnail={image}
           handleClose={() => deleteCard()}
         />
-      </div>
+      {/* </div> */}
     </li>
   )
 }
