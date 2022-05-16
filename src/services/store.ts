@@ -16,7 +16,7 @@ import {
 
 declare const window: any;
 
-const wsUrl = 'wss://norma.nomoreparties.space/orders';
+export const wsUrl = 'wss://norma.nomoreparties.space/orders';
 
 export interface IWsActions {
   readonly ws: typeof WS_CONNECTION_START,
@@ -30,7 +30,7 @@ export interface IWsActions {
   readonly wsClose: typeof WS_CONNECTION_FINISH
 }
 
-const wsActions: IWsActions = {
+export const wsActions: IWsActions = {
   ws: WS_CONNECTION_START,
   wsInit: WS_CONNECTION_START_INIT,
   wsSendMessage: WS_SEND_MESSAGE,

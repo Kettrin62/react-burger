@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/hooks';
 import { useDrag, useDrop } from "react-dnd";
 import { DELETE_CARD } from '../../services/actions/constructor';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';

@@ -11,7 +11,7 @@ import { ResetPasswordPage } from '../../pages/reset-password';
 import { ProfilePage } from '../../pages/profile';
 import { NotFound404 } from '../../pages/not-found';
 import ErrorBoundary from '../error-boundary/error-boundary';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/hooks';
 import { getIngredients } from '../../services/actions/ingredients';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { getCookie } from '../../utils/functions';
