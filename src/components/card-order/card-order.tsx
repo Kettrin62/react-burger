@@ -67,8 +67,6 @@ const CardOrder: FC<ICardOrderProps> = ({ card }) => {
 
   const handleOpenModal = () => {
     setVisible(true);
-    console.log(card);
-    
     dispatch(getCardOrder(card));
     pathname === '/feed' ? 
     window.history.pushState({ path: `/feed/:${card._id}` }, '', `/feed/:${card._id}`) :

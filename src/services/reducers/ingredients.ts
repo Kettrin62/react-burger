@@ -27,14 +27,6 @@ const ingredientsInitialState: TIngredientsState = {
   tabCurrent: 'one',
 } 
 
-// const initialState = {
-//   ingredients: [],
-//   ingredientsRequest: false,
-//   ingredientsFailed: false,
-
-//   tabCurrent: 'one',
-// };
-
 export const ingredientsReducer = (
   state = ingredientsInitialState, 
   action: TIngredientsActions

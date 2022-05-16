@@ -7,9 +7,7 @@ import ingredientStyles from './ingredient.module.css';
 
 export function IngredientPage() {
   const { ingredients } = useSelector(state => state.ingredients);
-  console.log(ingredients)
   const id = useParams<{ id?: string }>().id!.slice(1);
-
   const ingredient = ingredients.find(({ _id }) => _id === id);
 
   return (

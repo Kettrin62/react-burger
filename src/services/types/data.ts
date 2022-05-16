@@ -40,9 +40,6 @@ export type TCardOrder = {
 
 type TLocationObj = {
   pathname: string;
-  // search: string;
-  // key: string;
-  // hash? : string
 }
 
 export type TUseLocationState = {
