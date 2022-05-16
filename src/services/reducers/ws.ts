@@ -17,7 +17,7 @@ type TWsState = {
   readonly ordersUser: ReadonlyArray<TCardOrder>,
   readonly totalUser: number,
   readonly totalTodayUser: number,
-  readonly error: string | undefined,
+  readonly error: Event | undefined,
 }
 
 const WsInitialState: TWsState = {
